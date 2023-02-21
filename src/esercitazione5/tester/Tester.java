@@ -5,6 +5,7 @@ import esercitazione5.parser;
 import esercitazione5.visitor.*;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.ArrayList;
 
 public class Tester {
     public static void main(String[] args) throws Exception {
@@ -16,10 +17,7 @@ public class Tester {
 
         Program pr = (Program) p.parse().value;
 
-        SymTab symTab = new ListSymTab();
-        symTab.addValues(lexer.identifiersTable);
-
-        CodeGenVisitor visitor = new CodeGenVisitor(fileWriter, symTab);
+        CodeGenVisitor visitor = new CodeGenVisitor(fileWriter, (ArrayList<String>) lexer.identifiersTable);
 
         pr.accept(visitor);
 

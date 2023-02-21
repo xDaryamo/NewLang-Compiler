@@ -4,10 +4,11 @@ import esercitazione5.node.*;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class CodeGenVisitor implements Visitor{
 
-    public CodeGenVisitor(FileWriter file, SymTab symTab) {
+    public CodeGenVisitor(FileWriter file, ArrayList<String> symTab) {
         this.file = file;
         this.symTab = symTab;
     }
@@ -198,5 +199,5 @@ public class CodeGenVisitor implements Visitor{
     }
 
     private FileWriter file;
-    private SymTab symTab;
+    private ArrayList<String> symTab;
 }
