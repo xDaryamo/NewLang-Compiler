@@ -1,0 +1,68 @@
+start:
+def calculatorNL() : void {
+
+    float a, b;
+    integer choice;
+    boolean flag << true;
+    float result;
+
+
+    while flag = true loop {
+
+        ("Menu:") -->! ;
+        ("1.Sum:") -->! ;
+        ("2.Subtraction:") -->! ;
+        ("3.Multiplication:") -->! ;
+        ("4.Division:") -->! ;
+        ("5.Pow:") -->! ;
+
+        choice <-- "Choose an operation between 1 and 5";
+        a <-- "Insert first argument value: " ;
+        b <-- "Insert second argument value: " ;
+
+        result << calculate(a, b, choice);
+
+        ("Computation result: ") --> ;
+        (result) -->! ;
+
+        ("Continue?: 0/1") --> ;
+        choice <-- ;
+
+        if(choice=0) then {
+            flag << false ;
+        }
+    }
+
+}
+
+def calculate(float x, y | integer c) : float {
+
+    float result;
+
+    if(c=1) then {
+
+        result << x + y ;
+    }
+
+    if(c=2) then {
+
+        result << x - y ;
+    }
+
+    if(c=3) then {
+
+       result << x * y ;
+    }
+
+    if(c=4) then {
+
+       result << x / y ;
+    }
+
+    if(c=5) then {
+
+       result << x ^ y ;
+    }
+
+    return result ;
+}
