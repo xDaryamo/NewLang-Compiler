@@ -1,0 +1,177 @@
+import java_cup.runtime.*;
+import esercitazione5.node.*;
+import java.util.ArrayList;
+
+/* Terminals */
+terminal         MAIN, VAR, SEMI, INTEGER, BOOLEAN, REAL, STRING, CHAR, COMMA, ASSIGN,
+                 TRUE, FALSE, DEF, LPAR, RPAR, COLON, LBRACK, RBRACK, PIPE, OUT, IF, THEN, ELSE, WHILE, LOOP,
+                 RETURN, VOID, FOR, TO, PLUS, MINUS, TIMES, DIV, AND, POW, STR_CONCAT, OR, GT, GE,
+                 LT, LE, EQ, NE, READ, WRITE, WRITELN, NOT;
+terminal         Integer ID;
+terminal         Integer INTEGER_CONST;
+terminal         Float REAL_CONST;
+terminal         String STRING_CONST;
+terminal         Character CHAR_CONST;
+
+/* Non terminals */
+non terminal     Program Program;
+non terminal     ArrayList<Decl> DeclList;
+non terminal     FunDecl MainFunDecl;
+non terminal     VarDecl VarDecl;
+non terminal     FunDecl FunDecl;
+non terminal     Type Type, TypeOrVoid;
+non terminal     ArrayList<IdInitBase> IdInitList;
+non terminal     ArrayList<IdInitBase> IdInitObblList;
+non terminal     Object Const;
+non terminal     ArrayList<ParDecl> ParamDeclList;
+non terminal     ArrayList<VarDecl> VarDeclList;
+non terminal     ArrayList<Stat> StatList;
+non terminal     ArrayList<ParDecl> NonEmptyParamDeclList;
+non terminal     ParDecl ParDecl;
+non terminal     ArrayList<Id> IdList;
+non terminal     Body Body;
+non terminal     Stat Stat;
+non terminal     IfStat IfStat;
+non terminal     ForStat ForStat;
+non terminal     ReadStat ReadStat;
+non terminal     WriteStat WriteStat;
+non terminal     AssignStat AssignStat;
+non terminal     WhileStat WhileStat;
+non terminal     Body Else;
+non terminal     Expr Expr;
+non terminal     ArrayList<Expr> ExprList;
+non terminal     FunCall FunCall;
+
+/* Precedences */
+precedence left RBRACK;
+precedence nonassoc RETURN;
+precedence left ID, IF, WHILE, FOR;
+precedence left OR, AND, EQ, NE, LT, LE, GT, GE;
+precedence left PLUS, MINUS,STR_CONCAT, TIMES, DIV;
+precedence right POW, NOT;
+precedence left LPAR, RPAR;
+
+/* The grammar */
+Program ::= DeclList:l1 MainFunDecl:f DeclList:l2 {: RESULT = new Program(l1, f, l2); :};
+
+DeclList ::= VarDecl:v DeclList:l {: l.add(v); RESULT = l; :}
+        | FunDecl:f DeclList:l {: l.add(f); RESULT = l; :}
+        | /* empty */ {: ArrayList<Decl> l = new ArrayList<>(); RESULT = l; :};
+
+MainFunDecl ::= MAIN FunDecl:f {: f.checkM(); RESULT = f; :};
+
+VarDecl ::= Type:t IdInitList:l SEMI {: RESULT = new VarDecl(t, l); :}
+	| VAR IdInitObblList:l SEMI {: RESULT = new VarDecl(Type.VAR, l); :};
+
+Type ::= INTEGER {: RESULT = Type.INTEGER; :}
+         | BOOLEAN {: RESULT = Type.BOOLEAN; :}
+         | REAL {: RESULT = Type.FLOAT; :}
+         | STRING {: RESULT = Type.STRING; :}
+         | CHAR {: RESULT = Type.CHAR; :};
+
+IdInitList ::= ID:i
+        {: IdInitBase it = new IdInitStmt(new Id(i)); ArrayList<IdInitBase> l = new ArrayList<>(); l.add(it); RESULT = l; :}
+	| IdInitList:l COMMA ID:i {: IdInitBase it = new IdInitStmt(new Id(i)); l.add(it); RESULT = l; :}
+	| ID:i ASSIGN Expr:e
+	    {: IdInitBase it = new IdInitStmt(new Id(i), e); ArrayList<IdInitBase> l = new ArrayList<>(); l.add(it); RESULT = l; :}
+	| IdInitList:l COMMA ID:i ASSIGN Expr:e
+	    {: IdInitBase it = new IdInitStmt(new Id(i), e); l.add(it); RESULT = l; :};
+
+IdInitObblList ::= ID:i ASSIGN Const:c
+        {: ArrayList<IdInitBase> l = new ArrayList(); IdInitObbl id = new IdInitObbl(new Id(i), c); l.add(id);  RESULT = l;:}
+	| IdInitObblList:l COMMA ID:i ASSIGN Const:c {: IdInitObbl it = new IdInitObbl(new Id(i), c); l.add(it); RESULT = l; :};
+
+Const ::= INTEGER_CONST:c {: RESULT = c; :}
+    | REAL_CONST:c {: RESULT = c; :}
+    | MINUS INTEGER_CONST:c {: RESULT = -(c); :}
+    | MINUS REAL_CONST:c {: RESULT = -(c); :}
+    | TRUE:c {: RESULT = true; :}
+    | FALSE:c {: RESULT = false; :}
+    | STRING_CONST:c {: RESULT = c; :}
+    | CHAR_CONST:c {: RESULT = c; :};
+
+FunDecl ::= DEF ID:i LPAR ParamDeclList:l RPAR COLON TypeOrVoid:t Body:b
+    {: RESULT = new FunDecl(new Id(i), l, t, b); :};
+
+Body ::= LBRACK VarDeclList:l StatList:l1 RBRACK {: RESULT = new Body(l, l1); :};
+
+ParamDeclList ::= /*empty */ {: RESULT = new ArrayList<>(); :}
+	| NonEmptyParamDeclList:l {: RESULT = l; :};
+
+NonEmptyParamDeclList ::= ParDecl:p {: ArrayList<ParDecl> l = new ArrayList(); l.add(p); RESULT = l; :}
+	| NonEmptyParamDeclList:l PIPE ParDecl:p {: l.add(p); RESULT = l; :};
+
+ParDecl ::= Type:t IdList:l {: RESULT = new ParDecl(t, false, l); :}
+	| OUT Type:t IdList:l {: RESULT = new ParDecl(t, true, l); :};
+
+TypeOrVoid ::= Type:t {: RESULT = t; :} | VOID {: RESULT = Type.VOID; :};
+
+VarDeclList ::= /* empty */ {: ArrayList<VarDecl> l = new ArrayList<>(); RESULT = l; :}
+	| VarDecl:v VarDeclList:vl {: vl.add(v); RESULT = vl; :};
+
+StatList ::= Stat:s {: ArrayList<Stat> l = new ArrayList(); if(s!=null) l.add(s); RESULT = l; :}
+	 | StatList:l Stat:s {: if(s!=null) l.add(s); RESULT = l; :} ;
+
+Stat ::= IfStat:i {: RESULT = i; :}
+	| ForStat:f {: RESULT = f; :}
+	| ReadStat:r SEMI {: RESULT = r; :}
+	| WriteStat:wr SEMI {: RESULT = wr; :}
+	| AssignStat:a SEMI {: RESULT = a; :}
+    | WhileStat:w {: RESULT = w; :}
+	| FunCall:f SEMI {: RESULT = f; :}
+	| RETURN Expr:e SEMI {: RESULT = new ReturnStat(e); :}
+	| RETURN SEMI {: RESULT = new ReturnStat(); :}
+	| /* empty */ {: RESULT = null; :};
+
+IfStat ::= IF Expr:e THEN Body:b Else:es {: RESULT = new IfStat(es, b, e); :};
+
+Else ::= /* empty */ {: RESULT = null; :}
+	| ELSE Body:b {: RESULT = b; :};
+
+WhileStat ::= WHILE Expr:e LOOP Body:b {: RESULT = new WhileStat(e, b);:};
+
+ForStat ::= FOR ID:i ASSIGN INTEGER_CONST:c1 TO INTEGER_CONST:c2 LOOP Body:b
+{:Id id = new Id(i); RESULT = new ForStat(c1, c2, id, b); :};
+
+ReadStat ::= IdList:l READ STRING_CONST:c {: RESULT = new ReadStat(l, c); :}
+	|  IdList:l READ {: RESULT = new ReadStat(l); :};
+
+IdList ::= ID:i {: ArrayList<Id> l = new ArrayList<>(); l.add(new Id(i)); RESULT = l; :}
+	| IdList:l COMMA ID:i {: l.add(new Id(i)); RESULT = l; :};
+
+WriteStat ::= LPAR ExprList:l RPAR WRITE {: RESULT = new WriteStat(l, 0); :}
+	   | LPAR ExprList:l RPAR WRITELN {: RESULT = new WriteStat(l, 1); :};
+
+AssignStat ::=  IdList:l1 ASSIGN ExprList:l2 {: RESULT = new AssignStat(l1, l2); :};
+
+FunCall ::= ID:i LPAR ExprList:l RPAR {: Id fId = new Id(i); RESULT = new FunCall(fId, l); :}
+	| ID:i LPAR RPAR {: Id fId = new Id(i); RESULT = new FunCall(fId); :};
+
+ExprList ::= Expr:e {: ArrayList<Expr> l = new ArrayList<>(); l.add(e); RESULT = l; :}
+	| Expr:e COMMA ExprList:l {: l.add(e); RESULT = l; :};
+
+Expr ::= TRUE {: RESULT = new TrueC(); :}
+	| FALSE {: RESULT = new FalseC(); :}
+	| INTEGER_CONST:c {: RESULT = new IntegerC(c); :}
+	| REAL_CONST:c {: RESULT = new RealC(c); :}
+	| STRING_CONST:c {: RESULT = new StringC(c); :}
+	| CHAR_CONST:c {: RESULT = new CharC(c); :}
+	| ID:i {: RESULT = new Id(i); :}
+	| FunCall:f {: RESULT = f; :}
+	| Expr:e1 PLUS Expr:e2 {: RESULT = new AddOp(e1, e2); :}
+	| Expr:e1 MINUS Expr:e2 {: RESULT = new SubOp(e1, e2); :}
+	| Expr:e1 TIMES Expr:e2 {: RESULT = new TimesOp(e1, e2); :}
+	| Expr:e1 DIV Expr:e2 {: RESULT = new DivOp(e1, e2); :}
+	| Expr:e1 AND Expr:e2 {: RESULT = new AndOp(e1, e2); :}
+	| Expr:e1 POW Expr:e2 {: RESULT = new PowOp(e1, e2); :}
+	| Expr:e1 STR_CONCAT Expr:e2 {: RESULT = new ConcatOp(e1, e2); :}
+	| Expr:e1 OR Expr:e2 {: RESULT = new OrOp(e1, e2); :}
+	| Expr:e1 GT Expr:e2 {: RESULT = new GtOp(e1, e2); :}
+	| Expr:e1 GE Expr:e2 {: RESULT = new GeOp(e1, e2); :}
+	| Expr:e1 LT Expr:e2 {: RESULT = new LtOp(e1, e2); :}
+	| Expr:e1 LE Expr:e2 {: RESULT = new LeOp(e1, e2); :}
+	| Expr:e1 EQ Expr:e2 {: RESULT = new EqOp(e1, e2); :}
+	| Expr:e1 NE Expr:e2 {: RESULT = new NeOp(e1, e2); :}
+	| MINUS Expr:e {: RESULT = new UMinOp(e); :}
+	| NOT Expr:e {: RESULT = new NotOp(e); :}
+	| LPAR Expr:e RPAR {: RESULT = e; :};

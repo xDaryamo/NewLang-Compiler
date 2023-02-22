@@ -1,0 +1,191 @@
+<Program>
+<FunDecl Type="VOID" IsMainFun="true">
+<Identifier value="0" lessema="1089780800"></Identifier>
+<Body>
+<VarDecl Type="FLOAT" >
+</VarDecl>
+<VarDecl Type="BOOLEAN" >
+</VarDecl>
+<VarDecl Type="INTEGER" >
+</VarDecl>
+<VarDecl Type="FLOAT" >
+</VarDecl>
+<WhileStat>
+<EqOp>
+<Identifier value="4" lessema="3145580"></Identifier>
+<TrueConst value="true">
+</TrueConst>
+</EqOp>
+<Body>
+<WriteStat isNewLine="1">
+<StringConst value="Menu:">
+</StringConst>
+</WriteStat>
+<WriteStat isNewLine="1">
+<StringConst value="1.Sum:">
+</StringConst>
+</WriteStat>
+<WriteStat isNewLine="1">
+<StringConst value="2.Subtraction:">
+</StringConst>
+</WriteStat>
+<WriteStat isNewLine="1">
+<StringConst value="3.Multiplication:">
+</StringConst>
+</WriteStat>
+<WriteStat isNewLine="1">
+<StringConst value="4.Division:">
+</StringConst>
+</WriteStat>
+<WriteStat isNewLine="1">
+<StringConst value="5.Pow:">
+</StringConst>
+</WriteStat>
+<ReadStat readMessage="Choose an operation between 1 and 5">
+<Identifier value="3" lessema="-1361224287"></Identifier>
+</ReadStat>
+<ReadStat readMessage="Insert first argument value: ">
+<Identifier value="1" lessema="97"></Identifier>
+</ReadStat>
+<ReadStat readMessage="Insert second argument value: ">
+<Identifier value="2" lessema="98"></Identifier>
+</ReadStat>
+<AssignStat>
+<Identifier value="5" lessema="-934426595"></Identifier>
+<FunCall>
+<Identifier value="6" lessema="-1283652762"></Identifier>
+<Identifier value="3" lessema="-1361224287"></Identifier>
+<Identifier value="2" lessema="98"></Identifier>
+<Identifier value="1" lessema="97"></Identifier>
+</FunCall>
+</AssignStat>
+<WriteStat isNewLine="0">
+<StringConst value="Computation result: ">
+</StringConst>
+</WriteStat>
+<WriteStat isNewLine="1">
+<Identifier value="5" lessema="-934426595"></Identifier>
+</WriteStat>
+<WriteStat isNewLine="0">
+<StringConst value="Continue?: 0/1">
+</StringConst>
+</WriteStat>
+<ReadStat readMessage="null">
+<Identifier value="3" lessema="-1361224287"></Identifier>
+</ReadStat>
+<IfStat>
+<EqOp>
+<Identifier value="3" lessema="-1361224287"></Identifier>
+<IntegerConst value="0">
+</IntegerConst>
+</EqOp>
+<Body>
+<AssignStat>
+<Identifier value="4" lessema="3145580"></Identifier>
+<FalseConst value="false">
+</FalseConst>
+</AssignStat>
+</Body>
+</IfStat>
+</Body>
+</WhileStat>
+</Body>
+</FunDecl>
+<FunDecl Type="FLOAT" IsMainFun="false">
+<Identifier value="6" lessema="-1283652762"></Identifier>
+<ParDecl Out="0" Type="FLOAT" >
+<Identifier value="7" lessema="120"></Identifier>
+<Identifier value="8" lessema="121"></Identifier>
+</ParDecl>
+<ParDecl Out="0" Type="INTEGER" >
+<Identifier value="9" lessema="99"></Identifier>
+</ParDecl>
+<Body>
+<VarDecl Type="FLOAT" >
+</VarDecl>
+<IfStat>
+<EqOp>
+<Identifier value="9" lessema="99"></Identifier>
+<IntegerConst value="1">
+</IntegerConst>
+</EqOp>
+<Body>
+<AssignStat>
+<Identifier value="5" lessema="-934426595"></Identifier>
+<AddOp>
+<Identifier value="7" lessema="120"></Identifier>
+<Identifier value="8" lessema="121"></Identifier>
+</AddOp>
+</AssignStat>
+</Body>
+</IfStat>
+<IfStat>
+<EqOp>
+<Identifier value="9" lessema="99"></Identifier>
+<IntegerConst value="2">
+</IntegerConst>
+</EqOp>
+<Body>
+<AssignStat>
+<Identifier value="5" lessema="-934426595"></Identifier>
+<SubOp>
+<Identifier value="7" lessema="120"></Identifier>
+<Identifier value="8" lessema="121"></Identifier>
+</SubOp>
+</AssignStat>
+</Body>
+</IfStat>
+<IfStat>
+<EqOp>
+<Identifier value="9" lessema="99"></Identifier>
+<IntegerConst value="3">
+</IntegerConst>
+</EqOp>
+<Body>
+<AssignStat>
+<Identifier value="5" lessema="-934426595"></Identifier>
+<TimesOp>
+<Identifier value="7" lessema="120"></Identifier>
+<Identifier value="8" lessema="121"></Identifier>
+</TimesOp>
+</AssignStat>
+</Body>
+</IfStat>
+<IfStat>
+<EqOp>
+<Identifier value="9" lessema="99"></Identifier>
+<IntegerConst value="4">
+</IntegerConst>
+</EqOp>
+<Body>
+<AssignStat>
+<Identifier value="5" lessema="-934426595"></Identifier>
+<DivOp>
+<Identifier value="7" lessema="120"></Identifier>
+<Identifier value="8" lessema="121"></Identifier>
+</DivOp>
+</AssignStat>
+</Body>
+</IfStat>
+<IfStat>
+<EqOp>
+<Identifier value="9" lessema="99"></Identifier>
+<IntegerConst value="5">
+</IntegerConst>
+</EqOp>
+<Body>
+<AssignStat>
+<Identifier value="5" lessema="-934426595"></Identifier>
+<PowOp>
+<Identifier value="7" lessema="120"></Identifier>
+<Identifier value="8" lessema="121"></Identifier>
+</PowOp>
+</AssignStat>
+</Body>
+</IfStat>
+<ReturnStat>
+<Identifier value="5" lessema="-934426595"></Identifier>
+</ReturnStat>
+</Body>
+</FunDecl>
+</Program>
