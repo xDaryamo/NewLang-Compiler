@@ -1,12 +1,13 @@
 package esercitazione5.node;
 
+import esercitazione5.visitor.Params;
 import esercitazione5.visitor.Visitor;
 
 import java.util.ArrayList;
 
-public class ParDecl extends Node implements Expr{
+public class ParDecl extends Node implements Expr, Params {
 
-    public ParDecl(Type t, int flag, ArrayList<Id> l) {
+    public ParDecl(Type t, boolean flag, ArrayList<Id> l) {
         this.t = t;
         this.flag = flag;
         this.l = l;
@@ -21,7 +22,7 @@ public class ParDecl extends Node implements Expr{
         return t;
     }
 
-    public int getFlag() {
+    public boolean getFlag() {
         return flag;
     }
 
@@ -30,6 +31,6 @@ public class ParDecl extends Node implements Expr{
     }
 
     private Type t;
-    private int flag;
+    private boolean flag;
     private ArrayList<Id> l;
 }

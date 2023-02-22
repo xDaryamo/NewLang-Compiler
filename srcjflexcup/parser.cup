@@ -101,8 +101,8 @@ ParamDeclList ::= /*empty */ {: RESULT = new ArrayList<>(); :}
 NonEmptyParamDeclList ::= ParDecl:p {: ArrayList<ParDecl> l = new ArrayList(); l.add(p); RESULT = l; :}
 	| NonEmptyParamDeclList:l PIPE ParDecl:p {: l.add(p); RESULT = l; :};
 
-ParDecl ::= Type:t IdList:l {: RESULT = new ParDecl(t, 0, l); :}
-	| OUT Type:t IdList:l {: RESULT = new ParDecl(t, 1, l); :};
+ParDecl ::= Type:t IdList:l {: RESULT = new ParDecl(t, false, l); :}
+	| OUT Type:t IdList:l {: RESULT = new ParDecl(t, true, l); :};
 
 TypeOrVoid ::= Type:t {: RESULT = t; :} | VOID {: RESULT = Type.VOID; :};
 

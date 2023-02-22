@@ -1,5 +1,6 @@
 package esercitazione5.visitor;
 
+import esercitazione5.node.ParDecl;
 import esercitazione5.node.Type;
 
 import java.util.ArrayList;
@@ -7,7 +8,7 @@ import java.util.Objects;
 
 public class Signature implements Params{
 
-    public Signature(Type returnType, ArrayList<Params> arguments) {
+    public Signature(Type returnType, ArrayList<Type> arguments) {
         this.returnType = returnType;
         this.arguments = arguments;
     }
@@ -20,11 +21,12 @@ public class Signature implements Params{
         this.returnType = returnType;
     }
 
-    public ArrayList<Params> getArguments() {
+    public ArrayList<Type> getArguments() {
+
         return arguments;
     }
 
-    public void setArguments(ArrayList<Params> arguments) {
+    public void setArguments(ArrayList<Type> arguments) {
         this.arguments = arguments;
     }
 
@@ -49,5 +51,5 @@ public class Signature implements Params{
     }
 
     private Type returnType;
-    private ArrayList<Params> arguments;
+    private ArrayList<Type> arguments;
 }

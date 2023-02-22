@@ -236,72 +236,245 @@ public class ScopingVisitor implements Visitor{
         for(Expr expr: funCall.getParams()){
             expr.accept(this);
         }
+
         return null;
     }
 
     @Override
     public <T> T visit(AssignStat assignStat) {
+
+        assignStat.setCurrent_ref(getCurrentScope());
+
+        for (Expr ex : assignStat.getL1()) {
+            ex.accept(this);
+        }
+
+        for (Expr ex : assignStat.getL2()) {
+            ex.accept(this);
+        }
+
         return null;
     }
 
     @Override
     public <T> T visit(WriteStat writeStat) {
+
+        writeStat.setCurrent_ref(getCurrentScope());
+
+        for (Expr ex : writeStat.getL()) {
+            ex.accept(this);
+        }
+
         return null;
     }
 
     @Override
     public <T> T visit(ReadStat readStat) {
+
+        readStat.setCurrent_ref(getCurrentScope());
+
+        for (Expr ex : readStat.getL()) {
+            ex.accept(this);
+        }
+
         return null;
     }
 
     @Override
     public <T> T visit(ForStat forStat) {
+
+        forStat.setCurrent_ref(getCurrentScope());
+
+        openScope();
+        addToScope(forStat.getId().getIdentifier(),
+                new TabEntry(forStat.getId(), new Variable(Type.INTEGER, false)));
+        forStat.getId().accept(this);
+        forStat.getBody().accept(this);
+        closeScope();
+
         return null;
     }
 
     @Override
     public <T> T visit(WhileStat whileStat) {
+
+        whileStat.setCurrent_ref(getCurrentScope());
+        whileStat.getE().accept(this);
+        openScope();
+        whileStat.getBody().accept(this);
+        closeScope();
+
         return null;
     }
 
     @Override
     public <T> T visit(IfStat ifStat) {
+
+        ifStat.setCurrent_ref(getCurrentScope());
+        ifStat.getE().accept(this);
+
+        openScope();
+        ifStat.getBody().accept(this);
+        closeScope();
+
+        if (ifStat.getEls() != null) {
+            openScope();
+            ifStat.getEls().accept(this);
+            closeScope();
+        }
+
         return null;
     }
 
     @Override
     public <T> T visit(ReturnStat returnStat) {
+
+        returnStat.setCurrent_ref(getCurrentScope());
+
+        if (returnStat.getE() != null) {
+            returnStat.getE().accept(this);
+        }
+
         return null;
     }
 
     @Override
     public <T> T visit(ParDecl parDecl) {
+
+        parDecl.setCurrent_ref(getCurrentScope());
+
+        for (Id ex : parDecl.getL()) {
+            addToScope(ex.getIdentifier(), new TabEntry(ex, new Variable(parDecl.getT(), parDecl.getFlag())));
+            ex.accept(this);
+
+        }
         return null;
     }
 
     @Override
     public <T> T visit(Body body) {
+
+        body.setCurrent_ref(getCurrentScope());
+
+        for (VarDecl v : body.getL1()) {
+            v.accept(this);
+        }
+        for (Stat st : body.getL2()) {
+            st.accept(this);
+        }
+
         return null;
     }
 
     @Override
     public <T> T visit(FunDecl funDecl) {
+
+        ArrayList<Type> args = new ArrayList<>();
+        for(ParDecl p: funDecl.getL()){
+            args.add(p.getT());
+        }
+
+        funDecl.setCurrent_ref(getCurrentScope());
+        addToScope(funDecl.getId().getIdentifier(), new TabEntry(funDecl.getId(),
+                new Signature(funDecl.getT(), args)));
+
+        funDecl.getId().accept(this);
+
+        openScope();
+
+        for (ParDecl prDcl : funDecl.getL()) {
+            prDcl.accept(this);
+        }
+
+        funDecl.getBody().accept(this);
+
+        closeScope();
+
         return null;
     }
 
     @Override
     public <T> T visit(VarDecl varDecl) {
+
+        varDecl.setCurrent_ref(getCurrentScope());
+        Type type = varDecl.getT();
+
+        for (IdInitBase idInit : varDecl.getL())
+        {
+            if(varDecl.getT().name().equalsIgnoreCase(String.valueOf(Type.VAR)))
+            {
+                IdInitObbl idInitObbl= (IdInitObbl) idInit;
+
+                if(idInitObbl.getCnst() instanceof Integer){
+                    type = Type.INTEGER;}
+                if(idInitObbl.getCnst() instanceof Float)
+                    type =Type.FLOAT;
+                if(idInitObbl.getCnst() instanceof String)
+                    type =Type.STRING;
+                if(idInitObbl.getCnst() instanceof Character)
+                    type =Type.CHAR;
+                if(idInitObbl.getCnst() instanceof Boolean)
+                    type=Type.BOOLEAN;
+            }
+
+            assert idInit instanceof IdInitStmt;
+            IdInitStmt idInitStmt = (IdInitStmt)idInit;
+
+            addToScope( (idInitStmt.getId().getIdentifier()),
+                    new TabEntry(idInitStmt.getId(), new Variable(type, false)));
+
+            idInitStmt.accept(this);
+        }
+
+        return null;
+    }
+    @Override
+    public <T> T visit(IdInitObbl idInitObbl) {
+
+
+        idInitObbl.setCurrent_ref(getCurrentScope());
+        idInitObbl.getId().accept(this);
+
         return null;
     }
 
     @Override
-    public <T> T visit(IdInitBase idInitBase) {
+    public <T> T visit(IdInitStmt idInitStmt) {
+        idInitStmt.setCurrent_ref(getCurrentScope());
+
+        idInitStmt.getId().accept(this);
+
         return null;
     }
 
     @Override
     public <T> T visit(Program program) {
+
+        openScope();
+        program.setCurrent_ref(getCurrentScope());
+
+        for (Decl decl : program.getL1()) {
+            if(decl instanceof FunDecl)
+                ((FunDecl)decl).accept(this);
+
+            else ((VarDecl)decl).accept(this);
+        }
+
+        program.getF().accept(this);
+
+        for (Decl decl : program.getL1()) {
+            if(decl instanceof FunDecl)
+                ((FunDecl)decl).accept(this);
+            else ((VarDecl)decl).accept(this);
+        }
+
+        closeScope();
+
         return null;
+    }
+
+    public Stack<SymTab> getSymTabStack() {
+        return symTabStack;
     }
 
     private ArrayList<String> stringTab;

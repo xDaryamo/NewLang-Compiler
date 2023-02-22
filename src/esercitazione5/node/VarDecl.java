@@ -4,7 +4,7 @@ import esercitazione5.visitor.Visitor;
 
 import java.util.ArrayList;
 
-public class VarDecl implements Expr, Decl{
+public class VarDecl extends Node implements Expr, Decl{
 
     public VarDecl(Type t, ArrayList<? extends IdInitBase> l) {
         this.t = t;

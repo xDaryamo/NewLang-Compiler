@@ -179,7 +179,12 @@ public class TypeCheckingVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(IdInitBase idInitBase) {
+    public <T> T visit(IdInitObbl idInitObbl) {
+        return null;
+    }
+
+    @Override
+    public <T> T visit(IdInitStmt idInitStmt) {
         return null;
     }
 

@@ -38,6 +38,7 @@ public interface Visitor {
     public <T> T visit(Body body);
     public <T> T visit(FunDecl funDecl);
     public <T> T visit(VarDecl varDecl);
-    public <T> T visit(IdInitBase idInitBase);
+    public <T> T visit(IdInitObbl idInitObbl);
+    public <T> T visit(IdInitStmt idInitStmt);
     public <T> T visit(Program program);
 }

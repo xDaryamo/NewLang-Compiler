@@ -901,7 +901,7 @@ class CUP$parser$actions {
 		int lleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int lright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		ArrayList<Id> l = (ArrayList<Id>)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-		 RESULT = new ParDecl(t, 0, l); 
+		 RESULT = new ParDecl(t, false, l); 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("ParDecl",14, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -916,7 +916,7 @@ class CUP$parser$actions {
 		int lleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int lright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		ArrayList<Id> l = (ArrayList<Id>)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-		 RESULT = new ParDecl(t, 1, l); 
+		 RESULT = new ParDecl(t, true, l); 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("ParDecl",14, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
