@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class HashSymTab implements SymTab{
+public class HashSymTab implements SymTab {
 
     public HashSymTab() {
         this.outerLayer = null;
@@ -46,7 +46,7 @@ public class HashSymTab implements SymTab{
     public String printTab() {
 
         if(outerLayer==null)
-            return "\nSymTabHashMap:\n"+ symMap.toString();
+            return "SymTabHashMap:\n"+ symMap.toString();
 
         else return outerLayer.printTab() + "\nSymTabHashMap:\n"+ symMap.toString();
     }

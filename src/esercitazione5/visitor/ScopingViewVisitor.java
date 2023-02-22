@@ -930,15 +930,7 @@ public class ScopingViewVisitor implements Visitor{
             throw new RuntimeException(e);
         }
 
-        for(Decl decl: program.getL1())
-            if(decl instanceof FunDecl)
-                ((FunDecl)decl).accept(this);
-
-            else ((VarDecl)decl).accept(this);
-
-        program.getF().accept(this);
-
-        for(Decl decl: program.getL2())
+        for(Decl decl: program.getL())
             if(decl instanceof FunDecl)
                 ((FunDecl)decl).accept(this);
 

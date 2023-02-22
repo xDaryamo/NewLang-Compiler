@@ -1,3 +1,35 @@
+def calculate(float x, y | integer c) : float {
+
+    float result;
+
+    if(c=1) then {
+
+        result << x + y ;
+    }
+
+    if(c=2) then {
+
+        result << x - y ;
+    }
+
+    if(c=3) then {
+
+       result << x * y ;
+    }
+
+    if(c=4) then {
+
+       result << x / y ;
+    }
+
+    if(c=5) then {
+
+       result << x ^ y ;
+    }
+
+    return result ;
+}
+
 start:
 def calculatorNL() : void {
 
@@ -34,34 +66,3 @@ def calculatorNL() : void {
 
 }
 
-def calculate(float x, y | integer c) : float {
-
-    float result;
-
-    if(c=1) then {
-
-        result << x + y ;
-    }
-
-    if(c=2) then {
-
-        result << x - y ;
-    }
-
-    if(c=3) then {
-
-       result << x * y ;
-    }
-
-    if(c=4) then {
-
-       result << x / y ;
-    }
-
-    if(c=5) then {
-
-       result << x ^ y ;
-    }
-
-    return result ;
-}

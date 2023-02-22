@@ -398,8 +398,6 @@ public class ScopingVisitor implements Visitor{
         addToScope(funDecl.getId().getIdentifier(), new TabEntry(funDecl.getId(),
                 new Signature(funDecl.getT(), args)));
 
-        funDecl.getId().accept(this);
-
         openScope();
 
         for (ParDecl prDcl : funDecl.getL()) {
@@ -475,18 +473,10 @@ public class ScopingVisitor implements Visitor{
         openScope();
         program.setCurrent_ref(getCurrentScope());
 
-        for (Decl decl : program.getL1()) {
+        for (Decl decl : program.getL()) {
             if(decl instanceof FunDecl)
                 ((FunDecl)decl).accept(this);
 
-            else ((VarDecl)decl).accept(this);
-        }
-
-        program.getF().accept(this);
-
-        for (Decl decl : program.getL1()) {
-            if(decl instanceof FunDecl)
-                ((FunDecl)decl).accept(this);
             else ((VarDecl)decl).accept(this);
         }
 

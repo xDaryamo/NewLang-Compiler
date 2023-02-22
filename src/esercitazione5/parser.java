@@ -476,7 +476,9 @@ class CUP$parser$actions {
 		int l2left = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int l2right = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		ArrayList<Decl> l2 = (ArrayList<Decl>)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-		 RESULT = new Program(l1, f, l2); 
+		
+        ArrayList<Decl> l = new ArrayList<>(); l.addAll(l1); l.add(f); l.addAll(l2); RESULT = new Program(l);
+        
               CUP$parser$result = parser.getSymbolFactory().newSymbol("Program",0, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;

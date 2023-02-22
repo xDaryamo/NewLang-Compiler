@@ -52,7 +52,9 @@ precedence right POW, NOT;
 precedence left LPAR, RPAR;
 
 /* The grammar */
-Program ::= DeclList:l1 MainFunDecl:f DeclList:l2 {: RESULT = new Program(l1, f, l2); :};
+Program ::= DeclList:l1 MainFunDecl:f DeclList:l2 {:
+        ArrayList<Decl> l = new ArrayList<>(); l.addAll(l1); l.add(f); l.addAll(l2); RESULT = new Program(l);
+        :};
 
 DeclList ::= VarDecl:v DeclList:l {: l.add(v); RESULT = l; :}
         | FunDecl:f DeclList:l {: l.add(f); RESULT = l; :}
