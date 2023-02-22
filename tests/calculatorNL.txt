@@ -6,7 +6,6 @@ def calculatorNL() : void {
     boolean flag << true;
     float result;
 
-
     while flag = true loop {
 
         ("Menu:") -->! ;

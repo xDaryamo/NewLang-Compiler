@@ -16,12 +16,15 @@ public class TypeEnvironmentScopingTester {
         Lexer lexer = new Lexer(new FileReader(file));
         parser p = new parser(lexer);
 
-        Program pr = (Program) p.parse().value;
+        Program pr = (Program) p.debug_parse().value;
 
         ScopingVisitor visitor = new ScopingVisitor((ArrayList<String>) lexer.identifiersTable);
-        ScopingViewVisitor scopingViewVisitor = new ScopingViewVisitor(fileWriter, (ArrayList<String>) lexer.identifiersTable);
-
         pr.accept(visitor);
+
+        ScopingViewVisitor scopingViewVisitor = new ScopingViewVisitor(fileWriter, (ArrayList<String>) lexer.identifiersTable);
         pr.accept(scopingViewVisitor);
+
+        fileWriter.close();
+
     }
 }

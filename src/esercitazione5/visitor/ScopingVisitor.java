@@ -22,6 +22,7 @@ public class ScopingVisitor implements Visitor{
         nwScope = new HashSymTab(crScope);
         
         symTabStack.push(nwScope);
+
     }
 
     public void addToScope(Integer key, TabEntry entry){
@@ -40,6 +41,7 @@ public class ScopingVisitor implements Visitor{
         }
 
         crScope.addEntry(key, entry);
+
     }
 
     public void closeScope(){
@@ -49,6 +51,7 @@ public class ScopingVisitor implements Visitor{
         }
 
         symTabStack.pop();
+
     }
 
     public SymTab getCurrentScope(){
@@ -108,11 +111,13 @@ public class ScopingVisitor implements Visitor{
         addOp.setCurrent_ref(getCurrentScope());
         addOp.getLeft().accept(this);
         addOp.getRight().accept(this);
+
         return null;
     }
 
     @Override
     public <T> T visit(SubOp subOp) {
+
         subOp.setCurrent_ref(getCurrentScope());
         subOp.getLeft().accept(this);
         subOp.getRight().accept(this);
@@ -121,6 +126,7 @@ public class ScopingVisitor implements Visitor{
 
     @Override
     public <T> T visit(TimesOp timesOp) {
+
         timesOp.setCurrent_ref(getCurrentScope());
         timesOp.getLeft().accept(this);
         timesOp.getRight().accept(this);
@@ -129,6 +135,7 @@ public class ScopingVisitor implements Visitor{
 
     @Override
     public <T> T visit(DivOp divOp) {
+
         divOp.setCurrent_ref(getCurrentScope());
         divOp.getLeft().accept(this);
         divOp.getRight().accept(this);
@@ -137,6 +144,7 @@ public class ScopingVisitor implements Visitor{
 
     @Override
     public <T> T visit(PowOp powOp) {
+
         powOp.setCurrent_ref(getCurrentScope());
         powOp.getLeft().accept(this);
         powOp.getRight().accept(this);
@@ -145,6 +153,7 @@ public class ScopingVisitor implements Visitor{
 
     @Override
     public <T> T visit(ConcatOp concatOp) {
+
         concatOp.setCurrent_ref(getCurrentScope());
         concatOp.getLeft().accept(this);
         concatOp.getRight().accept(this);
@@ -153,6 +162,7 @@ public class ScopingVisitor implements Visitor{
 
     @Override
     public <T> T visit(AndOp andOp) {
+
         andOp.setCurrent_ref(getCurrentScope());
         andOp.getLeft().accept(this);
         andOp.getRight().accept(this);
@@ -161,6 +171,7 @@ public class ScopingVisitor implements Visitor{
 
     @Override
     public <T> T visit(OrOp orOp) {
+
         orOp.setCurrent_ref(getCurrentScope());
         orOp.getLeft().accept(this);
         orOp.getRight().accept(this);
@@ -169,6 +180,7 @@ public class ScopingVisitor implements Visitor{
 
     @Override
     public <T> T visit(NotOp notOp) {
+
         notOp.setCurrent_ref(getCurrentScope());
         notOp.getArg().accept(this);
         return null;
@@ -176,6 +188,7 @@ public class ScopingVisitor implements Visitor{
 
     @Override
     public <T> T visit(GtOp gtOp) {
+
         gtOp.setCurrent_ref(getCurrentScope());
         gtOp.getLeft().accept(this);
         gtOp.getRight().accept(this);
@@ -184,6 +197,7 @@ public class ScopingVisitor implements Visitor{
 
     @Override
     public <T> T visit(GeOp geOp) {
+
         geOp.setCurrent_ref(getCurrentScope());
         geOp.getLeft().accept(this);
         geOp.getRight().accept(this);
@@ -192,6 +206,7 @@ public class ScopingVisitor implements Visitor{
 
     @Override
     public <T> T visit(LtOp ltOp) {
+
         ltOp.setCurrent_ref(getCurrentScope());
         ltOp.getLeft().accept(this);
         ltOp.getRight().accept(this);
@@ -200,6 +215,7 @@ public class ScopingVisitor implements Visitor{
 
     @Override
     public <T> T visit(LeOp leOp) {
+
         leOp.setCurrent_ref(getCurrentScope());
         leOp.getLeft().accept(this);
         leOp.getRight().accept(this);
@@ -208,6 +224,7 @@ public class ScopingVisitor implements Visitor{
 
     @Override
     public <T> T visit(EqOp eqOp) {
+
         eqOp.setCurrent_ref(getCurrentScope());
         eqOp.getLeft().accept(this);
         eqOp.getRight().accept(this);
@@ -216,6 +233,7 @@ public class ScopingVisitor implements Visitor{
 
     @Override
     public <T> T visit(NeOp neOp) {
+
         neOp.setCurrent_ref(getCurrentScope());
         neOp.getLeft().accept(this);
         neOp.getRight().accept(this);
@@ -224,6 +242,7 @@ public class ScopingVisitor implements Visitor{
 
     @Override
     public <T> T visit(UMinOp uMinOp) {
+
         uMinOp.setCurrent_ref(getCurrentScope());
         uMinOp.getArg().accept(this);
         return null;
@@ -231,6 +250,7 @@ public class ScopingVisitor implements Visitor{
 
     @Override
     public <T> T visit(FunCall funCall) {
+
         funCall.setCurrent_ref(getCurrentScope());
         funCall.getId().accept(this);
         for(Expr expr: funCall.getParams()){
@@ -346,8 +366,8 @@ public class ScopingVisitor implements Visitor{
         for (Id ex : parDecl.getL()) {
             addToScope(ex.getIdentifier(), new TabEntry(ex, new Variable(parDecl.getT(), parDecl.getFlag())));
             ex.accept(this);
-
         }
+
         return null;
     }
 
@@ -431,7 +451,6 @@ public class ScopingVisitor implements Visitor{
     @Override
     public <T> T visit(IdInitObbl idInitObbl) {
 
-
         idInitObbl.setCurrent_ref(getCurrentScope());
         idInitObbl.getId().accept(this);
 
@@ -443,6 +462,9 @@ public class ScopingVisitor implements Visitor{
         idInitStmt.setCurrent_ref(getCurrentScope());
 
         idInitStmt.getId().accept(this);
+
+        if(idInitStmt.getExpr()!=null)
+            idInitStmt.getExpr().accept(this);
 
         return null;
     }
@@ -471,6 +493,12 @@ public class ScopingVisitor implements Visitor{
         closeScope();
 
         return null;
+    }
+
+    public void printScopes(){
+
+        for(SymTab symTab: symTabStack)
+            System.out.println(symTab.printTab());
     }
 
     public Stack<SymTab> getSymTabStack() {
