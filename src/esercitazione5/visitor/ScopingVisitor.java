@@ -11,16 +11,18 @@ public class ScopingVisitor implements Visitor{
         this.symTabStack = new Stack<>();
     }
 
-    public void openScope(){
+    public void openScope() {
 
-        SymTab crScope = null, nwScope;
+        SymTab crScope = null;
+        SymTab nwScope;
 
         if(!symTabStack.isEmpty()) {
             crScope = symTabStack.peek();
+            nwScope = new HashSymTab(crScope);
         }
 
-        nwScope = new HashSymTab(crScope);
-        
+        else nwScope = new HashSymTab();
+
         symTabStack.push(nwScope);
 
     }
@@ -364,8 +366,8 @@ public class ScopingVisitor implements Visitor{
         parDecl.setCurrent_ref(getCurrentScope());
 
         for (Id ex : parDecl.getL()) {
-            addToScope(ex.getIdentifier(), new TabEntry(ex, new Variable(parDecl.getT(), parDecl.getFlag())));
             ex.accept(this);
+            addToScope(ex.getIdentifier(), new TabEntry(ex, new Variable(parDecl.getT(), parDecl.getFlag())));
         }
 
         return null;
@@ -389,14 +391,11 @@ public class ScopingVisitor implements Visitor{
     @Override
     public <T> T visit(FunDecl funDecl) {
 
-        ArrayList<Type> args = new ArrayList<>();
-        for(ParDecl p: funDecl.getL()){
-            args.add(p.getT());
-        }
+        funDecl.getId().accept(this);
+
+        ArrayList<TabEntry> args = new ArrayList<>();
 
         funDecl.setCurrent_ref(getCurrentScope());
-        addToScope(funDecl.getId().getIdentifier(), new TabEntry(funDecl.getId(),
-                new Signature(funDecl.getT(), args)));
 
         openScope();
 
@@ -407,6 +406,13 @@ public class ScopingVisitor implements Visitor{
         funDecl.getBody().accept(this);
 
         closeScope();
+
+        for(ParDecl parDecl: funDecl.getL())
+            for(Id id: parDecl.getL())
+                args.add(new TabEntry(id, new Variable(parDecl.getT(), parDecl.getFlag() )));
+
+        addToScope(funDecl.getId().getIdentifier(), new TabEntry(funDecl.getId(),
+                new Signature(funDecl.getT(), args)));
 
         return null;
     }
@@ -433,15 +439,22 @@ public class ScopingVisitor implements Visitor{
                     type =Type.CHAR;
                 if(idInitObbl.getCnst() instanceof Boolean)
                     type=Type.BOOLEAN;
+
+                addToScope( (idInitObbl.getId().getIdentifier()),
+                        new TabEntry(idInitObbl.getId(), new Variable(type, false)));
+
+                idInitObbl.accept(this);
             }
 
-            assert idInit instanceof IdInitStmt;
-            IdInitStmt idInitStmt = (IdInitStmt)idInit;
+            else {
 
-            addToScope( (idInitStmt.getId().getIdentifier()),
-                    new TabEntry(idInitStmt.getId(), new Variable(type, false)));
+                IdInitStmt idInitStmt = (IdInitStmt)idInit;
+                addToScope( (idInitStmt.getId().getIdentifier()),
+                        new TabEntry(idInitStmt.getId(), new Variable(type, false)));
 
-            idInitStmt.accept(this);
+                idInitStmt.accept(this);
+            }
+
         }
 
         return null;

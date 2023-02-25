@@ -12,6 +12,7 @@ public class HashSymTab implements SymTab {
     }
 
     public HashSymTab(SymTab outerLayer) {
+
         this.outerLayer = outerLayer;
         this.symMap = new HashMap<>();
     }

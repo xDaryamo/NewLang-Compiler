@@ -10,7 +10,8 @@ import java.util.ArrayList;
 public class TypeEnvironmentScopingTester {
     public static void main(String[] args) throws Exception {
 
-        FileWriter fileWriter = new FileWriter("./tests/output.xml");
+        FileWriter fileWriterScope = new FileWriter("./tests/outputScope.xml");
+        FileWriter fileWriterType = new FileWriter("./tests/outputType.xml");
 
         String file = args[0];
         Lexer lexer = new Lexer(new FileReader(file));
@@ -21,10 +22,20 @@ public class TypeEnvironmentScopingTester {
         ScopingVisitor visitor = new ScopingVisitor((ArrayList<String>) lexer.identifiersTable);
         pr.accept(visitor);
 
-        ScopingViewVisitor scopingViewVisitor = new ScopingViewVisitor(fileWriter, (ArrayList<String>) lexer.identifiersTable);
+        TypeCheckingVisitor typeCheckingVisitor = new TypeCheckingVisitor();
+        pr.accept(typeCheckingVisitor);
+
+        ScopingViewVisitor scopingViewVisitor =
+                new ScopingViewVisitor(fileWriterScope, (ArrayList<String>) lexer.identifiersTable);
+
         pr.accept(scopingViewVisitor);
 
-        fileWriter.close();
+        TypeCheckingViewVisitor typeCheckingViewVisitor =
+                new TypeCheckingViewVisitor(fileWriterType, (ArrayList<String>) lexer.identifiersTable);
 
+        pr.accept(typeCheckingViewVisitor);
+
+        fileWriterScope.close();
+        fileWriterType.close();
     }
 }

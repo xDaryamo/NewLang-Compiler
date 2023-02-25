@@ -1,4 +1,4 @@
-def calculate(float x, y | integer c) : float {
+def calculate(float x, y | out integer c) : float {
 
     float result;
 
