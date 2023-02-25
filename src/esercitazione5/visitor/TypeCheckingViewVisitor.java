@@ -5,7 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class TypeCheckingViewVisitor implements Visitor{
+public class TypeCheckingViewVisitor implements Visitor<Void>{
 
     public TypeCheckingViewVisitor(FileWriter fileWriter, ArrayList<String> stringTab) {
         this.fileWriter = fileWriter;
@@ -16,7 +16,7 @@ public class TypeCheckingViewVisitor implements Visitor{
     private ArrayList<String> stringTab;
 
     @Override
-    public <T> T visit(TrueC trueC) {
+    public Void visit(TrueC trueC) {
 
         try {
             fileWriter.append("<TrueC>\n");
@@ -39,7 +39,7 @@ public class TypeCheckingViewVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(FalseC falseC) {
+    public Void visit(FalseC falseC) {
 
         try {
             fileWriter.append("<FalseC>\n");
@@ -62,7 +62,7 @@ public class TypeCheckingViewVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(IntegerC integerC) {
+    public Void visit(IntegerC integerC) {
 
         try {
             fileWriter.append("<IntegerC>\n");
@@ -86,7 +86,7 @@ public class TypeCheckingViewVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(RealC realC) {
+    public Void visit(RealC realC) {
 
         try {
             fileWriter.append("<RealC>\n");
@@ -109,7 +109,7 @@ public class TypeCheckingViewVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(CharC charC) {
+    public Void visit(CharC charC) {
 
         try {
             fileWriter.append("<CharC>\n");
@@ -132,11 +132,11 @@ public class TypeCheckingViewVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(StringC stringC) {
+    public Void visit(StringC stringC) {
 
         try {
             fileWriter.append("<StringC>\n");
-            fileWriter.append("<String value =").append('"').append(stringC.getString()).append('"').append("/>");
+            fileWriter.append("<String value =").append('"').append(stringC.getConstant()).append('"').append("/>");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -154,7 +154,7 @@ public class TypeCheckingViewVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(Id id) {
+    public Void visit(Id id) {
 
         try {
             fileWriter.append("<Identifier>\n");
@@ -178,7 +178,7 @@ public class TypeCheckingViewVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(AddOp addOp) {
+    public Void visit(AddOp addOp) {
 
         try {
             fileWriter.append("<AddOp>\n");
@@ -203,7 +203,7 @@ public class TypeCheckingViewVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(SubOp subOp) {
+    public Void visit(SubOp subOp) {
 
         try {
             fileWriter.append("<SubOp>\n");
@@ -228,7 +228,7 @@ public class TypeCheckingViewVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(TimesOp timesOp) {
+    public Void visit(TimesOp timesOp) {
 
         try {
             fileWriter.append("<TimesOp>\n");
@@ -253,7 +253,7 @@ public class TypeCheckingViewVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(DivOp divOp) {
+    public Void visit(DivOp divOp) {
 
         try {
             fileWriter.append("<DivOp>\n");
@@ -278,7 +278,7 @@ public class TypeCheckingViewVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(PowOp powOp) {
+    public Void visit(PowOp powOp) {
 
         try {
             fileWriter.append("<PowOp>\n");
@@ -303,7 +303,7 @@ public class TypeCheckingViewVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(ConcatOp concatOp) {
+    public Void visit(ConcatOp concatOp) {
 
         try {
             fileWriter.append("<ConcatOp>\n");
@@ -327,7 +327,7 @@ public class TypeCheckingViewVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(AndOp andOp) {
+    public Void visit(AndOp andOp) {
 
         try {
             fileWriter.append("<AndOp>\n");
@@ -351,7 +351,7 @@ public class TypeCheckingViewVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(OrOp orOp) {
+    public Void visit(OrOp orOp) {
 
         try {
             fileWriter.append("<OrOp>\n");
@@ -375,7 +375,7 @@ public class TypeCheckingViewVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(NotOp notOp) {
+    public Void visit(NotOp notOp) {
 
         try {
             fileWriter.append("<NotOp>\n");
@@ -398,7 +398,7 @@ public class TypeCheckingViewVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(GtOp gtOp) {
+    public Void visit(GtOp gtOp) {
 
         try {
             fileWriter.append("<GtOp>\n");
@@ -422,7 +422,7 @@ public class TypeCheckingViewVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(GeOp geOp) {
+    public Void visit(GeOp geOp) {
 
         try {
             fileWriter.append("<GeOp>\n");
@@ -446,7 +446,7 @@ public class TypeCheckingViewVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(LtOp ltOp) {
+    public Void visit(LtOp ltOp) {
 
         try {
             fileWriter.append("<LtOp>\n");
@@ -470,7 +470,7 @@ public class TypeCheckingViewVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(LeOp leOp) {
+    public Void visit(LeOp leOp) {
 
         try {
             fileWriter.append("<LeOp>\n");
@@ -494,7 +494,7 @@ public class TypeCheckingViewVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(EqOp eqOp) {
+    public Void visit(EqOp eqOp) {
 
         try {
             fileWriter.append("<EqOp>\n");
@@ -519,7 +519,7 @@ public class TypeCheckingViewVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(NeOp neOp) {
+    public Void visit(NeOp neOp) {
 
         try {
             fileWriter.append("<NeOp>\n");
@@ -543,7 +543,7 @@ public class TypeCheckingViewVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(UMinOp uMinOp) {
+    public Void visit(UMinOp uMinOp) {
 
         try {
             fileWriter.append("<UMinusOp>\n");
@@ -566,7 +566,7 @@ public class TypeCheckingViewVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(FunCall funCall) {
+    public Void visit(FunCall funCall) {
 
         try {
             fileWriter.append("<FunCallOp>\n");
@@ -592,7 +592,7 @@ public class TypeCheckingViewVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(AssignStat assignStat) {
+    public Void visit(AssignStat assignStat) {
 
         try {
             fileWriter.append("<AssignStat>\n");
@@ -620,7 +620,7 @@ public class TypeCheckingViewVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(WriteStat writeStat) {
+    public Void visit(WriteStat writeStat) {
 
 
         try {
@@ -645,7 +645,7 @@ public class TypeCheckingViewVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(ReadStat readStat) {
+    public Void visit(ReadStat readStat) {
 
         try {
             fileWriter.append("<ReadStat>\n");
@@ -669,7 +669,7 @@ public class TypeCheckingViewVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(ForStat forStat) {
+    public Void visit(ForStat forStat) {
 
         try {
             fileWriter.append("<ForStat>\n");
@@ -693,7 +693,7 @@ public class TypeCheckingViewVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(WhileStat whileStat) {
+    public Void visit(WhileStat whileStat) {
 
 
         try {
@@ -718,7 +718,7 @@ public class TypeCheckingViewVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(IfStat ifStat) {
+    public Void visit(IfStat ifStat) {
 
         try {
             fileWriter.append("<IfStat>\n");
@@ -746,7 +746,7 @@ public class TypeCheckingViewVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(ReturnStat returnStat) {
+    public Void visit(ReturnStat returnStat) {
 
         try {
             fileWriter.append("<ReturnStat>\n");
@@ -770,7 +770,7 @@ public class TypeCheckingViewVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(ParDecl parDecl) {
+    public Void visit(ParDecl parDecl) {
 
         try {
             fileWriter.append("<ParDecl>\n");
@@ -795,7 +795,7 @@ public class TypeCheckingViewVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(Body body) {
+    public Void visit(Body body) {
 
         try {
             fileWriter.append("<Body>\n");
@@ -823,7 +823,7 @@ public class TypeCheckingViewVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(FunDecl funDecl) {
+    public Void visit(FunDecl funDecl) {
 
         try {
             fileWriter.append("<FunDecl>\n");
@@ -852,7 +852,7 @@ public class TypeCheckingViewVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(VarDecl varDecl) {
+    public Void visit(VarDecl varDecl) {
 
         try {
             fileWriter.append("<VarDecl>\n");
@@ -877,7 +877,7 @@ public class TypeCheckingViewVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(IdInitObbl idInitObbl) {
+    public Void visit(IdInitObbl idInitObbl) {
 
         try {
             fileWriter.append("<IdInitObbl>\n");
@@ -900,7 +900,7 @@ public class TypeCheckingViewVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(IdInitStmt idInitStmt) {
+    public Void visit(IdInitStmt idInitStmt) {
 
         try {
             fileWriter.append("<IdInitStmt>\n");
@@ -924,7 +924,7 @@ public class TypeCheckingViewVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(Program program) {
+    public Void visit(Program program) {
 
         try {
             fileWriter.append("<Program>\n");

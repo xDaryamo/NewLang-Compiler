@@ -4,7 +4,7 @@ import esercitazione5.node.*;
 import java.util.ArrayList;
 import java.util.Stack;
 
-public class ScopingVisitor implements Visitor{
+public class ScopingVisitor implements Visitor<Void>{
 
     public ScopingVisitor(ArrayList<String> stringTab) {
         this.stringTab = stringTab;
@@ -66,49 +66,49 @@ public class ScopingVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(TrueC trueC) {
+    public Void visit(TrueC trueC) {
         trueC.setCurrent_ref(getCurrentScope());
         return null;
     }
 
     @Override
-    public <T> T visit(FalseC falseC) {
+    public Void visit(FalseC falseC) {
         falseC.setCurrent_ref(getCurrentScope());
         return null;
     }
 
     @Override
-    public <T> T visit(IntegerC integerC) {
+    public Void visit(IntegerC integerC) {
         integerC.setCurrent_ref(getCurrentScope());
         return null;
     }
 
     @Override
-    public <T> T visit(RealC realC) {
+    public Void visit(RealC realC) {
         realC.setCurrent_ref(getCurrentScope());
         return null;
     }
 
     @Override
-    public <T> T visit(CharC charC) {
+    public Void visit(CharC charC) {
         charC.setCurrent_ref(getCurrentScope());
         return null;
     }
 
     @Override
-    public <T> T visit(StringC stringC) {
+    public Void visit(StringC stringC) {
         stringC.setCurrent_ref(getCurrentScope());
         return null;
     }
 
     @Override
-    public <T> T visit(Id id) {
+    public Void visit(Id id) {
         id.setCurrent_ref(getCurrentScope());
         return null;
     }
 
     @Override
-    public <T> T visit(AddOp addOp) {
+    public Void visit(AddOp addOp) {
 
         addOp.setCurrent_ref(getCurrentScope());
         addOp.getLeft().accept(this);
@@ -118,7 +118,7 @@ public class ScopingVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(SubOp subOp) {
+    public Void visit(SubOp subOp) {
 
         subOp.setCurrent_ref(getCurrentScope());
         subOp.getLeft().accept(this);
@@ -127,7 +127,7 @@ public class ScopingVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(TimesOp timesOp) {
+    public Void visit(TimesOp timesOp) {
 
         timesOp.setCurrent_ref(getCurrentScope());
         timesOp.getLeft().accept(this);
@@ -136,7 +136,7 @@ public class ScopingVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(DivOp divOp) {
+    public Void visit(DivOp divOp) {
 
         divOp.setCurrent_ref(getCurrentScope());
         divOp.getLeft().accept(this);
@@ -145,7 +145,7 @@ public class ScopingVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(PowOp powOp) {
+    public Void visit(PowOp powOp) {
 
         powOp.setCurrent_ref(getCurrentScope());
         powOp.getLeft().accept(this);
@@ -154,7 +154,7 @@ public class ScopingVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(ConcatOp concatOp) {
+    public Void visit(ConcatOp concatOp) {
 
         concatOp.setCurrent_ref(getCurrentScope());
         concatOp.getLeft().accept(this);
@@ -163,7 +163,7 @@ public class ScopingVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(AndOp andOp) {
+    public Void visit(AndOp andOp) {
 
         andOp.setCurrent_ref(getCurrentScope());
         andOp.getLeft().accept(this);
@@ -172,7 +172,7 @@ public class ScopingVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(OrOp orOp) {
+    public Void visit(OrOp orOp) {
 
         orOp.setCurrent_ref(getCurrentScope());
         orOp.getLeft().accept(this);
@@ -181,7 +181,7 @@ public class ScopingVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(NotOp notOp) {
+    public Void visit(NotOp notOp) {
 
         notOp.setCurrent_ref(getCurrentScope());
         notOp.getArg().accept(this);
@@ -189,7 +189,7 @@ public class ScopingVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(GtOp gtOp) {
+    public Void visit(GtOp gtOp) {
 
         gtOp.setCurrent_ref(getCurrentScope());
         gtOp.getLeft().accept(this);
@@ -198,7 +198,7 @@ public class ScopingVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(GeOp geOp) {
+    public Void visit(GeOp geOp) {
 
         geOp.setCurrent_ref(getCurrentScope());
         geOp.getLeft().accept(this);
@@ -207,7 +207,7 @@ public class ScopingVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(LtOp ltOp) {
+    public Void visit(LtOp ltOp) {
 
         ltOp.setCurrent_ref(getCurrentScope());
         ltOp.getLeft().accept(this);
@@ -216,7 +216,7 @@ public class ScopingVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(LeOp leOp) {
+    public Void visit(LeOp leOp) {
 
         leOp.setCurrent_ref(getCurrentScope());
         leOp.getLeft().accept(this);
@@ -225,7 +225,7 @@ public class ScopingVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(EqOp eqOp) {
+    public Void visit(EqOp eqOp) {
 
         eqOp.setCurrent_ref(getCurrentScope());
         eqOp.getLeft().accept(this);
@@ -234,7 +234,7 @@ public class ScopingVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(NeOp neOp) {
+    public Void visit(NeOp neOp) {
 
         neOp.setCurrent_ref(getCurrentScope());
         neOp.getLeft().accept(this);
@@ -243,7 +243,7 @@ public class ScopingVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(UMinOp uMinOp) {
+    public Void visit(UMinOp uMinOp) {
 
         uMinOp.setCurrent_ref(getCurrentScope());
         uMinOp.getArg().accept(this);
@@ -251,7 +251,7 @@ public class ScopingVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(FunCall funCall) {
+    public Void visit(FunCall funCall) {
 
         funCall.setCurrent_ref(getCurrentScope());
         funCall.getId().accept(this);
@@ -263,7 +263,7 @@ public class ScopingVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(AssignStat assignStat) {
+    public Void visit(AssignStat assignStat) {
 
         assignStat.setCurrent_ref(getCurrentScope());
 
@@ -279,7 +279,7 @@ public class ScopingVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(WriteStat writeStat) {
+    public Void visit(WriteStat writeStat) {
 
         writeStat.setCurrent_ref(getCurrentScope());
 
@@ -291,7 +291,7 @@ public class ScopingVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(ReadStat readStat) {
+    public Void visit(ReadStat readStat) {
 
         readStat.setCurrent_ref(getCurrentScope());
 
@@ -303,7 +303,7 @@ public class ScopingVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(ForStat forStat) {
+    public Void visit(ForStat forStat) {
 
         forStat.setCurrent_ref(getCurrentScope());
 
@@ -318,7 +318,7 @@ public class ScopingVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(WhileStat whileStat) {
+    public Void visit(WhileStat whileStat) {
 
         whileStat.setCurrent_ref(getCurrentScope());
         whileStat.getE().accept(this);
@@ -330,7 +330,7 @@ public class ScopingVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(IfStat ifStat) {
+    public Void visit(IfStat ifStat) {
 
         ifStat.setCurrent_ref(getCurrentScope());
         ifStat.getE().accept(this);
@@ -349,7 +349,7 @@ public class ScopingVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(ReturnStat returnStat) {
+    public Void visit(ReturnStat returnStat) {
 
         returnStat.setCurrent_ref(getCurrentScope());
 
@@ -361,7 +361,7 @@ public class ScopingVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(ParDecl parDecl) {
+    public Void visit(ParDecl parDecl) {
 
         parDecl.setCurrent_ref(getCurrentScope());
 
@@ -374,7 +374,7 @@ public class ScopingVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(Body body) {
+    public Void visit(Body body) {
 
         body.setCurrent_ref(getCurrentScope());
 
@@ -389,7 +389,7 @@ public class ScopingVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(FunDecl funDecl) {
+    public Void visit(FunDecl funDecl) {
 
         funDecl.getId().accept(this);
 
@@ -418,7 +418,7 @@ public class ScopingVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(VarDecl varDecl) {
+    public Void visit(VarDecl varDecl) {
 
         varDecl.setCurrent_ref(getCurrentScope());
         Type type = varDecl.getT();
@@ -460,7 +460,7 @@ public class ScopingVisitor implements Visitor{
         return null;
     }
     @Override
-    public <T> T visit(IdInitObbl idInitObbl) {
+    public Void visit(IdInitObbl idInitObbl) {
 
         idInitObbl.setCurrent_ref(getCurrentScope());
         idInitObbl.getId().accept(this);
@@ -469,7 +469,7 @@ public class ScopingVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(IdInitStmt idInitStmt) {
+    public Void visit(IdInitStmt idInitStmt) {
         idInitStmt.setCurrent_ref(getCurrentScope());
 
         idInitStmt.getId().accept(this);
@@ -481,7 +481,7 @@ public class ScopingVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(Program program) {
+    public Void visit(Program program) {
 
         openScope();
         program.setCurrent_ref(getCurrentScope());

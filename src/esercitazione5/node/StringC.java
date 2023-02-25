@@ -8,12 +8,12 @@ public class StringC extends Node implements Expr{
         this.constant = (String) constant;
     }
 
-    public String getString() {
+    public String getConstant() {
         return constant;
     }
 
     @Override
-    public <T> T accept(Visitor v) {
+    public <T> T accept(Visitor<T> v) {
          return v.visit(this);
     }
 

@@ -12,7 +12,7 @@ public class VarDecl extends Node implements Expr, Decl{
     }
 
     @Override
-    public <T> T accept(Visitor v) {
+    public <T> T accept(Visitor<T> v) {
          return v.visit(this);
     }
 

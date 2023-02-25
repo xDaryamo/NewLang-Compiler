@@ -16,7 +16,7 @@ public class ReadStat extends Node implements Stat{
     }
 
     @Override
-    public <T> T accept(Visitor v) {
+    public <T> T accept(Visitor<T> v) {
          return v.visit(this);
     }
 

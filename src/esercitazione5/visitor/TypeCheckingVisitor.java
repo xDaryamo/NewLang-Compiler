@@ -2,7 +2,7 @@ package esercitazione5.visitor;
 
 import esercitazione5.node.*;
 
-public class TypeCheckingVisitor implements Visitor{
+public class TypeCheckingVisitor implements Visitor<Void>{
 
     public TypeCheckingVisitor() {
         this.typeSystem = new TypeSystem();
@@ -11,56 +11,56 @@ public class TypeCheckingVisitor implements Visitor{
     private final TypeSystem typeSystem;
 
     @Override
-    public <T> T visit(TrueC trueC) {
+    public Void visit(TrueC trueC) {
 
         trueC.setTypeNode(Type.BOOLEAN);
         return null;
     }
 
     @Override
-    public <T> T visit(FalseC falseC) {
+    public Void visit(FalseC falseC) {
 
         falseC.setTypeNode(Type.BOOLEAN);
         return null;
     }
 
     @Override
-    public <T> T visit(IntegerC integerC) {
+    public Void visit(IntegerC integerC) {
 
         integerC.setTypeNode(Type.INTEGER);
         return null;
     }
 
     @Override
-    public <T> T visit(RealC realC) {
+    public Void visit(RealC realC) {
 
         realC.setTypeNode(Type.FLOAT);
         return null;
     }
 
     @Override
-    public <T> T visit(CharC charC) {
+    public Void visit(CharC charC) {
 
         charC.setTypeNode(Type.CHAR);
         return null;
     }
 
     @Override
-    public <T> T visit(StringC stringC) {
+    public Void visit(StringC stringC) {
 
         stringC.setTypeNode(Type.STRING);
         return null;
     }
 
     @Override
-    public <T> T visit(Id id) {
+    public Void visit(Id id) {
 
         id.setTypeNode(typeSystem.opIdCheck("Id", id));
         return null;
     }
 
     @Override
-    public <T> T visit(AddOp addOp) {
+    public Void visit(AddOp addOp) {
 
         addOp.getLeft().accept(this);
         addOp.getRight().accept(this);
@@ -71,7 +71,7 @@ public class TypeCheckingVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(SubOp subOp) {
+    public Void visit(SubOp subOp) {
 
         subOp.getLeft().accept(this);
         subOp.getRight().accept(this);
@@ -82,7 +82,7 @@ public class TypeCheckingVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(TimesOp timesOp) {
+    public Void visit(TimesOp timesOp) {
 
         timesOp.getLeft().accept(this);
         timesOp.getRight().accept(this);
@@ -93,7 +93,7 @@ public class TypeCheckingVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(DivOp divOp) {
+    public Void visit(DivOp divOp) {
 
         divOp.getLeft().accept(this);
         divOp.getRight().accept(this);
@@ -104,7 +104,7 @@ public class TypeCheckingVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(PowOp powOp) {
+    public Void visit(PowOp powOp) {
 
         powOp.getLeft().accept(this);
         powOp.getRight().accept(this);
@@ -115,7 +115,7 @@ public class TypeCheckingVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(ConcatOp concatOp) {
+    public Void visit(ConcatOp concatOp) {
 
         concatOp.getLeft().accept(this);
         concatOp.getRight().accept(this);
@@ -126,7 +126,7 @@ public class TypeCheckingVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(AndOp andOp) {
+    public Void visit(AndOp andOp) {
 
         andOp.getLeft().accept(this);
         andOp.getRight().accept(this);
@@ -137,7 +137,7 @@ public class TypeCheckingVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(OrOp orOp) {
+    public Void visit(OrOp orOp) {
 
         orOp.getLeft().accept(this);
         orOp.getRight().accept(this);
@@ -148,7 +148,7 @@ public class TypeCheckingVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(NotOp notOp) {
+    public Void visit(NotOp notOp) {
 
         notOp.getArg().accept(this);
         notOp.setTypeNode(typeSystem.opCheckMonoArgument("notOp", ((Node)notOp.getArg()).getTypeNode()));
@@ -157,7 +157,7 @@ public class TypeCheckingVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(GtOp gtOp) {
+    public Void visit(GtOp gtOp) {
 
         gtOp.getLeft().accept(this);
         gtOp.getRight().accept(this);
@@ -168,7 +168,7 @@ public class TypeCheckingVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(GeOp geOp) {
+    public Void visit(GeOp geOp) {
 
         geOp.getLeft().accept(this);
         geOp.getRight().accept(this);
@@ -179,7 +179,7 @@ public class TypeCheckingVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(LtOp ltOp) {
+    public Void visit(LtOp ltOp) {
 
         ltOp.getLeft().accept(this);
         ltOp.getRight().accept(this);
@@ -190,7 +190,7 @@ public class TypeCheckingVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(LeOp leOp) {
+    public Void visit(LeOp leOp) {
 
         leOp.getLeft().accept(this);
         leOp.getRight().accept(this);
@@ -201,7 +201,7 @@ public class TypeCheckingVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(EqOp eqOp) {
+    public Void visit(EqOp eqOp) {
 
         eqOp.getLeft().accept(this);
         eqOp.getRight().accept(this);
@@ -212,7 +212,7 @@ public class TypeCheckingVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(NeOp neOp) {
+    public Void visit(NeOp neOp) {
 
         neOp.getLeft().accept(this);
         neOp.getRight().accept(this);
@@ -223,7 +223,7 @@ public class TypeCheckingVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(UMinOp uMinOp) {
+    public Void visit(UMinOp uMinOp) {
 
         uMinOp.getArg().accept(this);
         uMinOp.setTypeNode(typeSystem.opCheckMonoArgument("UMinOp", ((Node)uMinOp.getArg()).getTypeNode()));
@@ -232,7 +232,7 @@ public class TypeCheckingVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(FunCall funCall) {
+    public Void visit(FunCall funCall) {
 
         funCall.getId().accept(this);
 
@@ -251,7 +251,7 @@ public class TypeCheckingVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(AssignStat assignStat) {
+    public Void visit(AssignStat assignStat) {
 
         for(Id id: assignStat.getL1())
             id.accept(this);
@@ -264,7 +264,7 @@ public class TypeCheckingVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(WriteStat writeStat) {
+    public Void visit(WriteStat writeStat) {
 
         for(Expr expr: writeStat.getL())
             expr.accept(this);
@@ -274,7 +274,7 @@ public class TypeCheckingVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(ReadStat readStat) {
+    public Void visit(ReadStat readStat) {
 
         for(Id id: readStat.getL())
             id.accept(this);
@@ -285,7 +285,7 @@ public class TypeCheckingVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(ForStat forStat) {
+    public Void visit(ForStat forStat) {
 
         forStat.getId().accept(this);
         forStat.getBody().accept(this);
@@ -295,7 +295,7 @@ public class TypeCheckingVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(WhileStat whileStat) {
+    public Void visit(WhileStat whileStat) {
 
         whileStat.getE().accept(this);
 
@@ -306,7 +306,7 @@ public class TypeCheckingVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(IfStat ifStat) {
+    public Void visit(IfStat ifStat) {
 
         ifStat.getE().accept(this);
         ifStat.getBody().accept(this);
@@ -317,7 +317,7 @@ public class TypeCheckingVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(ReturnStat returnStat) {
+    public Void visit(ReturnStat returnStat) {
 
         returnStat.getE().accept(this);
         returnStat.setTypeNode(typeSystem.opConstructCheck("returnStat", returnStat));
@@ -325,7 +325,7 @@ public class TypeCheckingVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(ParDecl parDecl) {
+    public Void visit(ParDecl parDecl) {
 
         for(Id id: parDecl.getL())
             id.accept(this);
@@ -335,7 +335,7 @@ public class TypeCheckingVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(Body body) {
+    public Void visit(Body body) {
 
         for(VarDecl v: body.getL1())
             v.accept(this);
@@ -349,7 +349,7 @@ public class TypeCheckingVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(FunDecl funDecl) {
+    public Void visit(FunDecl funDecl) {
 
         typeSystem.setFunReturnType(funDecl.getT());
 
@@ -372,7 +372,7 @@ public class TypeCheckingVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(VarDecl varDecl) {
+    public Void visit(VarDecl varDecl) {
 
         for(IdInitBase idInit : varDecl.getL())
         {
@@ -387,7 +387,7 @@ public class TypeCheckingVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(IdInitObbl idInitObbl) {
+    public Void visit(IdInitObbl idInitObbl) {
 
         idInitObbl.getId().accept(this);
 
@@ -397,7 +397,7 @@ public class TypeCheckingVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(IdInitStmt idInitStmt) {
+    public Void visit(IdInitStmt idInitStmt) {
 
         idInitStmt.getId().accept(this);
 
@@ -415,7 +415,7 @@ public class TypeCheckingVisitor implements Visitor{
     }
 
     @Override
-    public <T> T visit(Program program) {
+    public Void visit(Program program) {
 
         for(Decl decl : program.getL())
         {

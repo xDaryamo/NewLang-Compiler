@@ -25,7 +25,7 @@ public class FunCall extends Node implements Expr, Stat{
     }
 
     @Override
-    public <T> T accept(Visitor v) {
+    public <T> T accept(Visitor<T> v) {
          return v.visit(this);
     }
 

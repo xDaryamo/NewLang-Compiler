@@ -18,7 +18,7 @@ public class TimesOp extends Node implements Operator{
     }
 
     @Override
-    public <T> T accept(Visitor v) { return v.visit(this); }
+    public <T> T accept(Visitor<T> v) { return v.visit(this); }
 
     private Expr left, right;
 

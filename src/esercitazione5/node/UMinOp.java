@@ -13,7 +13,7 @@ public class UMinOp extends Node implements Operator{
     }
 
     @Override
-    public <T> T accept(Visitor v) {
+    public <T> T accept(Visitor<T> v) {
          return v.visit(this);
     }
 
