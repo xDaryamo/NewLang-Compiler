@@ -259,7 +259,55 @@ public class CodeGenVisitor implements Visitor<String>{
 
     @Override
     public String visit(WriteStat writeStat) {
-        return null;
+
+        String printArgs = "";
+        String printString = "printf(\"";
+
+
+        for(Expr e : writeStat.getL()) {
+            String expr = e.accept(this);
+            Type type = ((Node) e).getTypeNode();
+
+            if (e instanceof TrueC)
+                expr = "true";
+            else if (e instanceof FalseC)
+                expr = "false";
+
+
+
+            String stringSpecifier = getStringSpecifier(type);
+
+            printString = printString + stringSpecifier;
+            printArgs = printArgs + expr + ',';
+        }
+
+        printArgs = printArgs.substring(0, printArgs.length() - 1);
+
+        if(writeStat.getLn()==1)
+            printString = printString + "\\n";
+
+
+        printString = printString + "\"," + printArgs + ");";
+
+        return printString;
+
+    }
+
+    private String getStringSpecifier(Type t) {
+        switch (t) {
+            case INTEGER:
+                return "%d";
+            case FLOAT:
+                return "%f";
+            case BOOLEAN:
+                return "%s";
+            case CHAR:
+                return "%c";
+            case STRING:
+                return "%s";
+            default:
+                return "";
+        }
     }
 
     @Override
@@ -269,12 +317,29 @@ public class CodeGenVisitor implements Visitor<String>{
 
     @Override
     public String visit(ForStat forStat) {
-        return null;
+        String body = forStat.getBody().accept(this);
+        String index = forStat.getId().accept(this);
+        Integer start = forStat.getC1();
+        Integer end = forStat.getC2();
+
+        String indexUpdate = stringTab.get(forStat.getId().getIdentifier());
+        String condition= index;
+        if (start <= end) {
+            indexUpdate += "++";
+            condition+= "<=" + end;
+        } else {
+            indexUpdate += "--";
+            condition+= ">=" + end;
+        }
+        return "for(int " + index + "=" + start + ";" + condition + ";" + indexUpdate + "){\n" + body + "\n}\n";
     }
 
     @Override
     public String visit(WhileStat whileStat) {
-        return null;
+        String condition = whileStat.getE().accept(this);
+        String body = whileStat.getBody().accept(this);
+
+        return "while(" + condition + "){\n" + body + "\n}\n";
     }
 
     @Override
@@ -284,7 +349,10 @@ public class CodeGenVisitor implements Visitor<String>{
 
     @Override
     public String visit(ReturnStat returnStat) {
-        return null;
+        if (returnStat.getE() == null)
+            return "return;";
+
+        return "return " + returnStat.getE().accept(this) + ";";
     }
 
     @Override
