@@ -196,12 +196,65 @@ public class CodeGenVisitor implements Visitor<String>{
 
     @Override
     public String visit(FunCall funCall) {
-        return null;
+
+        Id funId = funCall.getId();
+        ArrayList<Expr> funParams = funCall.getParams();
+
+        String funName = stringTab.get(funId.getIdentifier());
+
+        funName = funName + "(";
+
+        for(Expr e: funParams) {
+
+            Id id = (Id) e;
+            TabEntry tabEntry = id.getCurrent_ref().findEntry(id.getIdentifier());
+            Variable variable = (Variable) tabEntry.getParams();
+            Type type = variable.getType();
+
+            String variableName = id.accept(this);
+
+            if(variable.isByReference()){
+                variableName = "&" + variableName;
+            }
+
+            funName = funName + getCType(type) + " " + variableName + ",";
+
+        }
+
+        if(funName.charAt(funName.length() - 1)==',')
+            funName = funName.substring(0, funName.length() - 1);
+
+        funName = funName + ");";
+
+        return funName;
     }
 
     @Override
     public String visit(AssignStat assignStat) {
-        return null;
+
+        String assign = null;
+
+        for(int i = 0; i < assignStat.getL1().size(); i++){
+
+            Id id = assignStat.getL1().get(i);
+            Expr expr = assignStat.getL2().get(i);
+
+            String idName = id.accept(this);
+            String exprValue = expr.accept(this);
+
+            assign = idName + " = " + exprValue + ",";
+
+        }
+
+        if(assign==null)
+            return "";
+
+        if(assign.charAt(assign.length() - 1)==',')
+            assign = assign.substring(0, assign.length() - 1);
+
+        assign = assign + ";";
+
+        return assign;
     }
 
     @Override
@@ -267,6 +320,27 @@ public class CodeGenVisitor implements Visitor<String>{
     @Override
     public String visit(Program program) {
         return null;
+    }
+
+    private String getCType(Type t){
+
+        String returnType = null;
+
+        switch (t) {
+
+            case STRING : returnType = "char*";
+
+            case CHAR: returnType = "char";
+
+            case FLOAT: returnType = "float";
+
+            case INTEGER: returnType = "int";
+
+            case VOID: returnType = "void";
+
+        }
+
+        return returnType;
     }
 
     private FileWriter file;
