@@ -316,6 +316,226 @@ NOTYPE
 </FunDecl>
 <FunDecl>
 <Identifier>
+<Identifier value ="fibonacci"/><Type>
+VOID
+</Type>
+</Identifier>
+<Body>
+<VarDecl>
+<IdInitStmt>
+<Identifier>
+<Identifier value ="next_term"/><Type>
+INTEGER
+</Type>
+</Identifier>
+<Type>
+INTEGER
+</Type>
+</IdInitStmt>
+<Type>
+NOTYPE
+</Type>
+</VarDecl>
+<VarDecl>
+<IdInitStmt>
+<Identifier>
+<Identifier value ="t1"/><Type>
+INTEGER
+</Type>
+</Identifier>
+<Type>
+INTEGER
+</Type>
+</IdInitStmt>
+<IdInitStmt>
+<Identifier>
+<Identifier value ="t2"/><Type>
+INTEGER
+</Type>
+</Identifier>
+<Type>
+INTEGER
+</Type>
+</IdInitStmt>
+<Type>
+NOTYPE
+</Type>
+</VarDecl>
+<AssignStat>
+<Identifier>
+<Identifier value ="next_term"/><Type>
+INTEGER
+</Type>
+</Identifier>
+<AddOp>
+<Identifier>
+<Identifier value ="t1"/><Type>
+INTEGER
+</Type>
+</Identifier>
+<Identifier>
+<Identifier value ="t2"/><Type>
+INTEGER
+</Type>
+</Identifier>
+<Type>
+INTEGER
+</Type>
+</AddOp>
+<Type>
+NOTYPE
+</Type>
+</AssignStat>
+<WriteStat>
+<StringC>
+<String value ="Fibonacci sequence: "/><Type>
+STRING
+</Type>
+</StringC>
+<Type>
+NOTYPE
+</Type>
+</WriteStat>
+<WriteStat>
+<ConcatOp>
+<Identifier>
+<Identifier value ="t1"/><Type>
+INTEGER
+</Type>
+</Identifier>
+<StringC>
+<String value =", "/><Type>
+STRING
+</Type>
+</StringC>
+<Type>
+STRING
+</Type>
+</ConcatOp>
+<Type>
+NOTYPE
+</Type>
+</WriteStat>
+<WriteStat>
+<ConcatOp>
+<Identifier>
+<Identifier value ="t2"/><Type>
+INTEGER
+</Type>
+</Identifier>
+<StringC>
+<String value =", "/><Type>
+STRING
+</Type>
+</StringC>
+<Type>
+STRING
+</Type>
+</ConcatOp>
+<Type>
+NOTYPE
+</Type>
+</WriteStat>
+<ForStat>
+<Identifier>
+<Identifier value ="i"/><Type>
+INTEGER
+</Type>
+</Identifier>
+<Body>
+<WriteStat>
+<ConcatOp>
+<Identifier>
+<Identifier value ="next_term"/><Type>
+INTEGER
+</Type>
+</Identifier>
+<StringC>
+<String value =", "/><Type>
+STRING
+</Type>
+</StringC>
+<Type>
+STRING
+</Type>
+</ConcatOp>
+<Type>
+NOTYPE
+</Type>
+</WriteStat>
+<AssignStat>
+<Identifier>
+<Identifier value ="t1"/><Type>
+INTEGER
+</Type>
+</Identifier>
+<Identifier>
+<Identifier value ="t2"/><Type>
+INTEGER
+</Type>
+</Identifier>
+<Type>
+NOTYPE
+</Type>
+</AssignStat>
+<AssignStat>
+<Identifier>
+<Identifier value ="t2"/><Type>
+INTEGER
+</Type>
+</Identifier>
+<Identifier>
+<Identifier value ="next_term"/><Type>
+INTEGER
+</Type>
+</Identifier>
+<Type>
+NOTYPE
+</Type>
+</AssignStat>
+<AssignStat>
+<Identifier>
+<Identifier value ="next_term"/><Type>
+INTEGER
+</Type>
+</Identifier>
+<AddOp>
+<Identifier>
+<Identifier value ="t1"/><Type>
+INTEGER
+</Type>
+</Identifier>
+<Identifier>
+<Identifier value ="t2"/><Type>
+INTEGER
+</Type>
+</Identifier>
+<Type>
+INTEGER
+</Type>
+</AddOp>
+<Type>
+NOTYPE
+</Type>
+</AssignStat>
+<Type>
+NOTYPE
+</Type>
+</Body>
+<Type>
+NOTYPE
+</Type>
+</ForStat>
+<Type>
+NOTYPE
+</Type>
+</Body>
+<Type>
+NOTYPE
+</Type>
+</FunDecl>
+<FunDecl>
+<Identifier>
 <Identifier value ="calculatorNL"/><Type>
 VOID
 </Type>
@@ -345,6 +565,21 @@ BOOLEAN
 </Identifier>
 <Type>
 BOOLEAN
+</Type>
+</IdInitStmt>
+<Type>
+NOTYPE
+</Type>
+</VarDecl>
+<VarDecl>
+<IdInitStmt>
+<Identifier>
+<Identifier value ="go_on"/><Type>
+INTEGER
+</Type>
+</Identifier>
+<Type>
+INTEGER
 </Type>
 </IdInitStmt>
 <Type>
@@ -468,6 +703,16 @@ STRING
 NOTYPE
 </Type>
 </WriteStat>
+<WriteStat>
+<StringC>
+<String value ="6.Fibonacci sequence:"/><Type>
+STRING
+</Type>
+</StringC>
+<Type>
+NOTYPE
+</Type>
+</WriteStat>
 <ReadStat>
 <Identifier>
 <Identifier value ="choice"/><Type>
@@ -478,6 +723,38 @@ INTEGER
 NOTYPE
 </Type>
 </ReadStat>
+<IfStat>
+<EqOp>
+<Identifier>
+<Identifier value ="choice"/><Type>
+INTEGER
+</Type>
+</Identifier>
+<IntegerC>
+<Integer value ="6"/><Type>
+INTEGER
+</Type>
+</IntegerC>
+<Type>
+BOOLEAN
+</Type>
+</EqOp>
+<Body>
+<FunCallOp>
+<Identifier>
+<Identifier value ="fibonacci"/><Type>
+VOID
+</Type>
+</Identifier>
+<Type>
+VOID
+</Type>
+</FunCallOp>
+<Type>
+NOTYPE
+</Type>
+</Body>
+<Body>
 <ReadStat>
 <Identifier>
 <Identifier value ="a"/><Type>
@@ -553,6 +830,14 @@ FLOAT
 NOTYPE
 </Type>
 </WriteStat>
+<Type>
+NOTYPE
+</Type>
+</Body>
+<Type>
+NOTYPE
+</Type>
+</IfStat>
 <WriteStat>
 <StringC>
 <String value ="Continue?: 0/1"/><Type>
@@ -565,7 +850,7 @@ NOTYPE
 </WriteStat>
 <ReadStat>
 <Identifier>
-<Identifier value ="choice"/><Type>
+<Identifier value ="go_on"/><Type>
 INTEGER
 </Type>
 </Identifier>
@@ -576,7 +861,7 @@ NOTYPE
 <IfStat>
 <EqOp>
 <Identifier>
-<Identifier value ="choice"/><Type>
+<Identifier value ="go_on"/><Type>
 INTEGER
 </Type>
 </Identifier>

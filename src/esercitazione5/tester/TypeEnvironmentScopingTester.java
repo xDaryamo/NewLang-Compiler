@@ -12,6 +12,7 @@ public class TypeEnvironmentScopingTester {
 
         FileWriter fileWriterScope = new FileWriter("./tests/outputScope.xml");
         FileWriter fileWriterType = new FileWriter("./tests/outputType.xml");
+        FileWriter fileWriterC = new FileWriter("./tests/program.c");
 
         String file = args[0];
         Lexer lexer = new Lexer(new FileReader(file));
@@ -35,7 +36,12 @@ public class TypeEnvironmentScopingTester {
 
         pr.accept(typeCheckingViewVisitor);
 
+        CodeGenVisitor codeGenVisitor = new CodeGenVisitor((ArrayList<String>) lexer.identifiersTable);
+        String cProgram = pr.accept(codeGenVisitor);
+        fileWriterC.append(cProgram);
+
         fileWriterScope.close();
         fileWriterType.close();
+        fileWriterC.close();
     }
 }

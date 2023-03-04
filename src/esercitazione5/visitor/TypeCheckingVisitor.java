@@ -351,9 +351,12 @@ public class TypeCheckingVisitor implements Visitor<Void>{
     @Override
     public Void visit(FunDecl funDecl) {
 
-        typeSystem.setFunReturnType(funDecl.getT());
-
         funDecl.getId().accept(this);
+
+        TabEntry tabEntry = funDecl.getCurrent_ref().findEntry(funDecl.getId().getIdentifier());
+        Signature signature = (Signature) tabEntry.getParams();
+
+        typeSystem.setFunReturnType(signature.getReturnType());
 
         funDecl.getBody().accept(this);
 

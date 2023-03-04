@@ -8,8 +8,7 @@ import java.util.ArrayList;
 
 public class CodeGenVisitor implements Visitor<String>{
 
-    public CodeGenVisitor(FileWriter file, ArrayList<String> stringTab) {
-        this.file = file;
+    public CodeGenVisitor(ArrayList<String> stringTab) {
         this.stringTab = stringTab;
     }
 
@@ -200,33 +199,43 @@ public class CodeGenVisitor implements Visitor<String>{
         Id funId = funCall.getId();
         ArrayList<Expr> funParams = funCall.getParams();
 
-        String funName = stringTab.get(funId.getIdentifier());
+        StringBuilder funName = new StringBuilder(stringTab.get(funId.getIdentifier()));
 
-        funName = funName + "(";
+        funName.append("(");
 
-        for(Expr e: funParams) {
+        TabEntry funEntry = funCall.getCurrent_ref().findEntry(funCall.getId().getIdentifier());
+        Signature signature = (Signature) funEntry.getParams();
 
-            Id id = (Id) e;
+        int index = 0;
+        ArrayList<TabEntry> funArgs = signature.getArguments();
+
+        for(int i = funCall.getParams().size() - 1; i >= 0 ; i--) {
+
+            Id id = (Id) funCall.getParams().get(i);
             TabEntry tabEntry = id.getCurrent_ref().findEntry(id.getIdentifier());
             Variable variable = (Variable) tabEntry.getParams();
-            Type type = variable.getType();
+
+            TabEntry formalParam = funArgs.get(index);
+            Variable formalParamSpecs = (Variable) formalParam.getParams();
 
             String variableName = id.accept(this);
 
-            if(variable.isByReference()){
+            if(formalParamSpecs.isByReference() && !variable.isByReference()){
                 variableName = "&" + variableName;
             }
 
-            funName = funName + getCType(type) + " " + variableName + ",";
+            index++;
+
+            funName.append(variableName).append(",");
 
         }
 
         if(funName.charAt(funName.length() - 1)==',')
-            funName = funName.substring(0, funName.length() - 1);
+            funName = new StringBuilder(funName.substring(0, funName.length() - 1));
 
-        funName = funName + ");";
+        funName.append(");");
 
-        return funName;
+        return funName.toString();
     }
 
     @Override
@@ -252,6 +261,7 @@ public class CodeGenVisitor implements Visitor<String>{
         if(assign.charAt(assign.length() - 1)==',')
             assign = assign.substring(0, assign.length() - 1);
 
+        if(!(assign.charAt(assign.length() - 1) == ';'))
         assign = assign + ";";
 
         return assign;
@@ -273,8 +283,6 @@ public class CodeGenVisitor implements Visitor<String>{
             else if (e instanceof FalseC)
                 expr = "false";
 
-
-
             String stringSpecifier = getStringSpecifier(type);
 
             printString = printString + stringSpecifier;
@@ -293,26 +301,47 @@ public class CodeGenVisitor implements Visitor<String>{
 
     }
 
-    private String getStringSpecifier(Type t) {
-        switch (t) {
-            case INTEGER:
-                return "%d";
-            case FLOAT:
-                return "%f";
-            case BOOLEAN:
-                return "%s";
-            case CHAR:
-                return "%c";
-            case STRING:
-                return "%s";
-            default:
-                return "";
-        }
-    }
-
     @Override
     public String visit(ReadStat readStat) {
-        return null;
+
+        StringBuilder result = new StringBuilder();
+
+        if(readStat.getS()!=null) {
+            String message = readStat.getS();
+            result.append("printf(\"").append(message).append("\");\n");
+        }
+
+        for(Id id: readStat.getL()) {
+
+            Type type = id.getTypeNode();
+            String varName = id.accept(this);
+
+            if(type.name().equalsIgnoreCase(Type.STRING.name())) {
+
+                String buffer = "char* buffer = (char*) malloc((1024*5)*sizeof(char) );\n";
+                result.append(buffer);
+                result.append("scanf(\"%s\", &buffer);\n");
+                String alloc = varName + "= (char*) malloc( (strlen(buffer) + 1) )*sizeof(char) );\n";
+                alloc = alloc + "strcpy(" + varName + ",buffer);\n free(buffer);\n";
+                result.append(alloc);
+            }
+
+            if(type.name().equalsIgnoreCase(Type.BOOLEAN.name())
+                || type.name().equalsIgnoreCase(Type.INTEGER.name())) {
+                result.append("scanf(\"%d\", ").append("&").append(varName).append(");");
+            }
+
+            if(type.name().equalsIgnoreCase(Type.FLOAT.name())) {
+                result.append("scanf(\"%f\", ").append("&").append(varName).append(");");
+            }
+
+            if(type.name().equalsIgnoreCase(Type.CHAR.name())) {
+                result.append("scanf(\"%c\", ").append("&").append(varName).append(");");
+            }
+
+        }
+
+        return result.toString();
     }
 
     @Override
@@ -344,7 +373,16 @@ public class CodeGenVisitor implements Visitor<String>{
 
     @Override
     public String visit(IfStat ifStat) {
-        return null;
+
+        String condition = ifStat.getE().accept(this);
+        String body = ifStat.getBody().accept(this);
+
+        if(ifStat.getEls()!=null) {
+            String elseBody = ifStat.getEls().accept(this);
+            return "if(" + condition + "){\n" + body + "}\n" + "else{" + elseBody + "}\n";
+        }
+
+        return "if(" + condition + "){\n" + body + "}\n";
     }
 
     @Override
@@ -357,60 +395,261 @@ public class CodeGenVisitor implements Visitor<String>{
 
     @Override
     public String visit(ParDecl parDecl) {
-        return null;
+
+        StringBuilder params = new StringBuilder();
+
+        for(int i = 0; i < parDecl.getL().size(); i++)
+        {
+            Id id = parDecl.getL().get(i);
+            TabEntry entry = id.getCurrent_ref().findEntry(id.getIdentifier());
+            Variable variable = (Variable) entry.getParams();
+
+            String varName = stringTab.get(id.getIdentifier());
+            String type = getCType(variable.getType());
+
+            if(variable.isByReference())
+                type = type + "*";
+
+            params.append(type).append(" ").append(varName).append(",");
+
+        }
+
+        return params.toString();
     }
 
     @Override
     public String visit(Body body) {
-        return null;
+
+        StringBuilder declarations = new StringBuilder();
+
+        StringBuilder statements = new StringBuilder();
+
+
+        for (VarDecl varDecl : body.getL1()) {
+            String declString = varDecl.accept(this);
+            declarations.append(declString);
+        }
+
+        for (Stat stat : body.getL2()) {
+            String stmtString = stat.accept(this);
+            statements.append(stmtString).append("\n");
+        }
+
+        return declarations + "\n" + statements + "\n";
     }
 
     @Override
     public String visit(FunDecl funDecl) {
-        return null;
+
+        StringBuilder result = new StringBuilder();
+        TabEntry funEntry = funDecl.getCurrent_ref().findEntry(funDecl.getId().getIdentifier());
+        Signature funSignature = (Signature) funEntry.getParams();
+
+        //main function case
+        if(funDecl.isMain()) {
+
+            result.append("void main(int argc, char *argv[]) {\n");
+
+            String funNewLangName = stringTab.get(funDecl.getId().getIdentifier());
+            result.append(funNewLangName);
+
+            String funCParams = "(";
+
+            funCParams = funCParams + ");\n";
+            result.append(funCParams).append("}\n\n");
+
+        }
+
+        String funType = getCType(funSignature.getReturnType());
+        result.append(funType).append(" ");
+
+        String funName = stringTab.get(funDecl.getId().getIdentifier());
+        result.append(funName).append("(");
+
+        StringBuilder funParams = new StringBuilder();
+        funParams.append(" ");
+
+        for(ParDecl p: funDecl.getL()) {
+
+            String par = p.accept(this);
+            funParams.append(par);
+        }
+
+        funParams = new StringBuilder(funParams.substring(0, funParams.length() - 1));
+
+        funParams.append("){\n");
+
+        result.append(funParams);
+
+        String body = funDecl.getBody().accept(this);
+        result.append(body).append("}\n");
+
+        return result.toString();
     }
 
     @Override
     public String visit(VarDecl varDecl) {
-        return null;
+
+        StringBuilder result = new StringBuilder();
+
+        for (IdInitBase init : varDecl.getL()) {
+
+           result.append(init.accept(this));
+        }
+
+        return result.toString();
     }
 
     @Override
     public String visit(IdInitObbl idInitObbl) {
-        return null;
-    }
 
+        String varName = idInitObbl.getId().accept(this);
+        String val = objectToCType(idInitObbl.getCnst());
+
+        return getCType(idInitObbl.getId().getTypeNode()) + " " + varName + " = " + val + ";\n";
+    }
     @Override
     public String visit(IdInitStmt idInitStmt) {
-        return null;
+
+        String varName = idInitStmt.getId().accept(this);
+        String expr;
+
+        if(idInitStmt.getExpr()!=null)
+            expr = "= " + idInitStmt.getExpr().accept(this);
+
+        else expr = "";
+
+        return getCType(idInitStmt.getId().getTypeNode()) + " " + varName + expr + ";\n";
     }
 
     @Override
     public String visit(Program program) {
-        return null;
+
+        StringBuilder cProgram = new StringBuilder();
+        cProgram.append(buildHeader());
+        cProgram.append(setString_concat());
+
+        for(Decl decl : program.getL())
+            if(decl instanceof FunDecl d)
+                cProgram.append(setPrototype(d));
+
+        cProgram.append("\n");
+
+        for(Decl decl : program.getL())
+            if(decl instanceof VarDecl)
+               cProgram.append( ((VarDecl)decl).accept(this) ).append("\n");
+
+            else cProgram.append( ((FunDecl)decl).accept(this) ).append("\n");
+
+        return cProgram.toString();
+    }
+
+    private String getStringSpecifier(Type t) {
+
+        switch (t) {
+            case INTEGER:
+                return "%d";
+            case FLOAT:
+                return "%f";
+            case BOOLEAN, STRING:
+                return "%s";
+            case CHAR:
+                return "%c";
+            default:
+                return "";
+        }
+    }
+
+    private String objectToCType(Object cnst) {
+
+        String returnExpr = null;
+
+        if(cnst instanceof String s) {
+            returnExpr = "= " + "\"" + s + "\"";
+        }
+
+        if(cnst instanceof Float f)
+            returnExpr = "= " + f;
+
+        if(cnst instanceof Integer i)
+            returnExpr = "= " + i;
+
+        if(cnst instanceof Character c)
+            returnExpr = "= " + c;
+
+        if(cnst instanceof Boolean b) {
+
+            if(b)
+                returnExpr = "1";
+
+            else returnExpr = "0";
+        }
+
+        return returnExpr;
     }
 
     private String getCType(Type t){
 
-        String returnType = null;
 
         switch (t) {
 
-            case STRING : returnType = "char*";
+            case STRING : return "char*";
 
-            case CHAR: returnType = "char";
+            case CHAR: return "char";
 
-            case FLOAT: returnType = "float";
+            case FLOAT: return "float";
 
-            case INTEGER: returnType = "int";
+            case INTEGER, BOOLEAN: return "int";
 
-            case VOID: returnType = "void";
+            case VOID: return "void";
+
+            default: return "T";
 
         }
 
-        return returnType;
     }
 
-    private FileWriter file;
+    private String buildHeader() {
+
+        return "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n#include <math.h> \n\n";
+    }
+
+    private String setString_concat(){
+
+        return "char* string_concat(int n, char* s){\n" +
+                "char buffer [sizeof(int)*4+1];\n" +
+                "sprintf(buffer,\"%d\",n);\n" +
+                "return strcat(buffer, s);\n" +
+                "}\n\n";
+    }
+
+    private String setPrototype(FunDecl funDecl){
+
+        StringBuilder result = new StringBuilder();
+        TabEntry funEntry = funDecl.getCurrent_ref().findEntry(funDecl.getId().getIdentifier());
+        Signature funSignature = (Signature) funEntry.getParams();
+
+        String funType = getCType(funSignature.getReturnType());
+        result.append(funType).append(" ");
+
+        String funName = stringTab.get(funDecl.getId().getIdentifier());
+        result.append(funName).append("(");
+
+        StringBuilder funParams = new StringBuilder(" ");
+
+        for(ParDecl p: funDecl.getL()) {
+
+            String par = p.accept(this);
+            funParams.append(par);
+        }
+
+        funParams = new StringBuilder(funParams.substring(0, funParams.length() - 1));
+
+        funParams.append(");\n");
+
+        result.append(funParams);
+
+        return result.toString();
+    }
     private ArrayList<String> stringTab;
 }

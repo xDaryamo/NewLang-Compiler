@@ -3,7 +3,6 @@ package esercitazione5.visitor;
 import esercitazione5.node.*;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class TypeSystem {
 

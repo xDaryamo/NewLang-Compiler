@@ -50,4 +50,8 @@ public class FunDecl extends Node implements Expr, Decl{
     private Id id;
 
     private boolean isMain;
+
+    public void setType(Type funReturnType) {
+        this.t = funReturnType;
+    }
 }

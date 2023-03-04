@@ -1,4 +1,23 @@
-def calculate(float x, y | out integer c) : float {
+def fibonacci() : void {
+
+    integer t1 << 0, t2 << 1;
+    integer next_term;
+
+    next_term << t1 + t2;
+
+    ("Fibonacci sequence: ") --> ;
+    (t1 & ", ") --> ;
+    (t2 & ", ") --> ;
+
+    for i << 3 to 30 loop {
+        (next_term & ", ") --> ;
+        t1 << t2;
+        t2 << next_term;
+        next_term << t1 + t2;
+    }
+}
+
+def calculate( float x, y | out integer c) : float {
 
     float result;
 
@@ -35,6 +54,7 @@ def calculatorNL() : void {
 
     float a, b;
     integer choice;
+    integer go_on;
     boolean flag << true;
     float result;
 
@@ -46,20 +66,27 @@ def calculatorNL() : void {
         ("3.Multiplication:") -->! ;
         ("4.Division:") -->! ;
         ("5.Pow:") -->! ;
+        ("6.Fibonacci sequence:") -->! ;
 
-        choice <-- "Choose an operation between 1 and 5";
-        a <-- "Insert first argument value: " ;
-        b <-- "Insert second argument value: " ;
+        choice <-- "Choose an operation between 1 and 6: ";
 
-        result << calculate(a, b, choice);
+        if(choice=6) then {
+            fibonacci();
+        } else {
 
-        ("Computation result: ") --> ;
-        (result) -->! ;
+            a <-- "Insert first argument value: " ;
+            b <-- "Insert second argument value: " ;
+
+            result << calculate(a, b, choice);
+
+            ("Computation result: ") --> ;
+            (result) -->! ;
+        }
 
         ("Continue?: 0/1") --> ;
-        choice <-- ;
+        go_on <-- ;
 
-        if(choice=0) then {
+        if(go_on=0) then {
             flag << false ;
         }
     }
