@@ -1,12 +1,57 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <math.h> 
+#include <math.h>
 
-char* string_concat(int n, char* s){
-char buffer [sizeof(int)*4+1];
-sprintf(buffer,"%d",n);
-return strcat(buffer, s);
+#define BUFFER_SIZE  (1024*4)
+
+char* string_concat(char* s1, char* s2)
+{
+    char* ns = malloc(strlen(s1) + strlen(s2) + 1);
+    strcat(ns, s1);
+    strcat(ns, s2);
+    return ns;
+}
+
+char* int2str(int n)
+{
+    char buffer[BUFFER_SIZE];
+    int len = sprintf(buffer,"%d",n);
+    char *ns = malloc(len + 1);
+    sprintf(ns,"%d",n);
+    return ns;
+}
+
+char* char2str(char c)
+{
+    char *ns = malloc(2);
+    sprintf(ns, "%c", c);
+    return ns;
+}
+
+    char* float2str(float f)
+    {
+        char buffer[BUFFER_SIZE];
+        int len = sprintf(buffer,"%f", f);
+        char *ns = malloc(len + 1);
+        sprintf(ns, "%f", f);
+        return ns;
+    }
+
+char* bool2str(int b)
+{
+    char* ns = NULL;
+    if(b)
+    {
+        ns = malloc(5);
+        strcpy(ns, "true");
+    }
+    else
+    {
+        ns = malloc(6);
+        strcpy(ns, "false");
+    }
+    return ns;
 }
 
 float calculate( float x,float y,int* c);
@@ -57,11 +102,11 @@ int t2= 1;
 
 next_term = t1 + t2;
 printf("%s","Fibonacci sequence: ");
-printf("%s",string_concat(t1, ", "));
-printf("%s",string_concat(t2, ", "));
+printf("%s",string_concat(int2str(t1), ", "));
+printf("%s",string_concat(int2str(t2), ", "));
 for(int i=3;i<=30;i++){
 
-printf("%s",string_concat(next_term, ", "));
+printf("%s",string_concat(int2str(next_term), ", "));
 t1 = t2;
 t2 = next_term;
 next_term = t1 + t2;
@@ -111,7 +156,7 @@ printf("%f\n",result);
 
 }
 
-printf("%s","Continue?: 0/1");
+printf("%s","Continue? 0/1: ");
 scanf("%d", &go_on);
 if(go_on == 0){
 
@@ -123,6 +168,7 @@ flag = 0;
 
 }
 
+printf("%s\n",string_concat(string_concat(string_concat(int2str(1), float2str(4.5)), "a"), bool2str(1)));
 
 }
 

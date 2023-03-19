@@ -186,12 +186,9 @@ public class TypeSystem {
 
         if(op.equalsIgnoreCase("concatOp")){
 
-            if(y==Type.STRING && x!=Type.VAR && x!=Type.VOID)
+            if((x!=Type.VAR && x!=Type.VOID) && (y!=Type.VAR && y!=Type.VOID)){
                 return Type.STRING;
-
-            if(x==Type.STRING && y!=Type.VAR && y!=Type.VOID)
-                return Type.STRING;
-
+            }
         }
 
         else if(op.equalsIgnoreCase("andOp") || op.equalsIgnoreCase("orOp")){

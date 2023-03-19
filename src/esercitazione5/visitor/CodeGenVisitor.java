@@ -99,10 +99,13 @@ public class CodeGenVisitor implements Visitor<String>{
 
     @Override
     public String visit(ConcatOp concatOp) {
+
+        Type leftT = ((Node)concatOp.getLeft()).getTypeNode();
+        Type rightT = ((Node)concatOp.getRight()).getTypeNode();
         String left = concatOp.getLeft().accept(this);
         String right = concatOp.getRight().accept(this);
 
-        return "string_concat(" + left + ", " + right + ")";
+        return "string_concat(" + objectToCString(left, leftT) + ", " + objectToCString(right, rightT) + ")";
     }
 
     @Override
@@ -527,7 +530,6 @@ public class CodeGenVisitor implements Visitor<String>{
 
         StringBuilder cProgram = new StringBuilder();
         cProgram.append(buildHeader());
-        cProgram.append(setString_concat());
 
         for(Decl decl : program.getL())
             if(decl instanceof FunDecl d)
@@ -544,6 +546,9 @@ public class CodeGenVisitor implements Visitor<String>{
         return cProgram.toString();
     }
 
+
+
+    //metodi privati utility
     private String getStringSpecifier(Type t) {
 
         switch (t) {
@@ -603,7 +608,20 @@ public class CodeGenVisitor implements Visitor<String>{
 
             case VOID: return "void";
 
-            default: return "T";
+            default: return "";
+
+        }
+
+    }
+
+    private String objectToCString(String expression, Type type) {
+        switch (type) {
+            case INTEGER: return "int2str(" + expression + ")";
+            case CHAR: return "char2str(" + expression +  ")";
+            case FLOAT: return "float2str(" + expression +  ")";
+            case BOOLEAN: return "bool2str(" + expression +  ")";
+            case STRING: return expression;
+            default: return "";
 
         }
 
@@ -611,21 +629,94 @@ public class CodeGenVisitor implements Visitor<String>{
 
     private String buildHeader() {
 
-        return "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n#include <math.h> \n\n";
+        StringBuilder header = new StringBuilder();
+
+
+        header.append("""
+            #include <stdio.h>
+            #include <stdlib.h>
+            #include <string.h>
+            #include <math.h>
+            
+            #define BUFFER_SIZE  (1024*4)
+        
+            """);
+
+        //funzioni helper
+        header.append("""
+            char* string_concat(char* s1, char* s2)
+            {
+                char* ns = malloc(strlen(s1) + strlen(s2) + 1);
+                strcat(ns, s1);
+                strcat(ns, s2);
+                return ns;
+            }
+            
+            """);
+
+        header.append("""
+            char* int2str(int n)
+            {
+                char buffer[BUFFER_SIZE];
+                int len = sprintf(buffer,"%d",n);
+                char *ns = malloc(len + 1);
+                sprintf(ns,"%d",n);
+                return ns;
+            }
+                
+            """);
+
+
+        header.append("""
+            char* char2str(char c)
+            {
+                char *ns = malloc(2);
+                sprintf(ns, "%c", c);
+                return ns;
+            }
+            
+            """);
+
+        header.append("""
+            char* float2str(float f)
+            {
+                char buffer[BUFFER_SIZE];
+                int len = sprintf(buffer,"%f", f);
+                char *ns = malloc(len + 1);
+                sprintf(ns, "%f", f);
+                return ns;
+            }
+            
+        """);
+
+        header.append("""
+            char* bool2str(int b)
+            {
+                char* ns = NULL;
+                if(b)
+                {
+                    ns = malloc(5);
+                    strcpy(ns, "true");
+                }
+                else
+                {
+                    ns = malloc(6);
+                    strcpy(ns, "false");
+                }
+                return ns;
+            }
+            
+            """);
+
+        return header.toString();
     }
 
-    private String setString_concat(){
 
-        return "char* string_concat(int n, char* s){\n" +
-                "char buffer [sizeof(int)*4+1];\n" +
-                "sprintf(buffer,\"%d\",n);\n" +
-                "return strcat(buffer, s);\n" +
-                "}\n\n";
-    }
 
     private String setPrototype(FunDecl funDecl){
 
         StringBuilder result = new StringBuilder();
+
         TabEntry funEntry = funDecl.getCurrent_ref().findEntry(funDecl.getId().getIdentifier());
         Signature funSignature = (Signature) funEntry.getParams();
 
@@ -651,5 +742,8 @@ public class CodeGenVisitor implements Visitor<String>{
 
         return result.toString();
     }
+
+
+
     private ArrayList<String> stringTab;
 }
