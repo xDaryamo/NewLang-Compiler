@@ -840,7 +840,7 @@ NOTYPE
 </IfStat>
 <WriteStat>
 <StringC>
-<String value ="Continue?: 0/1"/><Type>
+<String value ="Continue? 0/1: "/><Type>
 STRING
 </Type>
 </StringC>
@@ -906,6 +906,46 @@ NOTYPE
 NOTYPE
 </Type>
 </WhileStat>
+<WriteStat>
+<ConcatOp>
+<ConcatOp>
+<ConcatOp>
+<IntegerC>
+<Integer value ="1"/><Type>
+INTEGER
+</Type>
+</IntegerC>
+<RealC>
+<Float value ="4.5"/><Type>
+FLOAT
+</Type>
+</RealC>
+<Type>
+STRING
+</Type>
+</ConcatOp>
+<StringC>
+<String value ="a"/><Type>
+STRING
+</Type>
+</StringC>
+<Type>
+STRING
+</Type>
+</ConcatOp>
+<TrueC>
+<Boolean value ="true"/><Type>
+BOOLEAN
+</Type>
+</TrueC>
+<Type>
+STRING
+</Type>
+</ConcatOp>
+<Type>
+NOTYPE
+</Type>
+</WriteStat>
 <Type>
 NOTYPE
 </Type>

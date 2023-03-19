@@ -168,7 +168,6 @@ flag = 0;
 
 }
 
-printf("%s\n",string_concat(string_concat(string_concat(int2str(1), float2str(4.5)), "a"), bool2str(1)));
 
 }
 
