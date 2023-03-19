@@ -364,6 +364,8 @@ public class TypeCheckingVisitor implements Visitor<Void>{
             throw new RuntimeException("Type System Error");
 
         for(ParDecl p: funDecl.getL()) {
+            if(funDecl.isMain() && p.getFlag())
+                throw new RuntimeException("You cannot pass by reference a parameter to the main function");
             p.accept(this);
             if (!p.getTypeNode().name().equalsIgnoreCase(Type.NOTYPE.name()))
                 throw new RuntimeException("Type System Error");

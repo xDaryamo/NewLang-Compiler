@@ -8,7 +8,7 @@
 char* string_concat(char* s1, char* s2)
 {
     char* ns = malloc(strlen(s1) + strlen(s2) + 1);
-    strcat(ns, s1);
+    strcpy(ns, s1);
     strcat(ns, s2);
     return ns;
 }
@@ -54,121 +54,23 @@ char* bool2str(int b)
     return ns;
 }
 
-float calculate( float x,float y,int* c);
-void fibonacci();
-void calculatorNL();
+void esempio( int a,int b,float c);
 
-float calculate( float x,float y,int* c){
-float result;
+void main(int argc, char *argv[])
+{
 
-if(*c == 1){
-
-result = x + y;
-
+if(argc<4)
+{
+    printf("missing argument\n");
+    exit(-1);
 }
 
-if(*c == 2){
-
-result = x - y;
-
+esempio(atoi(argv[1]),atoi(argv[2]),atof(argv[3]));
 }
 
-if(*c == 3){
+void esempio( int a,int b,float c){
 
-result = x * y;
-
-}
-
-if(*c == 4){
-
-result = x / y;
-
-}
-
-if(*c == 5){
-
-result = pow(x, y);
-
-}
-
-return result;
-
-}
-
-void fibonacci(){
-int next_term;
-int t1= 0;
-int t2= 1;
-
-next_term = t1 + t2;
-printf("%s","Fibonacci sequence: ");
-printf("%s",string_concat(int2str(t1), ", "));
-printf("%s",string_concat(int2str(t2), ", "));
-for(int i=3;i<=30;i++){
-
-printf("%s",string_concat(int2str(next_term), ", "));
-t1 = t2;
-t2 = next_term;
-next_term = t1 + t2;
-
-
-}
-
-
-}
-
-void main(int argc, char *argv[]) {
-calculatorNL();
-}
-
-void calculatorNL(){
-float result;
-int flag= 1;
-int go_on;
-int choice;
-float a;
-float b;
-
-while(flag == 1){
-
-printf("%s\n","Menu:");
-printf("%s\n","1.Sum:");
-printf("%s\n","2.Subtraction:");
-printf("%s\n","3.Multiplication:");
-printf("%s\n","4.Division:");
-printf("%s\n","5.Pow:");
-printf("%s\n","6.Fibonacci sequence:");
-printf("Choose an operation between 1 and 6: ");
-scanf("%d", &choice);
-if(choice == 6){
-
-fibonacci();
-
-}
-else{
-printf("Insert first argument value: ");
-scanf("%f", &a);
-printf("Insert second argument value: ");
-scanf("%f", &b);
-result = calculate(a,b,&choice);
-printf("%s","Computation result: ");
-printf("%f\n",result);
-
-}
-
-printf("%s","Continue? 0/1: ");
-scanf("%d", &go_on);
-if(go_on == 0){
-
-flag = 0;
-
-}
-
-
-
-}
-
-printf("%s\n",string_concat(string_concat(string_concat(int2str(1), float2str(4.5)), "a"), bool2str(1)));
+printf("%s\n",string_concat(string_concat(string_concat(string_concat(string_concat(string_concat(int2str(a), " "), " "), " "), int2str(b)), " "), float2str(c)));
 
 }
 

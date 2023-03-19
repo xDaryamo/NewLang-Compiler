@@ -451,15 +451,40 @@ public class CodeGenVisitor implements Visitor<String>{
         //main function case
         if(funDecl.isMain()) {
 
-            result.append("void main(int argc, char *argv[]) {\n");
+
+            result.append("""
+                void main(int argc, char *argv[]) 
+                {
+                    
+                """);
+            int index = 1;
+
+            //
+            StringBuilder funParams = new StringBuilder();
+
+            for(ParDecl p: funDecl.getL()) {
+                Type type = p.getT();
+
+                for(Id id: p.getL()) {
+                    funParams.append(stringToCType("argv["+index+"]", type)+",");
+                    index++;
+                }
+            }
+            if (funDecl.getL().size()>0)
+                funParams = new StringBuilder(funParams.substring(0, funParams.length() - 1));
+
+
+            result.append("if(argc<"+index+")\n");
+            result.append("""
+                {
+                    printf("missing argument\\n");
+                    exit(-1);
+                }
+                
+                """);
 
             String funNewLangName = stringTab.get(funDecl.getId().getIdentifier());
-            result.append(funNewLangName);
-
-            String funCParams = "(";
-
-            funCParams = funCParams + ");\n";
-            result.append(funCParams).append("}\n\n");
+            result.append(funNewLangName).append("(").append(funParams).append(");\n").append("}\n\n");
 
         }
 
@@ -627,6 +652,22 @@ public class CodeGenVisitor implements Visitor<String>{
 
     }
 
+    private String stringToCType(String expression, Type type){
+        switch (type) {
+            case INTEGER: return "atoi(" + expression + ")";
+            case CHAR: return expression+"[0]";
+            case FLOAT: return "atof(" + expression +  ")";
+            case BOOLEAN:
+                if(expression.equals("true"))
+                    return "atoi(1)";
+                else
+                    return "atoi(0)";
+            case STRING: return expression;
+            default: return "";
+
+        }
+    }
+
     private String buildHeader() {
 
         StringBuilder header = new StringBuilder();
@@ -647,7 +688,7 @@ public class CodeGenVisitor implements Visitor<String>{
             char* string_concat(char* s1, char* s2)
             {
                 char* ns = malloc(strlen(s1) + strlen(s2) + 1);
-                strcat(ns, s1);
+                strcpy(ns, s1);
                 strcat(ns, s2);
                 return ns;
             }
@@ -707,6 +748,9 @@ public class CodeGenVisitor implements Visitor<String>{
             }
             
             """);
+
+
+
 
         return header.toString();
     }
