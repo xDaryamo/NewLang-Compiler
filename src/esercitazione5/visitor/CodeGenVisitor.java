@@ -470,7 +470,7 @@ public class CodeGenVisitor implements Visitor<String>{
                     index++;
                 }
             }
-            if (funDecl.getL().size()>0)
+            if (funDecl.getL().size()!=0)
                 funParams = new StringBuilder(funParams.substring(0, funParams.length() - 1));
 
 
@@ -543,7 +543,7 @@ public class CodeGenVisitor implements Visitor<String>{
         String expr;
 
         if(idInitStmt.getExpr()!=null)
-            expr = "= " + idInitStmt.getExpr().accept(this);
+            expr = " = " + idInitStmt.getExpr().accept(this);
 
         else expr = "";
 
@@ -595,17 +595,17 @@ public class CodeGenVisitor implements Visitor<String>{
         String returnExpr = null;
 
         if(cnst instanceof String s) {
-            returnExpr = "= " + "\"" + s + "\"";
+            returnExpr = "\"" + s + "\"";
         }
 
         if(cnst instanceof Float f)
-            returnExpr = "= " + f;
+            returnExpr = f.toString();
 
         if(cnst instanceof Integer i)
-            returnExpr = "= " + i;
+            returnExpr = i.toString();
 
         if(cnst instanceof Character c)
-            returnExpr = "= " + c;
+            returnExpr = c.toString();
 
         if(cnst instanceof Boolean b) {
 
@@ -768,9 +768,16 @@ public class CodeGenVisitor implements Visitor<String>{
         result.append(funType).append(" ");
 
         String funName = stringTab.get(funDecl.getId().getIdentifier());
+
+
+        if(!funDecl.isMain() && funName.equals("main")) {
+            funName = funName + "1";
+            stringTab.set(funDecl.getId().getIdentifier(), funName);
+        }
+
         result.append(funName).append("(");
 
-        StringBuilder funParams = new StringBuilder(" ");
+        StringBuilder funParams = new StringBuilder();
 
         for(ParDecl p: funDecl.getL()) {
 
@@ -778,7 +785,8 @@ public class CodeGenVisitor implements Visitor<String>{
             funParams.append(par);
         }
 
-        funParams = new StringBuilder(funParams.substring(0, funParams.length() - 1));
+        if(funDecl.getL().size()!=0)
+            funParams = new StringBuilder(funParams.substring(0, funParams.length() - 1));
 
         funParams.append(");\n");
 

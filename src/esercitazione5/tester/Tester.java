@@ -10,9 +10,9 @@ import java.util.ArrayList;
 public class Tester {
     public static void main(String[] args) throws Exception {
 
-        FileWriter fileWriterScope = new FileWriter("./tests/outputScope.xml");
-        FileWriter fileWriterType = new FileWriter("./tests/outputType.xml");
-        FileWriter fileWriterC = new FileWriter("./tests/program.c");
+        FileWriter fileWriterScope = new FileWriter(args[1]+"Scope.xml");
+        FileWriter fileWriterType = new FileWriter(args[1]+"Type.xml");
+        FileWriter fileWriterC = new FileWriter(args[1]+".c");
 
         String file = args[0];
         Lexer lexer = new Lexer(new FileReader(file));

@@ -2,7 +2,7 @@
 setlocal enabledelayedexpansion
 
 set source-code=%1
-
+set output-file=%2
 
 
 
@@ -11,10 +11,9 @@ for %%x in (%*) do (
    set /A argCount+=1
    set "argVec[!argCount!]=%%~x"
 )
-for /L %%i in (2,1,%argCount%) do call set "parameters=%%parameters%% !argVec[%%i]!"
+for /L %%i in (3,1,%argCount%) do call set "parameters=%%parameters%% !argVec[%%i]!"
 set parameters=%parameters:~1%
 
-java -jar .\nlc.jar %source-code%
-gcc .\tests\program.c -o .\tests\program -lm
-del .\tests\program.c
-.\tests\program %parameters%
+java -jar .\nlc.jar %source-code% %output-file%
+gcc %output-file%.c -o %output-file% -lm
+%output-file% %parameters%

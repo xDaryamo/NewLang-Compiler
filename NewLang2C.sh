@@ -1,23 +1,19 @@
 #!/bin/bash
 
-source-code=$1
+source_code=$1
+output_file=$2
 
 index=0
 parameters=""
 for var in "$@"
 do
-    if [$index -gt 1]
+    if [$index -gt 2]
     then
       parameters+="$var "
     fi
     i+=1
 done
 
-java -jar ./NewLangCompiler.jar $1
-gcc "test_files/c_out/${onlyname}.c" -o $2 -lm
-
-
-java -jar .\nlc.jar $1
-gcc .\tests\program.c -o .\tests\program -lm
-rm .\tests\program.c
-.\tests\program $parameters
+java -jar .\nlc.jar $source_code $output_file
+gcc $source_code+".c" -o $output_file -lm
+$output_file $parameters
