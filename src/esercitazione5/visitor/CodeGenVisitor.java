@@ -5,6 +5,7 @@ import esercitazione5.node.*;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class CodeGenVisitor implements Visitor<String>{
 
@@ -771,7 +772,11 @@ public class CodeGenVisitor implements Visitor<String>{
 
 
         if(!funDecl.isMain() && funName.equals("main")) {
-            funName = funName + "1";
+            Random rand = new Random();
+            do {
+                funName = funName + rand.nextInt(100);
+            }while (stringTab.get(funDecl.getId().getIdentifier()).equals(funName));
+
             stringTab.set(funDecl.getId().getIdentifier(), funName);
         }
 

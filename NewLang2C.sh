@@ -15,5 +15,5 @@ do
 done
 
 java -jar .\nlc.jar $source_code $output_file
-gcc $source_code+".c" -o $output_file -lm
+gcc -c $source_code+".c" -o $output_file -lm
 $output_file $parameters
