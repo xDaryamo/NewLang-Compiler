@@ -56,7 +56,7 @@ char* bool2str(int b)
 
 float calculate(float x,float y,int* c);
 void fibonacci();
-void main97();
+void main17();
 void calculatorNL();
 
 float calculate( float x,float y,int* c){
@@ -118,7 +118,7 @@ next_term = t1 + t2;
 
 }
 
-void main97(){
+void main17(){
 
 printf("%s\n","Not main function");
 

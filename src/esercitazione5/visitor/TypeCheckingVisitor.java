@@ -2,10 +2,13 @@ package esercitazione5.visitor;
 
 import esercitazione5.node.*;
 
+import java.util.ArrayList;
+
 public class TypeCheckingVisitor implements Visitor<Void>{
 
-    public TypeCheckingVisitor() {
-        this.typeSystem = new TypeSystem();
+
+    public TypeCheckingVisitor(ArrayList<String> stringTab) {
+        this.typeSystem = new TypeSystem(stringTab);
     }
 
     private final TypeSystem typeSystem;
@@ -319,8 +322,11 @@ public class TypeCheckingVisitor implements Visitor<Void>{
     @Override
     public Void visit(ReturnStat returnStat) {
 
-        returnStat.getE().accept(this);
+        if(returnStat.getE()!=null)
+            returnStat.getE().accept(this);
+
         returnStat.setTypeNode(typeSystem.opConstructCheck("returnStat", returnStat));
+
         return null;
     }
 

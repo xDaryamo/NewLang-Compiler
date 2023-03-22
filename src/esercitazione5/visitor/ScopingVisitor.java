@@ -31,15 +31,15 @@ public class ScopingVisitor implements Visitor<Void>{
 
         if (symTabStack.isEmpty()) {
             throw new RuntimeException(
-                    "Type environment visitor tried to add " + stringTab.get(key) + " to a non existing scope!");
+                    "Type environment visitor tried to add \"" + stringTab.get(key) + "\" to a non existing scope!");
         }
 
         SymTab crScope = symTabStack.peek();
 
         if (crScope.isInScope(key)) {
             throw new RuntimeException(
-                    "Type environment visitor tried to add " + stringTab.get(key)
-                            + " to current scope but it already contained the name!");
+                    "Type environment visitor tried to add \"" + stringTab.get(key)
+                            + "\" to current scope but it already contained the name!");
         }
 
         crScope.addEntry(key, entry);

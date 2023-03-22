@@ -18,7 +18,7 @@ public class Tester {
 
         FileWriter fileWriterScope = new FileWriter(fileScope);
         FileWriter fileWriterType = new FileWriter(fileType);
-        FileWriter fileWriterC = new FileWriter(fileScope);
+        FileWriter fileWriterC = new FileWriter(fileC);
 
         String file = args[0];
         Lexer lexer = new Lexer(new FileReader(file));
@@ -32,7 +32,7 @@ public class Tester {
 
             pr.accept(visitor);
 
-            TypeCheckingVisitor typeCheckingVisitor = new TypeCheckingVisitor();
+            TypeCheckingVisitor typeCheckingVisitor = new TypeCheckingVisitor((ArrayList<String>) lexer.identifiersTable);
             pr.accept(typeCheckingVisitor);
 
             ScopingViewVisitor scopingViewVisitor =
@@ -50,6 +50,7 @@ public class Tester {
             fileWriterC.append(cProgram);
         } catch (Exception e) {
             System.out.println(e.getMessage());
+            //e.printStackTrace();
             fileWriterScope.close();
             fileWriterType.close();
             fileWriterC.close();

@@ -1,13 +1,18 @@
 package esercitazione5.visitor;
 
+import com.google.common.escape.ArrayBasedUnicodeEscaper;
 import esercitazione5.node.*;
 
 import java.util.ArrayList;
 
 public class TypeSystem {
 
-    public TypeSystem() {}
+    public TypeSystem(ArrayList<String> stringTab) {
+        this.stringTab = stringTab;
+    }
     private Type funReturnType = null;
+
+    private ArrayList<String> stringTab;
 
     public void setFunReturnType(Type funReturnType) {
         this.funReturnType = funReturnType;
@@ -16,6 +21,22 @@ public class TypeSystem {
     public Type opFunCheck(String funOp, Node fun){
 
         if(funOp.equalsIgnoreCase("funDecl")) {
+
+            FunDecl decl = (FunDecl) fun;
+            if(funReturnType != Type.VOID) {
+                ArrayList<Stat> stats = ((FunDecl) fun).getBody().getL2();
+                boolean returnFlag = false;
+                for(Stat st : stats) {
+                    if (st instanceof ReturnStat) {
+                        returnFlag = true;
+                        break;
+                    }
+                }
+
+                if(!returnFlag)
+                    throw new RuntimeException("Missing return statement!");
+
+            }
 
             return Type.NOTYPE;
 
@@ -30,7 +51,7 @@ public class TypeSystem {
             ArrayList<TabEntry> args = signature.getArguments();
 
             if(args.size() != call.getParams().size())
-                throw new RuntimeException("The number fo arguments of function " + call.getId().getIdentifier()
+                throw new RuntimeException("The number fo arguments of function " + stringTab.get(call.getId().getIdentifier())
                         + " does not match the number of formal parameters of function signature!");
 
             int bound = call.getParams().size() - 1;
@@ -151,11 +172,14 @@ public class TypeSystem {
 
             ReturnStat stat = (ReturnStat)n;
 
+            if((stat.getE() == null) && !(funReturnType.name().equalsIgnoreCase(Type.VOID.name())))
+                throw new RuntimeException("The return type of function isn't void!");
+
             if( ((Node)stat.getE()).getTypeNode().name().equalsIgnoreCase(Type.VAR.name()))
                 throw new RuntimeException("Type System Error");
 
-            if( !((Node)stat.getE()).getTypeNode().name().equalsIgnoreCase(funReturnType.name()) )
-                throw new RuntimeException("Type System Error");
+            if( !(Type.compatibility( ((Node)stat.getE() ).getTypeNode(), funReturnType)) )
+                throw new RuntimeException("Type Mismatch Error");
 
             if( stat.getE() != null
                     && funReturnType.name().equalsIgnoreCase(Type.VOID.name()))
@@ -228,11 +252,6 @@ public class TypeSystem {
             if(x==Type.INTEGER && y==Type.INTEGER)
                 return Type.BOOLEAN;
 
-            if(x==Type.CHAR && y==Type.CHAR)
-                return Type.BOOLEAN;
-
-            if(x==Type.STRING && y==Type.STRING)
-                return Type.BOOLEAN;
 
             if(x==Type.FLOAT && y==Type.FLOAT)
                 return Type.BOOLEAN;
@@ -290,7 +309,7 @@ public class TypeSystem {
 
             if (entry == null)
                 throw new RuntimeException("TypeChecking visitor tried to find the name: "
-                        + id.getIdentifier() + " but there is no such declaration");
+                        + stringTab.get(id.getIdentifier()) + " but there is no such declaration");
 
             Type returnedType = null;
             
@@ -336,4 +355,5 @@ public class TypeSystem {
 
         throw new IllegalStateException("Type System Error");
     }
+
 }
