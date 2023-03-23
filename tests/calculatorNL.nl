@@ -19,7 +19,8 @@ def fibonacci() : void {
 
 def calculate( float x, y | out integer c) : float {
 
-    float result;
+    float result << 0;
+    integer index << 0;
 
     if(c=1) then {
 
@@ -32,9 +33,13 @@ def calculate( float x, y | out integer c) : float {
     }
 
     if(c=3) then {
-
-       result << x * y ;
+        while index < y loop {
+            result << result + x;
+            index << index + 1;
+        }
     }
+
+
 
     if(c=4) then {
 
