@@ -12,7 +12,7 @@ Esempio (su windows):
 
 
 
-#Note: #
+# Note: #
 Il file .sh non è stato testato in quanto non disponevamo di un mac o un pc con linux al momento.
 
 Il terminale REAL della produzione Type è stato modificato in FLOAT.
