@@ -1,0 +1,120 @@
+<Program>
+<FunDecl>
+<Identifier>
+<Identifier value ="main"/><Type>
+VOID
+</Type>
+</Identifier>
+<Body>
+<WriteStat>
+<StringC>
+<String value ="Not main function"/><Type>
+STRING
+</Type>
+</StringC>
+<Type>
+NOTYPE
+</Type>
+</WriteStat>
+<Type>
+NOTYPE
+</Type>
+</Body>
+<Type>
+NOTYPE
+</Type>
+</FunDecl>
+<FunDecl>
+<Identifier>
+<Identifier value ="calculatorNL"/><Type>
+VOID
+</Type>
+</Identifier>
+<ParDecl>
+<Identifier>
+<Identifier value ="a"/><Type>
+INTEGER
+</Type>
+</Identifier>
+<Identifier>
+<Identifier value ="b"/><Type>
+INTEGER
+</Type>
+</Identifier>
+<Type>
+NOTYPE
+</Type>
+</ParDecl>
+<ParDecl>
+<Identifier>
+<Identifier value ="c"/><Type>
+FLOAT
+</Type>
+</Identifier>
+<Type>
+NOTYPE
+</Type>
+</ParDecl>
+<Body>
+<WriteStat>
+<ConcatOp>
+<ConcatOp>
+<ConcatOp>
+<ConcatOp>
+<Identifier>
+<Identifier value ="a"/><Type>
+INTEGER
+</Type>
+</Identifier>
+<StringC>
+<String value =" "/><Type>
+STRING
+</Type>
+</StringC>
+<Type>
+STRING
+</Type>
+</ConcatOp>
+<Identifier>
+<Identifier value ="b"/><Type>
+INTEGER
+</Type>
+</Identifier>
+<Type>
+STRING
+</Type>
+</ConcatOp>
+<StringC>
+<String value =" "/><Type>
+STRING
+</Type>
+</StringC>
+<Type>
+STRING
+</Type>
+</ConcatOp>
+<Identifier>
+<Identifier value ="c"/><Type>
+FLOAT
+</Type>
+</Identifier>
+<Type>
+STRING
+</Type>
+</ConcatOp>
+<Type>
+NOTYPE
+</Type>
+</WriteStat>
+<Type>
+NOTYPE
+</Type>
+</Body>
+<Type>
+NOTYPE
+</Type>
+</FunDecl>
+<Type>
+NOTYPE
+</Type>
+</Program>

@@ -1,0 +1,122 @@
+<Program>
+<FunDecl>
+<Identifier>
+<Identifier value ="forTest"/><TypeEnv>
+SymTabHashMap:
+{0=TabEntry[id=esercitazione5.node.Id@31cefde0, params=Signature[, returnType=VOID, arguments=[]]]}
+</TypeEnv>
+</Identifier>
+<Body>
+<ForStat>
+<Identifier>
+<Identifier value ="i"/><TypeEnv>
+SymTabHashMap:
+{0=TabEntry[id=esercitazione5.node.Id@31cefde0, params=Signature[, returnType=VOID, arguments=[]]]}
+SymTabHashMap:
+{}
+SymTabHashMap:
+{1=TabEntry[id=esercitazione5.node.Id@5197848c, params=Variable[type=INTEGER, byReference=false]]}
+</TypeEnv>
+</Identifier>
+<Body>
+<WriteStat>
+<StringC>
+<String value ="Ciao!"/><TypeEnv>
+SymTabHashMap:
+{0=TabEntry[id=esercitazione5.node.Id@31cefde0, params=Signature[, returnType=VOID, arguments=[]]]}
+SymTabHashMap:
+{}
+SymTabHashMap:
+{1=TabEntry[id=esercitazione5.node.Id@5197848c, params=Variable[type=INTEGER, byReference=false]]}
+</TypeEnv>
+</StringC>
+<TypeEnv>
+SymTabHashMap:
+{0=TabEntry[id=esercitazione5.node.Id@31cefde0, params=Signature[, returnType=VOID, arguments=[]]]}
+SymTabHashMap:
+{}
+SymTabHashMap:
+{1=TabEntry[id=esercitazione5.node.Id@5197848c, params=Variable[type=INTEGER, byReference=false]]}
+</TypeEnv>
+</WriteStat>
+<TypeEnv>
+SymTabHashMap:
+{0=TabEntry[id=esercitazione5.node.Id@31cefde0, params=Signature[, returnType=VOID, arguments=[]]]}
+SymTabHashMap:
+{}
+SymTabHashMap:
+{1=TabEntry[id=esercitazione5.node.Id@5197848c, params=Variable[type=INTEGER, byReference=false]]}
+</TypeEnv>
+</Body>
+<TypeEnv>
+SymTabHashMap:
+{0=TabEntry[id=esercitazione5.node.Id@31cefde0, params=Signature[, returnType=VOID, arguments=[]]]}
+SymTabHashMap:
+{}
+</TypeEnv>
+</ForStat>
+<ForStat>
+<Identifier>
+<Identifier value ="i"/><TypeEnv>
+SymTabHashMap:
+{0=TabEntry[id=esercitazione5.node.Id@31cefde0, params=Signature[, returnType=VOID, arguments=[]]]}
+SymTabHashMap:
+{}
+SymTabHashMap:
+{1=TabEntry[id=esercitazione5.node.Id@6267c3bb, params=Variable[type=INTEGER, byReference=false]]}
+</TypeEnv>
+</Identifier>
+<Body>
+<WriteStat>
+<StringC>
+<String value ="Ciao!"/><TypeEnv>
+SymTabHashMap:
+{0=TabEntry[id=esercitazione5.node.Id@31cefde0, params=Signature[, returnType=VOID, arguments=[]]]}
+SymTabHashMap:
+{}
+SymTabHashMap:
+{1=TabEntry[id=esercitazione5.node.Id@6267c3bb, params=Variable[type=INTEGER, byReference=false]]}
+</TypeEnv>
+</StringC>
+<TypeEnv>
+SymTabHashMap:
+{0=TabEntry[id=esercitazione5.node.Id@31cefde0, params=Signature[, returnType=VOID, arguments=[]]]}
+SymTabHashMap:
+{}
+SymTabHashMap:
+{1=TabEntry[id=esercitazione5.node.Id@6267c3bb, params=Variable[type=INTEGER, byReference=false]]}
+</TypeEnv>
+</WriteStat>
+<TypeEnv>
+SymTabHashMap:
+{0=TabEntry[id=esercitazione5.node.Id@31cefde0, params=Signature[, returnType=VOID, arguments=[]]]}
+SymTabHashMap:
+{}
+SymTabHashMap:
+{1=TabEntry[id=esercitazione5.node.Id@6267c3bb, params=Variable[type=INTEGER, byReference=false]]}
+</TypeEnv>
+</Body>
+<TypeEnv>
+SymTabHashMap:
+{0=TabEntry[id=esercitazione5.node.Id@31cefde0, params=Signature[, returnType=VOID, arguments=[]]]}
+SymTabHashMap:
+{}
+</TypeEnv>
+</ForStat>
+<TypeEnv>
+SymTabHashMap:
+{0=TabEntry[id=esercitazione5.node.Id@31cefde0, params=Signature[, returnType=VOID, arguments=[]]]}
+SymTabHashMap:
+{}
+</TypeEnv>
+</Body>
+<TypeEnv>
+SymTabHashMap:
+{0=TabEntry[id=esercitazione5.node.Id@31cefde0, params=Signature[, returnType=VOID, arguments=[]]]}
+</TypeEnv>
+</FunDecl>
+<TypeEnv>
+SymTabHashMap:
+{0=TabEntry[id=esercitazione5.node.Id@31cefde0, params=Signature[, returnType=VOID, arguments=[]]]}
+</TypeEnv>
+</Program>

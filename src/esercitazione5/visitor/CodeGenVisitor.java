@@ -9,8 +9,10 @@ import java.util.Random;
 
 public class CodeGenVisitor implements Visitor<String>{
 
+    private StringBuilder globalsVarAssign;
     public CodeGenVisitor(ArrayList<String> stringTab) {
         this.stringTab = stringTab;
+        globalsVarAssign = new StringBuilder();
     }
 
     @Override
@@ -430,8 +432,12 @@ public class CodeGenVisitor implements Visitor<String>{
 
 
         for (VarDecl varDecl : body.getL1()) {
-            String declString = varDecl.accept(this);
-            declarations.append(declString);
+            String[] temp = varDecl.accept(this).split("@");
+
+            declarations.append(temp[0]);
+            if(temp.length>1)
+                statements.append(temp[1]);
+
         }
 
         for (Stat stat : body.getL2()) {
@@ -483,6 +489,7 @@ public class CodeGenVisitor implements Visitor<String>{
                 }
                 
                 """);
+            result.append(globalsVarAssign).append("\n");
 
             String funNewLangName = stringTab.get(funDecl.getId().getIdentifier());
             result.append(funNewLangName).append("(").append(funParams).append(");\n").append("}\n\n");
@@ -520,11 +527,23 @@ public class CodeGenVisitor implements Visitor<String>{
     public String visit(VarDecl varDecl) {
 
         StringBuilder result = new StringBuilder();
+        StringBuilder varDeclarations = new StringBuilder();
+        StringBuilder varAssign = new StringBuilder();
 
         for (IdInitBase init : varDecl.getL()) {
+            String[] temp = init.accept(this).split(" ");
+            if(init instanceof IdInitStmt && ((IdInitStmt)init).getExpr() != null)
+                varDeclarations.append(temp[0]).append(" ").append(temp[1]).append(";").append("\n");
+            else
+                varDeclarations.append(temp[0]).append(" ").append(temp[1]).append("\n");
+            if(temp.length>=3)
+                varAssign.append(temp[1]).append(" ").append(temp[2]).append(" ").append(temp[3]).append("\n");
 
-           result.append(init.accept(this));
         }
+
+        result.append(varDeclarations);
+        result.append("@");
+        result.append(varAssign);
 
         return result.toString();
     }
@@ -545,8 +564,8 @@ public class CodeGenVisitor implements Visitor<String>{
 
         if(idInitStmt.getExpr()!=null)
             expr = " = " + idInitStmt.getExpr().accept(this);
-
         else expr = "";
+
 
         return getCType(idInitStmt.getId().getTypeNode()) + " " + varName + expr + ";\n";
     }
@@ -555,6 +574,8 @@ public class CodeGenVisitor implements Visitor<String>{
     public String visit(Program program) {
 
         StringBuilder cProgram = new StringBuilder();
+        StringBuilder varDeclarations = new StringBuilder();
+        StringBuilder varAssign = new StringBuilder();
         cProgram.append(buildHeader());
 
         for(Decl decl : program.getL())
@@ -564,10 +585,20 @@ public class CodeGenVisitor implements Visitor<String>{
         cProgram.append("\n");
 
         for(Decl decl : program.getL())
-            if(decl instanceof VarDecl)
-               cProgram.append( ((VarDecl)decl).accept(this) ).append("\n");
+            if(decl instanceof VarDecl){
+                String[] temp = ((VarDecl)decl).accept(this).split("@");
+                varDeclarations.append(temp[0]).append("\n");
+                if(temp.length>1)
+                    varAssign.append(temp[1]).append("\n");
+            }
 
-            else cProgram.append( ((FunDecl)decl).accept(this) ).append("\n");
+        cProgram.append(varDeclarations);
+
+        globalsVarAssign.append(varAssign);
+
+        for(Decl decl : program.getL())
+            if(decl instanceof FunDecl)
+                cProgram.append( ((FunDecl)decl).accept(this) ).append("\n");
 
         return cProgram.toString();
     }

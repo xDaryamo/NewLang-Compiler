@@ -1,0 +1,182 @@
+<Program>
+<FunDecl>
+<Identifier>
+<Identifier value ="main"/><TypeEnv>
+SymTabHashMap:
+{0=TabEntry[id=esercitazione5.node.Id@7daf6ecc, params=Signature[, returnType=VOID, arguments=[]]], 1=TabEntry[id=esercitazione5.node.Id@238e0d81, params=Signature[, returnType=VOID, arguments=[TabEntry[id=esercitazione5.node.Id@31221be2, params=Variable[type=INTEGER, byReference=false]], TabEntry[id=esercitazione5.node.Id@2ef1e4fa, params=Variable[type=INTEGER, byReference=false]], TabEntry[id=esercitazione5.node.Id@306a30c7, params=Variable[type=FLOAT, byReference=false]]]]]}
+</TypeEnv>
+</Identifier>
+<Body>
+<WriteStat>
+<StringC>
+<String value ="Not main function"/><TypeEnv>
+SymTabHashMap:
+{0=TabEntry[id=esercitazione5.node.Id@7daf6ecc, params=Signature[, returnType=VOID, arguments=[]]], 1=TabEntry[id=esercitazione5.node.Id@238e0d81, params=Signature[, returnType=VOID, arguments=[TabEntry[id=esercitazione5.node.Id@31221be2, params=Variable[type=INTEGER, byReference=false]], TabEntry[id=esercitazione5.node.Id@2ef1e4fa, params=Variable[type=INTEGER, byReference=false]], TabEntry[id=esercitazione5.node.Id@306a30c7, params=Variable[type=FLOAT, byReference=false]]]]]}
+SymTabHashMap:
+{}
+</TypeEnv>
+</StringC>
+<TypeEnv>
+SymTabHashMap:
+{0=TabEntry[id=esercitazione5.node.Id@7daf6ecc, params=Signature[, returnType=VOID, arguments=[]]], 1=TabEntry[id=esercitazione5.node.Id@238e0d81, params=Signature[, returnType=VOID, arguments=[TabEntry[id=esercitazione5.node.Id@31221be2, params=Variable[type=INTEGER, byReference=false]], TabEntry[id=esercitazione5.node.Id@2ef1e4fa, params=Variable[type=INTEGER, byReference=false]], TabEntry[id=esercitazione5.node.Id@306a30c7, params=Variable[type=FLOAT, byReference=false]]]]]}
+SymTabHashMap:
+{}
+</TypeEnv>
+</WriteStat>
+<TypeEnv>
+SymTabHashMap:
+{0=TabEntry[id=esercitazione5.node.Id@7daf6ecc, params=Signature[, returnType=VOID, arguments=[]]], 1=TabEntry[id=esercitazione5.node.Id@238e0d81, params=Signature[, returnType=VOID, arguments=[TabEntry[id=esercitazione5.node.Id@31221be2, params=Variable[type=INTEGER, byReference=false]], TabEntry[id=esercitazione5.node.Id@2ef1e4fa, params=Variable[type=INTEGER, byReference=false]], TabEntry[id=esercitazione5.node.Id@306a30c7, params=Variable[type=FLOAT, byReference=false]]]]]}
+SymTabHashMap:
+{}
+</TypeEnv>
+</Body>
+<TypeEnv>
+SymTabHashMap:
+{0=TabEntry[id=esercitazione5.node.Id@7daf6ecc, params=Signature[, returnType=VOID, arguments=[]]], 1=TabEntry[id=esercitazione5.node.Id@238e0d81, params=Signature[, returnType=VOID, arguments=[TabEntry[id=esercitazione5.node.Id@31221be2, params=Variable[type=INTEGER, byReference=false]], TabEntry[id=esercitazione5.node.Id@2ef1e4fa, params=Variable[type=INTEGER, byReference=false]], TabEntry[id=esercitazione5.node.Id@306a30c7, params=Variable[type=FLOAT, byReference=false]]]]]}
+</TypeEnv>
+</FunDecl>
+<FunDecl>
+<Identifier>
+<Identifier value ="calculatorNL"/><TypeEnv>
+SymTabHashMap:
+{0=TabEntry[id=esercitazione5.node.Id@7daf6ecc, params=Signature[, returnType=VOID, arguments=[]]], 1=TabEntry[id=esercitazione5.node.Id@238e0d81, params=Signature[, returnType=VOID, arguments=[TabEntry[id=esercitazione5.node.Id@31221be2, params=Variable[type=INTEGER, byReference=false]], TabEntry[id=esercitazione5.node.Id@2ef1e4fa, params=Variable[type=INTEGER, byReference=false]], TabEntry[id=esercitazione5.node.Id@306a30c7, params=Variable[type=FLOAT, byReference=false]]]]]}
+</TypeEnv>
+</Identifier>
+<ParDecl>
+<Identifier>
+<Identifier value ="a"/><TypeEnv>
+SymTabHashMap:
+{0=TabEntry[id=esercitazione5.node.Id@7daf6ecc, params=Signature[, returnType=VOID, arguments=[]]], 1=TabEntry[id=esercitazione5.node.Id@238e0d81, params=Signature[, returnType=VOID, arguments=[TabEntry[id=esercitazione5.node.Id@31221be2, params=Variable[type=INTEGER, byReference=false]], TabEntry[id=esercitazione5.node.Id@2ef1e4fa, params=Variable[type=INTEGER, byReference=false]], TabEntry[id=esercitazione5.node.Id@306a30c7, params=Variable[type=FLOAT, byReference=false]]]]]}
+SymTabHashMap:
+{2=TabEntry[id=esercitazione5.node.Id@31221be2, params=Variable[type=INTEGER, byReference=false]], 3=TabEntry[id=esercitazione5.node.Id@2ef1e4fa, params=Variable[type=INTEGER, byReference=false]], 4=TabEntry[id=esercitazione5.node.Id@306a30c7, params=Variable[type=FLOAT, byReference=false]]}
+</TypeEnv>
+</Identifier>
+<Identifier>
+<Identifier value ="b"/><TypeEnv>
+SymTabHashMap:
+{0=TabEntry[id=esercitazione5.node.Id@7daf6ecc, params=Signature[, returnType=VOID, arguments=[]]], 1=TabEntry[id=esercitazione5.node.Id@238e0d81, params=Signature[, returnType=VOID, arguments=[TabEntry[id=esercitazione5.node.Id@31221be2, params=Variable[type=INTEGER, byReference=false]], TabEntry[id=esercitazione5.node.Id@2ef1e4fa, params=Variable[type=INTEGER, byReference=false]], TabEntry[id=esercitazione5.node.Id@306a30c7, params=Variable[type=FLOAT, byReference=false]]]]]}
+SymTabHashMap:
+{2=TabEntry[id=esercitazione5.node.Id@31221be2, params=Variable[type=INTEGER, byReference=false]], 3=TabEntry[id=esercitazione5.node.Id@2ef1e4fa, params=Variable[type=INTEGER, byReference=false]], 4=TabEntry[id=esercitazione5.node.Id@306a30c7, params=Variable[type=FLOAT, byReference=false]]}
+</TypeEnv>
+</Identifier>
+<TypeEnv>
+SymTabHashMap:
+{0=TabEntry[id=esercitazione5.node.Id@7daf6ecc, params=Signature[, returnType=VOID, arguments=[]]], 1=TabEntry[id=esercitazione5.node.Id@238e0d81, params=Signature[, returnType=VOID, arguments=[TabEntry[id=esercitazione5.node.Id@31221be2, params=Variable[type=INTEGER, byReference=false]], TabEntry[id=esercitazione5.node.Id@2ef1e4fa, params=Variable[type=INTEGER, byReference=false]], TabEntry[id=esercitazione5.node.Id@306a30c7, params=Variable[type=FLOAT, byReference=false]]]]]}
+SymTabHashMap:
+{2=TabEntry[id=esercitazione5.node.Id@31221be2, params=Variable[type=INTEGER, byReference=false]], 3=TabEntry[id=esercitazione5.node.Id@2ef1e4fa, params=Variable[type=INTEGER, byReference=false]], 4=TabEntry[id=esercitazione5.node.Id@306a30c7, params=Variable[type=FLOAT, byReference=false]]}
+</TypeEnv>
+</ParDecl>
+<ParDecl>
+<Identifier>
+<Identifier value ="c"/><TypeEnv>
+SymTabHashMap:
+{0=TabEntry[id=esercitazione5.node.Id@7daf6ecc, params=Signature[, returnType=VOID, arguments=[]]], 1=TabEntry[id=esercitazione5.node.Id@238e0d81, params=Signature[, returnType=VOID, arguments=[TabEntry[id=esercitazione5.node.Id@31221be2, params=Variable[type=INTEGER, byReference=false]], TabEntry[id=esercitazione5.node.Id@2ef1e4fa, params=Variable[type=INTEGER, byReference=false]], TabEntry[id=esercitazione5.node.Id@306a30c7, params=Variable[type=FLOAT, byReference=false]]]]]}
+SymTabHashMap:
+{2=TabEntry[id=esercitazione5.node.Id@31221be2, params=Variable[type=INTEGER, byReference=false]], 3=TabEntry[id=esercitazione5.node.Id@2ef1e4fa, params=Variable[type=INTEGER, byReference=false]], 4=TabEntry[id=esercitazione5.node.Id@306a30c7, params=Variable[type=FLOAT, byReference=false]]}
+</TypeEnv>
+</Identifier>
+<TypeEnv>
+SymTabHashMap:
+{0=TabEntry[id=esercitazione5.node.Id@7daf6ecc, params=Signature[, returnType=VOID, arguments=[]]], 1=TabEntry[id=esercitazione5.node.Id@238e0d81, params=Signature[, returnType=VOID, arguments=[TabEntry[id=esercitazione5.node.Id@31221be2, params=Variable[type=INTEGER, byReference=false]], TabEntry[id=esercitazione5.node.Id@2ef1e4fa, params=Variable[type=INTEGER, byReference=false]], TabEntry[id=esercitazione5.node.Id@306a30c7, params=Variable[type=FLOAT, byReference=false]]]]]}
+SymTabHashMap:
+{2=TabEntry[id=esercitazione5.node.Id@31221be2, params=Variable[type=INTEGER, byReference=false]], 3=TabEntry[id=esercitazione5.node.Id@2ef1e4fa, params=Variable[type=INTEGER, byReference=false]], 4=TabEntry[id=esercitazione5.node.Id@306a30c7, params=Variable[type=FLOAT, byReference=false]]}
+</TypeEnv>
+</ParDecl>
+<Body>
+<WriteStat>
+<ConcatOp>
+<ConcatOp>
+<ConcatOp>
+<ConcatOp>
+<Identifier>
+<Identifier value ="a"/><TypeEnv>
+SymTabHashMap:
+{0=TabEntry[id=esercitazione5.node.Id@7daf6ecc, params=Signature[, returnType=VOID, arguments=[]]], 1=TabEntry[id=esercitazione5.node.Id@238e0d81, params=Signature[, returnType=VOID, arguments=[TabEntry[id=esercitazione5.node.Id@31221be2, params=Variable[type=INTEGER, byReference=false]], TabEntry[id=esercitazione5.node.Id@2ef1e4fa, params=Variable[type=INTEGER, byReference=false]], TabEntry[id=esercitazione5.node.Id@306a30c7, params=Variable[type=FLOAT, byReference=false]]]]]}
+SymTabHashMap:
+{2=TabEntry[id=esercitazione5.node.Id@31221be2, params=Variable[type=INTEGER, byReference=false]], 3=TabEntry[id=esercitazione5.node.Id@2ef1e4fa, params=Variable[type=INTEGER, byReference=false]], 4=TabEntry[id=esercitazione5.node.Id@306a30c7, params=Variable[type=FLOAT, byReference=false]]}
+</TypeEnv>
+</Identifier>
+<StringC>
+<String value =" "/><TypeEnv>
+SymTabHashMap:
+{0=TabEntry[id=esercitazione5.node.Id@7daf6ecc, params=Signature[, returnType=VOID, arguments=[]]], 1=TabEntry[id=esercitazione5.node.Id@238e0d81, params=Signature[, returnType=VOID, arguments=[TabEntry[id=esercitazione5.node.Id@31221be2, params=Variable[type=INTEGER, byReference=false]], TabEntry[id=esercitazione5.node.Id@2ef1e4fa, params=Variable[type=INTEGER, byReference=false]], TabEntry[id=esercitazione5.node.Id@306a30c7, params=Variable[type=FLOAT, byReference=false]]]]]}
+SymTabHashMap:
+{2=TabEntry[id=esercitazione5.node.Id@31221be2, params=Variable[type=INTEGER, byReference=false]], 3=TabEntry[id=esercitazione5.node.Id@2ef1e4fa, params=Variable[type=INTEGER, byReference=false]], 4=TabEntry[id=esercitazione5.node.Id@306a30c7, params=Variable[type=FLOAT, byReference=false]]}
+</TypeEnv>
+</StringC>
+<TypeEnv>
+SymTabHashMap:
+{0=TabEntry[id=esercitazione5.node.Id@7daf6ecc, params=Signature[, returnType=VOID, arguments=[]]], 1=TabEntry[id=esercitazione5.node.Id@238e0d81, params=Signature[, returnType=VOID, arguments=[TabEntry[id=esercitazione5.node.Id@31221be2, params=Variable[type=INTEGER, byReference=false]], TabEntry[id=esercitazione5.node.Id@2ef1e4fa, params=Variable[type=INTEGER, byReference=false]], TabEntry[id=esercitazione5.node.Id@306a30c7, params=Variable[type=FLOAT, byReference=false]]]]]}
+SymTabHashMap:
+{2=TabEntry[id=esercitazione5.node.Id@31221be2, params=Variable[type=INTEGER, byReference=false]], 3=TabEntry[id=esercitazione5.node.Id@2ef1e4fa, params=Variable[type=INTEGER, byReference=false]], 4=TabEntry[id=esercitazione5.node.Id@306a30c7, params=Variable[type=FLOAT, byReference=false]]}
+</TypeEnv>
+</ConcatOp>
+<Identifier>
+<Identifier value ="b"/><TypeEnv>
+SymTabHashMap:
+{0=TabEntry[id=esercitazione5.node.Id@7daf6ecc, params=Signature[, returnType=VOID, arguments=[]]], 1=TabEntry[id=esercitazione5.node.Id@238e0d81, params=Signature[, returnType=VOID, arguments=[TabEntry[id=esercitazione5.node.Id@31221be2, params=Variable[type=INTEGER, byReference=false]], TabEntry[id=esercitazione5.node.Id@2ef1e4fa, params=Variable[type=INTEGER, byReference=false]], TabEntry[id=esercitazione5.node.Id@306a30c7, params=Variable[type=FLOAT, byReference=false]]]]]}
+SymTabHashMap:
+{2=TabEntry[id=esercitazione5.node.Id@31221be2, params=Variable[type=INTEGER, byReference=false]], 3=TabEntry[id=esercitazione5.node.Id@2ef1e4fa, params=Variable[type=INTEGER, byReference=false]], 4=TabEntry[id=esercitazione5.node.Id@306a30c7, params=Variable[type=FLOAT, byReference=false]]}
+</TypeEnv>
+</Identifier>
+<TypeEnv>
+SymTabHashMap:
+{0=TabEntry[id=esercitazione5.node.Id@7daf6ecc, params=Signature[, returnType=VOID, arguments=[]]], 1=TabEntry[id=esercitazione5.node.Id@238e0d81, params=Signature[, returnType=VOID, arguments=[TabEntry[id=esercitazione5.node.Id@31221be2, params=Variable[type=INTEGER, byReference=false]], TabEntry[id=esercitazione5.node.Id@2ef1e4fa, params=Variable[type=INTEGER, byReference=false]], TabEntry[id=esercitazione5.node.Id@306a30c7, params=Variable[type=FLOAT, byReference=false]]]]]}
+SymTabHashMap:
+{2=TabEntry[id=esercitazione5.node.Id@31221be2, params=Variable[type=INTEGER, byReference=false]], 3=TabEntry[id=esercitazione5.node.Id@2ef1e4fa, params=Variable[type=INTEGER, byReference=false]], 4=TabEntry[id=esercitazione5.node.Id@306a30c7, params=Variable[type=FLOAT, byReference=false]]}
+</TypeEnv>
+</ConcatOp>
+<StringC>
+<String value =" "/><TypeEnv>
+SymTabHashMap:
+{0=TabEntry[id=esercitazione5.node.Id@7daf6ecc, params=Signature[, returnType=VOID, arguments=[]]], 1=TabEntry[id=esercitazione5.node.Id@238e0d81, params=Signature[, returnType=VOID, arguments=[TabEntry[id=esercitazione5.node.Id@31221be2, params=Variable[type=INTEGER, byReference=false]], TabEntry[id=esercitazione5.node.Id@2ef1e4fa, params=Variable[type=INTEGER, byReference=false]], TabEntry[id=esercitazione5.node.Id@306a30c7, params=Variable[type=FLOAT, byReference=false]]]]]}
+SymTabHashMap:
+{2=TabEntry[id=esercitazione5.node.Id@31221be2, params=Variable[type=INTEGER, byReference=false]], 3=TabEntry[id=esercitazione5.node.Id@2ef1e4fa, params=Variable[type=INTEGER, byReference=false]], 4=TabEntry[id=esercitazione5.node.Id@306a30c7, params=Variable[type=FLOAT, byReference=false]]}
+</TypeEnv>
+</StringC>
+<TypeEnv>
+SymTabHashMap:
+{0=TabEntry[id=esercitazione5.node.Id@7daf6ecc, params=Signature[, returnType=VOID, arguments=[]]], 1=TabEntry[id=esercitazione5.node.Id@238e0d81, params=Signature[, returnType=VOID, arguments=[TabEntry[id=esercitazione5.node.Id@31221be2, params=Variable[type=INTEGER, byReference=false]], TabEntry[id=esercitazione5.node.Id@2ef1e4fa, params=Variable[type=INTEGER, byReference=false]], TabEntry[id=esercitazione5.node.Id@306a30c7, params=Variable[type=FLOAT, byReference=false]]]]]}
+SymTabHashMap:
+{2=TabEntry[id=esercitazione5.node.Id@31221be2, params=Variable[type=INTEGER, byReference=false]], 3=TabEntry[id=esercitazione5.node.Id@2ef1e4fa, params=Variable[type=INTEGER, byReference=false]], 4=TabEntry[id=esercitazione5.node.Id@306a30c7, params=Variable[type=FLOAT, byReference=false]]}
+</TypeEnv>
+</ConcatOp>
+<Identifier>
+<Identifier value ="c"/><TypeEnv>
+SymTabHashMap:
+{0=TabEntry[id=esercitazione5.node.Id@7daf6ecc, params=Signature[, returnType=VOID, arguments=[]]], 1=TabEntry[id=esercitazione5.node.Id@238e0d81, params=Signature[, returnType=VOID, arguments=[TabEntry[id=esercitazione5.node.Id@31221be2, params=Variable[type=INTEGER, byReference=false]], TabEntry[id=esercitazione5.node.Id@2ef1e4fa, params=Variable[type=INTEGER, byReference=false]], TabEntry[id=esercitazione5.node.Id@306a30c7, params=Variable[type=FLOAT, byReference=false]]]]]}
+SymTabHashMap:
+{2=TabEntry[id=esercitazione5.node.Id@31221be2, params=Variable[type=INTEGER, byReference=false]], 3=TabEntry[id=esercitazione5.node.Id@2ef1e4fa, params=Variable[type=INTEGER, byReference=false]], 4=TabEntry[id=esercitazione5.node.Id@306a30c7, params=Variable[type=FLOAT, byReference=false]]}
+</TypeEnv>
+</Identifier>
+<TypeEnv>
+SymTabHashMap:
+{0=TabEntry[id=esercitazione5.node.Id@7daf6ecc, params=Signature[, returnType=VOID, arguments=[]]], 1=TabEntry[id=esercitazione5.node.Id@238e0d81, params=Signature[, returnType=VOID, arguments=[TabEntry[id=esercitazione5.node.Id@31221be2, params=Variable[type=INTEGER, byReference=false]], TabEntry[id=esercitazione5.node.Id@2ef1e4fa, params=Variable[type=INTEGER, byReference=false]], TabEntry[id=esercitazione5.node.Id@306a30c7, params=Variable[type=FLOAT, byReference=false]]]]]}
+SymTabHashMap:
+{2=TabEntry[id=esercitazione5.node.Id@31221be2, params=Variable[type=INTEGER, byReference=false]], 3=TabEntry[id=esercitazione5.node.Id@2ef1e4fa, params=Variable[type=INTEGER, byReference=false]], 4=TabEntry[id=esercitazione5.node.Id@306a30c7, params=Variable[type=FLOAT, byReference=false]]}
+</TypeEnv>
+</ConcatOp>
+<TypeEnv>
+SymTabHashMap:
+{0=TabEntry[id=esercitazione5.node.Id@7daf6ecc, params=Signature[, returnType=VOID, arguments=[]]], 1=TabEntry[id=esercitazione5.node.Id@238e0d81, params=Signature[, returnType=VOID, arguments=[TabEntry[id=esercitazione5.node.Id@31221be2, params=Variable[type=INTEGER, byReference=false]], TabEntry[id=esercitazione5.node.Id@2ef1e4fa, params=Variable[type=INTEGER, byReference=false]], TabEntry[id=esercitazione5.node.Id@306a30c7, params=Variable[type=FLOAT, byReference=false]]]]]}
+SymTabHashMap:
+{2=TabEntry[id=esercitazione5.node.Id@31221be2, params=Variable[type=INTEGER, byReference=false]], 3=TabEntry[id=esercitazione5.node.Id@2ef1e4fa, params=Variable[type=INTEGER, byReference=false]], 4=TabEntry[id=esercitazione5.node.Id@306a30c7, params=Variable[type=FLOAT, byReference=false]]}
+</TypeEnv>
+</WriteStat>
+<TypeEnv>
+SymTabHashMap:
+{0=TabEntry[id=esercitazione5.node.Id@7daf6ecc, params=Signature[, returnType=VOID, arguments=[]]], 1=TabEntry[id=esercitazione5.node.Id@238e0d81, params=Signature[, returnType=VOID, arguments=[TabEntry[id=esercitazione5.node.Id@31221be2, params=Variable[type=INTEGER, byReference=false]], TabEntry[id=esercitazione5.node.Id@2ef1e4fa, params=Variable[type=INTEGER, byReference=false]], TabEntry[id=esercitazione5.node.Id@306a30c7, params=Variable[type=FLOAT, byReference=false]]]]]}
+SymTabHashMap:
+{2=TabEntry[id=esercitazione5.node.Id@31221be2, params=Variable[type=INTEGER, byReference=false]], 3=TabEntry[id=esercitazione5.node.Id@2ef1e4fa, params=Variable[type=INTEGER, byReference=false]], 4=TabEntry[id=esercitazione5.node.Id@306a30c7, params=Variable[type=FLOAT, byReference=false]]}
+</TypeEnv>
+</Body>
+<TypeEnv>
+SymTabHashMap:
+{0=TabEntry[id=esercitazione5.node.Id@7daf6ecc, params=Signature[, returnType=VOID, arguments=[]]], 1=TabEntry[id=esercitazione5.node.Id@238e0d81, params=Signature[, returnType=VOID, arguments=[TabEntry[id=esercitazione5.node.Id@31221be2, params=Variable[type=INTEGER, byReference=false]], TabEntry[id=esercitazione5.node.Id@2ef1e4fa, params=Variable[type=INTEGER, byReference=false]], TabEntry[id=esercitazione5.node.Id@306a30c7, params=Variable[type=FLOAT, byReference=false]]]]]}
+</TypeEnv>
+</FunDecl>
+<TypeEnv>
+SymTabHashMap:
+{0=TabEntry[id=esercitazione5.node.Id@7daf6ecc, params=Signature[, returnType=VOID, arguments=[]]], 1=TabEntry[id=esercitazione5.node.Id@238e0d81, params=Signature[, returnType=VOID, arguments=[TabEntry[id=esercitazione5.node.Id@31221be2, params=Variable[type=INTEGER, byReference=false]], TabEntry[id=esercitazione5.node.Id@2ef1e4fa, params=Variable[type=INTEGER, byReference=false]], TabEntry[id=esercitazione5.node.Id@306a30c7, params=Variable[type=FLOAT, byReference=false]]]]]}
+</TypeEnv>
+</Program>

@@ -56,11 +56,12 @@ char* bool2str(int b)
 
 float calculate(float x,float y,int* c);
 void fibonacci();
-void main17();
+void main61();
 void calculatorNL();
 
 float calculate( float x,float y,int* c){
 float result;
+
 
 if(*c == 1){
 
@@ -98,8 +99,13 @@ return result;
 
 void fibonacci(){
 int next_term;
-int t1 = 0;
-int t2 = 1;
+
+int t1;
+int t2;
+
+t1 = 0;
+
+t2 = 1;
 
 next_term = t1 + t2;
 printf("%s","Fibonacci sequence: ");
@@ -118,7 +124,7 @@ next_term = t1 + t2;
 
 }
 
-void main17(){
+void main61(){
 
 printf("%s\n","Not main function");
 
@@ -133,16 +139,24 @@ if(argc<1)
     exit(-1);
 }
 
+
 calculatorNL();
 }
 
 void calculatorNL(){
 float result;
-int flag = 1;
+
+int flag;
 int go_on;
+
 int choice;
+
 float a;
+
 float b;
+
+
+flag = 1;
 
 while(flag == 1){
 
