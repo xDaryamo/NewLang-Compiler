@@ -188,6 +188,55 @@ public class TypeSystem {
             return funReturnType;
         }
 
+        if(construct.equalsIgnoreCase("letStat")){
+
+            LetStat letStat = (LetStat) n;
+
+            for(VarDecl varDecl: letStat.getVarDecls())
+                if(! (varDecl.getTypeNode()==Type.NOTYPE)){
+                    throw new RuntimeException("Type System Error");
+                }
+
+            if(!(letStat.getGoWhenStat1().getTypeNode()==Type.NOTYPE))
+                throw new RuntimeException("Type System Error");
+
+            if(!(letStat.getGoWhenStat2().getTypeNode()==Type.NOTYPE))
+                throw new RuntimeException("Type System Error");
+
+            if(!(letStat.getOtherwiseStat().getTypeNode()==Type.NOTYPE))
+                throw new RuntimeException("Type System Error");
+
+            return Type.NOTYPE;
+        }
+
+        if(construct.equalsIgnoreCase("goWhenStat")){
+
+            GoWhenStat stat = (GoWhenStat) n;
+
+            if(! ( ((Node)stat.getCondition()).getTypeNode() == Type.BOOLEAN ))
+                throw new RuntimeException("Type System Error");
+
+            for(Stat t: stat.getStats())
+                if(! (((Node)t).getTypeNode() == Type.NOTYPE )){
+                    throw new RuntimeException("Type System Error");
+                }
+
+            return Type.NOTYPE;
+
+        }
+
+        if(construct.equalsIgnoreCase("otherWiseStat")){
+
+            OtherwiseStat stat = (OtherwiseStat) n;
+
+            for(Stat t: stat.getStats())
+                if(! (((Node)t).getTypeNode() == Type.NOTYPE )){
+                    throw new RuntimeException("Type System Error");
+                }
+
+            return Type.NOTYPE;
+        }
+
         throw new RuntimeException("Type System Error");
     }
 

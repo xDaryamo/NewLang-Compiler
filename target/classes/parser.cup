@@ -13,6 +13,8 @@ terminal         Float REAL_CONST;
 terminal         String STRING_CONST;
 terminal         Character CHAR_CONST;
 
+terminal         LET, GO, DOT, WHEN, OTHERWISE, DO;
+
 /* Non terminals */
 non terminal     Program Program;
 non terminal     ArrayList<Decl> DeclList;
@@ -42,10 +44,15 @@ non terminal     Expr Expr;
 non terminal     ArrayList<Expr> ExprList;
 non terminal     FunCall FunCall;
 
+non terminal     GoWhenStat GoWhenStat;
+non terminal     LetStat LetStat;
+non terminal     OtherwiseStat OtherwiseStat;
+non terminal     ArrayList<GoWhenStat> GoWhenStatOpt;
+
 /* Precedences */
 precedence left RBRACK;
 precedence nonassoc RETURN;
-precedence left ID, IF, WHILE, FOR;
+precedence left ID, IF, WHILE, FOR, LET, DOT;
 precedence left OR, AND, EQ, NE, LT, LE, GT, GE;
 precedence left PLUS, MINUS,STR_CONCAT, TIMES, DIV;
 precedence right POW, NOT;
@@ -123,7 +130,8 @@ Stat ::= IfStat:i {: RESULT = i; :}
 	| FunCall:f SEMI {: RESULT = f; :}
 	| RETURN Expr:e SEMI {: RESULT = new ReturnStat(e); :}
 	| RETURN SEMI {: RESULT = new ReturnStat(); :}
-	| /* empty */ {: RESULT = null; :};
+	| /* empty */ {: RESULT = null; :}
+	| LetStat:l {: RESULT = l; :};
 
 IfStat ::= IF Expr:e THEN Body:b Else:es {: RESULT = new IfStat(es, b, e); :};
 
@@ -177,3 +185,10 @@ Expr ::= TRUE {: RESULT = new TrueC(); :}
 	| MINUS Expr:e {: RESULT = new UMinOp(e); :}
 	| NOT Expr:e {: RESULT = new NotOp(e); :}
 	| LPAR Expr:e RPAR {: RESULT = e; :};
+
+LetStat::= LET VarDeclList:vd GO GoWhenStat:gt1 GoWhenStat:gt2 GoWhenStatOpt:gopt OtherwiseStat:ot
+                 {: if(gopt == null) RESULT = new LetStat(vd, gt1, gt2, ot); else RESULT = new LetStat(vd, gt1, gt2, ot, gopt); :};
+GoWhenStat ::= DOT WHEN LPAR Expr:e RPAR DOT LOOP LBRACK StatList:st RBRACK {: RESULT = new GoWhenStat(e, st); :};
+OtherwiseStat ::= DOT OTHERWISE DOT DO LBRACK StatList:st RBRACK SEMI {: RESULT = new OtherwiseStat(st); :};
+GoWhenStatOpt ::= GoWhenStatOpt:gopt GoWhenStat:gt {: if(gopt==null) gopt = new ArrayList<>(); gopt.add(gt); RESULT = gopt; :}
+                | /*empty*/ {: RESULT = null; :};

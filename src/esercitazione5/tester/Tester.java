@@ -35,15 +35,15 @@ public class Tester {
             TypeCheckingVisitor typeCheckingVisitor = new TypeCheckingVisitor((ArrayList<String>) lexer.identifiersTable);
             pr.accept(typeCheckingVisitor);
 
-            ScopingViewVisitor scopingViewVisitor =
-                    new ScopingViewVisitor(fileWriterScope, (ArrayList<String>) lexer.identifiersTable);
+            /* ScopingViewVisitor scopingViewVisitor =
+                    new ScopingViewVisitor(fileWriterScope, (ArrayList<String>) lexer.identifiersTable);*/
 
-            pr.accept(scopingViewVisitor);
+            /*pr.accept(scopingViewVisitor);*/
 
-            TypeCheckingViewVisitor typeCheckingViewVisitor =
+            /* TypeCheckingViewVisitor typeCheckingViewVisitor =
                     new TypeCheckingViewVisitor(fileWriterType, (ArrayList<String>) lexer.identifiersTable);
 
-            pr.accept(typeCheckingViewVisitor);
+            pr.accept(typeCheckingViewVisitor);*/
 
             CodeGenVisitor codeGenVisitor = new CodeGenVisitor((ArrayList<String>) lexer.identifiersTable);
             String cProgram = pr.accept(codeGenVisitor);

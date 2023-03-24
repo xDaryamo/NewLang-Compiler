@@ -498,6 +498,54 @@ public class ScopingVisitor implements Visitor<Void>{
         return null;
     }
 
+    @Override
+    public Void visit(GoWhenStat goWhenStat) {
+
+        goWhenStat.setCurrent_ref(getCurrentScope());
+
+        goWhenStat.getCondition().accept(this);
+
+        for(Stat t: goWhenStat.getStats())
+            t.accept(this);
+
+        return null;
+    }
+
+    @Override
+    public Void visit(OtherwiseStat otherwiseStat) {
+
+        otherwiseStat.setCurrent_ref(getCurrentScope());
+
+        for(Stat t: otherwiseStat.getStats())
+            t.accept(this);
+
+        return null;
+    }
+
+    @Override
+    public Void visit(LetStat letStat) {
+
+        letStat.setCurrent_ref(getCurrentScope());
+
+        openScope();
+
+        for(VarDecl varDecl: letStat.getVarDecls())
+            varDecl.accept(this);
+
+        letStat.getGoWhenStat1().accept(this);
+        letStat.getGoWhenStat2().accept(this);
+
+        if(!(letStat.getGoWhenStatOpt()==null))
+            for(GoWhenStat t: letStat.getGoWhenStatOpt())
+                t.accept(this);
+
+        letStat.getOtherwiseStat().accept(this);
+
+        closeScope();
+
+        return null;
+    }
+
     public void printScopes(){
 
         for(SymTab symTab: symTabStack)

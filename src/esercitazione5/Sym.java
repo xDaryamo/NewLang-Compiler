@@ -9,6 +9,8 @@ package esercitazione5;
 public interface Sym {
   /* terminals */
   public static final int CHAR_CONST = 53;
+  public static final int OTHERWISE = 58;
+  public static final int WHEN = 57;
   public static final int POW = 36;
   public static final int CHAR = 9;
   public static final int GE = 40;
@@ -32,6 +34,7 @@ public interface Sym {
   public static final int ASSIGN = 11;
   public static final int MAIN = 2;
   public static final int IF = 22;
+  public static final int DOT = 56;
   public static final int ID = 49;
   public static final int LE = 42;
   public static final int EOF = 0;
@@ -51,6 +54,7 @@ public interface Sym {
   public static final int RBRACK = 19;
   public static final int TO = 30;
   public static final int WHILE = 25;
+  public static final int LET = 54;
   public static final int STR_CONCAT = 37;
   public static final int REAL_CONST = 51;
   public static final int THEN = 23;
@@ -62,6 +66,8 @@ public interface Sym {
   public static final int STRING_CONST = 52;
   public static final int GT = 39;
   public static final int VAR = 3;
+  public static final int DO = 59;
+  public static final int GO = 55;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
@@ -116,7 +122,13 @@ public interface Sym {
   "INTEGER_CONST",
   "REAL_CONST",
   "STRING_CONST",
-  "CHAR_CONST"
+  "CHAR_CONST",
+  "LET",
+  "GO",
+  "DOT",
+  "WHEN",
+  "OTHERWISE",
+  "DO"
   };
 }
 

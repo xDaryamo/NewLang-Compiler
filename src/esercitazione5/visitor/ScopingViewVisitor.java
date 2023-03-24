@@ -947,6 +947,22 @@ public class ScopingViewVisitor implements Visitor<Void>{
 
         return null;
     }
+
+    @Override
+    public Void visit(GoWhenStat goWhenStat) {
+        return null;
+    }
+
+    @Override
+    public Void visit(OtherwiseStat otherwiseStat) {
+        return null;
+    }
+
+    @Override
+    public Void visit(LetStat letStat) {
+        return null;
+    }
+
     private FileWriter fileWriter;
     private ArrayList<String> stringTab;
 }

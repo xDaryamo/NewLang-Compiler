@@ -534,6 +534,9 @@ public class CodeGenVisitor implements Visitor<String>{
             String[] temp = init.accept(this).split(" ");
             if(init instanceof IdInitStmt && ((IdInitStmt)init).getExpr() != null)
                 varDeclarations.append(temp[0]).append(" ").append(temp[1]).append(";").append("\n");
+
+            else if(init instanceof IdInitObbl)
+                varDeclarations.append(temp[0]).append(" ").append(temp[1]).append(";").append("\n");
             else
                 varDeclarations.append(temp[0]).append(" ").append(temp[1]).append("\n");
             if(temp.length>=3)
@@ -603,6 +606,61 @@ public class CodeGenVisitor implements Visitor<String>{
         return cProgram.toString();
     }
 
+    @Override
+    public String visit(GoWhenStat goWhenStat) {
+
+        StringBuilder goWhenString = new StringBuilder();
+
+        String condition = goWhenStat.getCondition().accept(this);
+
+        goWhenString.append("while(").append(condition).append(") {");
+
+        for (Stat t: goWhenStat.getStats())
+            goWhenString.append(t.accept(this)).append("\n");
+
+        return goWhenString.toString();
+    }
+
+    @Override
+    public String visit(OtherwiseStat otherwiseStat) {
+
+        StringBuilder otherwiseString = new StringBuilder();
+
+        for(Stat t: otherwiseStat.getStats())
+            otherwiseString.append(t.accept(this)).append("\n");
+
+        return otherwiseString.toString();
+    }
+
+    @Override
+    public String visit(LetStat letStat) {
+
+        StringBuilder letStatString = new StringBuilder("{\n");
+
+        for(VarDecl varDecl: letStat.getVarDecls()) {
+            String[] temp = varDecl.accept(this).split("@");
+
+            letStatString.append(temp[0]);
+
+            if(temp.length>1)
+                letStatString.append(temp[1]);
+        }
+
+        letStatString.append(letStat.getGoWhenStat1().accept(this)).append("};\n");
+
+        letStatString.append(letStat.getGoWhenStat2().accept(this)).append("};\n");
+
+        if(!(letStat.getGoWhenStatOpt()==null))
+            for(GoWhenStat t: letStat.getGoWhenStatOpt()) {
+                letStatString.append(t.accept(this));
+                letStatString.append("};\n");
+            }
+
+        letStatString.append(letStat.getOtherwiseStat().accept(this));
+        letStatString.append("\n}\n");
+
+        return letStatString.toString();
+    }
 
 
     //metodi privati utility

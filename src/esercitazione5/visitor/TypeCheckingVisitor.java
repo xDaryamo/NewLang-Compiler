@@ -440,4 +440,48 @@ public class TypeCheckingVisitor implements Visitor<Void>{
         return null;
     }
 
+    @Override
+    public Void visit(GoWhenStat goWhenStat) {
+
+        goWhenStat.getCondition().accept(this);
+
+        for(Stat t: goWhenStat.getStats())
+            t.accept(this);
+
+        goWhenStat.setTypeNode(typeSystem.opConstructCheck("goWhenStat", goWhenStat));
+
+        return null;
+    }
+
+    @Override
+    public Void visit(OtherwiseStat otherwiseStat) {
+
+        for(Stat t: otherwiseStat.getStats())
+            t.accept(this);
+
+        otherwiseStat.setTypeNode(typeSystem.opConstructCheck("otherWiseStat", otherwiseStat));
+
+        return null;
+    }
+
+    @Override
+    public Void visit(LetStat letStat) {
+
+        for(VarDecl varDecl: letStat.getVarDecls())
+            varDecl.accept(this);
+
+        letStat.getGoWhenStat1().accept(this);
+        letStat.getGoWhenStat2().accept(this);
+
+        if(!(letStat.getGoWhenStatOpt() == null))
+            for(GoWhenStat t: letStat.getGoWhenStatOpt())
+                t.accept(this);
+
+        letStat.getOtherwiseStat().accept(this);
+
+        letStat.setTypeNode(typeSystem.opConstructCheck("letStat", letStat));
+
+        return null;
+    }
+
 }

@@ -41,4 +41,7 @@ public interface Visitor<T> {
     public  T visit(IdInitObbl idInitObbl);
     public  T visit(IdInitStmt idInitStmt);
     public  T visit(Program program);
+    public T visit(GoWhenStat goWhenStat);
+    public T visit(OtherwiseStat otherwiseStat);
+    public T visit(LetStat letStat);
 }

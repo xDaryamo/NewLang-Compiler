@@ -94,6 +94,13 @@ CharC = '[^\\[ntbrf\\\'\"]]' | {EscChar}
       "<<"                       { return symbol(Sym.ASSIGN, "ASSIGN");}
       "return"                   { return symbol(Sym.RETURN, "RETURN");}
 
+      "let"                       { return symbol(Sym.LET, "LET");}
+      "go"                        { return symbol(Sym.GO, "GO");}
+      "when"                      { return symbol(Sym.WHEN, "WHEN");}
+      "otherwise"                 { return symbol(Sym.OTHERWISE, "OTHERWISE");}
+      "do"                        { return symbol(Sym.DO, "DO");}
+      "."                         { return symbol(Sym.DOT, "DOT");}
+
 
       "true"                     { return symbol(Sym.TRUE, "TRUE");}
       "false"                    { return symbol(Sym.FALSE, "FALSE");}
