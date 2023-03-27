@@ -205,7 +205,6 @@ public class CodeGenVisitor implements Visitor<String>{
     public String visit(FunCall funCall) {
 
         Id funId = funCall.getId();
-        ArrayList<Expr> funParams = funCall.getParams();
 
         StringBuilder funName = new StringBuilder(stringTab.get(funId.getIdentifier()));
 
@@ -221,7 +220,7 @@ public class CodeGenVisitor implements Visitor<String>{
 
             /*check constants*/
             if(funCall.getParams().get(i) instanceof StringC stringC){
-                funName.append("\"").append(stringC.getConstant()).append("\"").append(",");
+                funName.append("\"").append(stringC.getConstant()).append("\"");
             }
 
             if(funCall.getParams().get(i) instanceof IntegerC integerC){
@@ -262,12 +261,17 @@ public class CodeGenVisitor implements Visitor<String>{
                 funName.append(variableName).append(",");
             }
 
-            else if(funCall.getParams().get(i) instanceof SubOp || funCall.getParams().get(i) instanceof AddOp
-                    || funCall.getParams().get(i) instanceof DivOp || funCall.getParams().get(i) instanceof TimesOp
-                    || funCall.getParams().get(i) instanceof PowOp || funCall.getParams().get(i) instanceof AndOp
-                    || funCall.getParams().get(i) instanceof OrOp || funCall.getParams().get(i) instanceof NotOp) {
+            else if(funCall.getParams().get(i) instanceof AndOp ||
+                    funCall.getParams().get(i) instanceof OrOp ||
+                    funCall.getParams().get(i) instanceof SubOp ||
+                    funCall.getParams().get(i) instanceof AddOp ||
+                    funCall.getParams().get(i) instanceof DivOp ||
+                    funCall.getParams().get(i) instanceof TimesOp ||
+                    funCall.getParams().get(i) instanceof PowOp ||
+                    funCall.getParams().get(i) instanceof NotOp)
                 funName.append( funCall.getParams().get(i).accept(this) );
-            }
+
+            else funName.append( funCall.getParams().get(i).accept(this) );
 
             index++;
 
@@ -279,7 +283,7 @@ public class CodeGenVisitor implements Visitor<String>{
         if( (funName.charAt(funName.length() - 1) == ';'))
             funName = new StringBuilder(funName.substring(0, funName.length() - 1));
 
-        funName.append(")");
+        funName.append(");");
 
         return funName.toString();
     }
@@ -436,6 +440,12 @@ public class CodeGenVisitor implements Visitor<String>{
 
         if (returnStat.getE() == null)
             return "return;";
+
+        if(returnStat.getE() instanceof FunCall){
+
+            String returnSt = returnStat.getE().accept(this).substring(0, returnStat.getE().accept(this).lastIndexOf(";"));
+            return returnSt;
+        }
 
         return "return " + returnStat.getE().accept(this) +";";
     }
