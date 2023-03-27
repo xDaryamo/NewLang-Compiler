@@ -16,6 +16,7 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
+        /*check file argument*/
         if (args.length == 0) {
             System.err.println("Missing file argument");
             System.exit(1);
