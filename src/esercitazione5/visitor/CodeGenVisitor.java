@@ -590,7 +590,10 @@ public class CodeGenVisitor implements Visitor<String>{
         StringBuilder statements = new StringBuilder();
 
 
-        for (VarDecl varDecl : body.getL1()) {
+        int index;
+
+        for (index = body.getL1().size() -1; index >=0; index--) {
+            VarDecl varDecl = body.getL1().get(index);
             String[] temp = varDecl.accept(this).split("@");
 
             declarations.append(temp[0]);
@@ -599,7 +602,8 @@ public class CodeGenVisitor implements Visitor<String>{
 
         }
 
-        for (Stat stat : body.getL2()) {
+        for (index = body.getL2().size() -1; index >=0; index--) {
+            Stat stat = body.getL2().get(index);
             String stmtString = stat.accept(this);
             statements.append(stmtString).append("\n");
         }
@@ -689,7 +693,9 @@ public class CodeGenVisitor implements Visitor<String>{
         StringBuilder varDeclarations = new StringBuilder();
         StringBuilder varAssign = new StringBuilder();
 
-        for (IdInitBase init : varDecl.getL()) {
+        int index;
+        for (index = 0; index < varDecl.getL().size(); index++) {
+            IdInitBase init = varDecl.getL().get(index);
             String[] temp = init.accept(this).split(" ");
 
             if(init instanceof IdInitStmt && ((IdInitStmt)init).getExpr() != null)
@@ -705,6 +711,10 @@ public class CodeGenVisitor implements Visitor<String>{
 
             if (init instanceof IdInitStmt && temp.length >= 3 && ((IdInitStmt) init).getExpr() instanceof FunCall) {
                 temp[3] = temp[3].substring(0, temp[3].lastIndexOf(";"));
+                varAssign.append(temp[1]).append(" ").append(temp[2]).append(" ").append(temp[3]).append("\n");
+            }
+
+            if(temp.length >= 3 && init instanceof IdInitObbl){
                 varAssign.append(temp[1]).append(" ").append(temp[2]).append(" ").append(temp[3]).append("\n");
             }
         }
