@@ -8,6 +8,7 @@ import esercitazione5.visitor.*;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -55,10 +56,14 @@ public class Main {
             fileWriterC.append(cProgram);
 
             fileWriterC.close();
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.out.println(e.getMessage());
             //e.printStackTrace();
             System.exit(-1);
+        }
+        catch (Exception ignored)
+        {
+
         }
 
     }

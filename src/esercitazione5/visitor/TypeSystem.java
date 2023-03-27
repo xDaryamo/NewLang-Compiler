@@ -175,10 +175,10 @@ public class TypeSystem {
             if((stat.getE() == null) && !(funReturnType.name().equalsIgnoreCase(Type.VOID.name())))
                 throw new RuntimeException("The return type of function isn't void!");
 
-            if( ((Node)stat.getE()).getTypeNode().name().equalsIgnoreCase(Type.VAR.name()))
+            if(stat.getE()!=null && ((Node)stat.getE()).getTypeNode().name().equalsIgnoreCase(Type.VAR.name()))
                 throw new RuntimeException("Type System Error");
 
-            if( !(Type.compatibility( ((Node)stat.getE() ).getTypeNode(), funReturnType)) )
+            if(stat.getE()!=null && !(Type.compatibility( ((Node)stat.getE() ).getTypeNode(), funReturnType)) )
                 throw new RuntimeException("Type Mismatch Error");
 
             if( stat.getE() != null
