@@ -13,6 +13,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
+/*classe creata a parte per testare le funzionalità di CI*/
 public class Main {
 
     public static void main(String[] args) throws Exception {
