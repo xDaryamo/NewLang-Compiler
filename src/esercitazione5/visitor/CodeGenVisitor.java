@@ -355,7 +355,7 @@ public class CodeGenVisitor implements Visitor<String>{
                 String buffer = "char* buffer = (char*) malloc((1024*5)*sizeof(char) );\n";
                 result.append(buffer);
                 result.append("scanf(\"%s\", &buffer);\n");
-                String alloc = varName + "= (char*) malloc( (strlen(buffer) + 1) )*sizeof(char) );\n";
+                String alloc = varName + "= (char*) malloc( (strlen(buffer) + 1) *sizeof(char) );\n";
                 alloc = alloc + "strcpy(" + varName + ",buffer);\n free(buffer);\n";
                 result.append(alloc);
             }
