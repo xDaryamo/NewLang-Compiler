@@ -1,9 +1,11 @@
 package esercitazione5.visitor;
 
 import esercitazione5.node.*;
+import org.apache.tools.ant.taskdefs.condition.Or;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -260,6 +262,13 @@ public class CodeGenVisitor implements Visitor<String>{
                 funName.append(variableName).append(",");
             }
 
+            else if(funCall.getParams().get(i) instanceof SubOp || funCall.getParams().get(i) instanceof AddOp
+                    || funCall.getParams().get(i) instanceof DivOp || funCall.getParams().get(i) instanceof TimesOp
+                    || funCall.getParams().get(i) instanceof PowOp || funCall.getParams().get(i) instanceof AndOp
+                    || funCall.getParams().get(i) instanceof OrOp || funCall.getParams().get(i) instanceof NotOp) {
+                funName.append( funCall.getParams().get(i).accept(this) );
+            }
+
             index++;
 
         }
@@ -267,7 +276,10 @@ public class CodeGenVisitor implements Visitor<String>{
         if(funName.charAt(funName.length() - 1)==',')
             funName = new StringBuilder(funName.substring(0, funName.length() - 1));
 
-        funName.append(");");
+        if( (funName.charAt(funName.length() - 1) == ';'))
+            funName = new StringBuilder(funName.substring(0, funName.length() - 1));
+
+        funName.append(")");
 
         return funName.toString();
     }
@@ -352,7 +364,7 @@ public class CodeGenVisitor implements Visitor<String>{
 
             if(type.name().equalsIgnoreCase(Type.STRING.name())) {
 
-                String buffer = "char* buffer = (char*) malloc((1024*5)*sizeof(char) );\n";
+                String buffer = "buffer = (char*) malloc((1024*5)*sizeof(char) );\n";
                 result.append(buffer);
                 result.append("scanf(\"%s\", &buffer);\n");
                 String alloc = varName + "= (char*) malloc( (strlen(buffer) + 1) *sizeof(char) );\n";
@@ -421,10 +433,11 @@ public class CodeGenVisitor implements Visitor<String>{
 
     @Override
     public String visit(ReturnStat returnStat) {
+
         if (returnStat.getE() == null)
             return "return;";
 
-        return "return " + returnStat.getE().accept(this) + ";";
+        return "return " + returnStat.getE().accept(this) +";";
     }
 
     @Override
@@ -741,12 +754,15 @@ public class CodeGenVisitor implements Visitor<String>{
             #include <string.h>
             #include <math.h>
             
-            #define BUFFER_SIZE  (1024*4)
+            #define BUFFER_SIZE  1024*4
         
             """);
 
         //funzioni helper
         header.append("""
+            
+            char* buffer;
+            
             char* string_concat(char* s1, char* s2)
             {
                 char* ns = malloc(strlen(s1) + strlen(s2) + 1);
