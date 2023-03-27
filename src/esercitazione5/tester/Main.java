@@ -56,14 +56,10 @@ public class Main {
             fileWriterC.append(cProgram);
 
             fileWriterC.close();
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             //e.printStackTrace();
             System.exit(-1);
-        }
-        catch (Exception ignored)
-        {
-
         }
 
     }
