@@ -602,7 +602,7 @@ public class CodeGenVisitor implements Visitor<String>{
 
         }
 
-        for (index = body.getL2().size() -1; index >=0; index--) {
+        for (index = 0; index < body.getL2().size(); index++) {
             Stat stat = body.getL2().get(index);
             String stmtString = stat.accept(this);
             statements.append(stmtString).append("\n");
