@@ -29,14 +29,14 @@ public class Main {
         int dot = file.lastIndexOf(".");
         String c_file = file.substring(0, dot);
 
-        File fileC = new File(c_file +".c");
+        String fileC = c_file + ".c";
 
         String c_out_d = "test_files/c_out";
-        Path c_path = Path.of(c_out_d, String.valueOf(fileC));
+        Path c_path = Path.of(c_out_d, fileC);
 
         FileWriter fileWriterC = new FileWriter(c_path.toString());
 
-        Lexer lexer = new Lexer(new FileReader(file));
+        Lexer lexer = new Lexer(new FileReader(input_path.toString()));
 
         parser p = new parser(lexer);
 
@@ -58,8 +58,6 @@ public class Main {
             //e.printStackTrace();
 
             fileWriterC.close();
-
-            fileC.delete();
 
             System.exit(-1);
         }
