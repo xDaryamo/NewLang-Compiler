@@ -64,40 +64,110 @@ public class CodeGenVisitor implements Visitor<String>{
 
     @Override
     public String visit(AddOp addOp) {
-        String left = addOp.getLeft().accept(this);
-        String right = addOp.getRight().accept(this);
+
+        String left, right;
+
+        if(addOp.getLeft() instanceof FunCall){
+
+            left = addOp.getLeft().accept(this).substring(0, addOp.getLeft().accept(this).lastIndexOf(";"));
+        }
+
+        else left = addOp.getLeft().accept(this);
+
+        if(addOp.getRight() instanceof FunCall){
+
+            right = addOp.getRight().accept(this).substring(0, addOp.getRight().accept(this).lastIndexOf(";"));
+        }
+
+        else right = addOp.getRight().accept(this);
 
         return left + " + " + right;
     }
 
     @Override
     public String visit(SubOp subOp) {
-        String left = subOp.getLeft().accept(this);
-        String right = subOp.getRight().accept(this);
+
+        String left, right;
+
+        if(subOp.getLeft() instanceof FunCall){
+
+            left = subOp.getLeft().accept(this).substring(0, subOp.getLeft().accept(this).lastIndexOf(";"));
+        }
+
+        else left = subOp.getLeft().accept(this);
+
+        if(subOp.getRight() instanceof FunCall){
+
+            right = subOp.getRight().accept(this).substring(0, subOp.getRight().accept(this).lastIndexOf(";"));
+        }
+
+        else right = subOp.getRight().accept(this);
 
         return left + " - " + right;
     }
 
     @Override
     public String visit(TimesOp timesOp) {
-        String left = timesOp.getLeft().accept(this);
-        String right = timesOp.getRight().accept(this);
+
+        String left, right;
+
+        if(timesOp.getLeft() instanceof FunCall){
+
+            left = timesOp.getLeft().accept(this).substring(0, timesOp.getLeft().accept(this).lastIndexOf(";"));
+        }
+
+        else left = timesOp.getLeft().accept(this);
+
+        if(timesOp.getRight() instanceof FunCall){
+
+            right = timesOp.getRight().accept(this).substring(0, timesOp.getRight().accept(this).lastIndexOf(";"));
+        }
+
+        else right = timesOp.getRight().accept(this);
 
         return left + " * " + right;
     }
 
     @Override
     public String visit(DivOp divOp) {
-        String left = divOp.getLeft().accept(this);
-        String right = divOp.getRight().accept(this);
+
+        String left, right;
+
+        if(divOp.getLeft() instanceof FunCall){
+
+            left = divOp.getLeft().accept(this).substring(0, divOp.getLeft().accept(this).lastIndexOf(";"));
+        }
+
+        else left = divOp.getLeft().accept(this);
+
+        if(divOp.getRight() instanceof FunCall){
+
+            right = divOp.getRight().accept(this).substring(0, divOp.getRight().accept(this).lastIndexOf(";"));
+        }
+
+        else right = divOp.getRight().accept(this);
 
         return left + " / " + right;
     }
 
     @Override
     public String visit(PowOp powOp) {
-        String left = powOp.getLeft().accept(this);
-        String right = powOp.getRight().accept(this);
+
+        String left, right;
+
+        if(powOp.getLeft() instanceof FunCall){
+
+            left = powOp.getLeft().accept(this).substring(0, powOp.getLeft().accept(this).lastIndexOf(";"));
+        }
+
+        else left = powOp.getLeft().accept(this);
+
+        if(powOp.getRight() instanceof FunCall){
+
+            right = powOp.getRight().accept(this).substring(0, powOp.getRight().accept(this).lastIndexOf(";"));
+        }
+
+        else right = powOp.getRight().accept(this);
 
         return "pow(" + left + ", " + right + ")";
     }
@@ -115,16 +185,44 @@ public class CodeGenVisitor implements Visitor<String>{
 
     @Override
     public String visit(AndOp andOp) {
-        String left = andOp.getLeft().accept(this);
-        String right = andOp.getRight().accept(this);
+
+        String left, right;
+
+        if(andOp.getLeft() instanceof FunCall){
+
+            left = andOp.getLeft().accept(this).substring(0, andOp.getLeft().accept(this).lastIndexOf(";"));
+        }
+
+        else left = andOp.getLeft().accept(this);
+
+        if(andOp.getRight() instanceof FunCall){
+
+            right = andOp.getRight().accept(this).substring(0, andOp.getRight().accept(this).lastIndexOf(";"));
+        }
+
+        else right = andOp.getRight().accept(this);
 
         return left + " && " + right;
     }
 
     @Override
     public String visit(OrOp orOp) {
-        String left = orOp.getLeft().accept(this);
-        String right = orOp.getRight().accept(this);
+
+        String left, right;
+
+        if(orOp.getLeft() instanceof FunCall){
+
+            left = orOp.getLeft().accept(this).substring(0, orOp.getLeft().accept(this).lastIndexOf(";"));
+        }
+
+        else left = orOp.getLeft().accept(this);
+
+        if(orOp.getRight() instanceof FunCall){
+
+            right = orOp.getRight().accept(this).substring(0, orOp.getRight().accept(this).lastIndexOf(";"));
+        }
+
+        else right = orOp.getRight().accept(this);
 
         return left + " || " + right;
     }
@@ -223,23 +321,23 @@ public class CodeGenVisitor implements Visitor<String>{
                 funName.append("\"").append(stringC.getConstant()).append("\"");
             }
 
-            if(funCall.getParams().get(i) instanceof IntegerC integerC){
+            else if(funCall.getParams().get(i) instanceof IntegerC integerC){
                 funName.append(integerC.getConstant()).append(",");
             }
 
-            if(funCall.getParams().get(i) instanceof RealC realC){
+            else if(funCall.getParams().get(i) instanceof RealC realC){
                 funName.append(realC.getConstant()).append(",");
             }
 
-            if(funCall.getParams().get(i) instanceof CharC charC){
+            else if(funCall.getParams().get(i) instanceof CharC charC){
                 funName.append("'").append(charC.getConstant()).append("'").append(",");
             }
 
-            if(funCall.getParams().get(i) instanceof FalseC falseC){
+            else if(funCall.getParams().get(i) instanceof FalseC falseC){
                 funName.append(falseC.getFalse()).append(",");
             }
 
-            if(funCall.getParams().get(i) instanceof TrueC trueC){
+            else if(funCall.getParams().get(i) instanceof TrueC trueC){
                 funName.append(trueC.getTrue()).append(",");
             }
 
@@ -299,7 +397,14 @@ public class CodeGenVisitor implements Visitor<String>{
             Expr expr = assignStat.getL2().get(i);
 
             String idName = id.accept(this);
-            String exprValue = expr.accept(this);
+            String exprValue;
+
+            if(expr instanceof FunCall) {
+                int lastsemi = expr.accept(this).lastIndexOf(";");
+                exprValue = expr.accept(this).substring(0, lastsemi);
+            }
+
+            else exprValue = expr.accept(this);
 
             assign = idName + " = " + exprValue + ",";
 
@@ -312,7 +417,7 @@ public class CodeGenVisitor implements Visitor<String>{
             assign = assign.substring(0, assign.length() - 1);
 
         if(!(assign.charAt(assign.length() - 1) == ';'))
-        assign = assign + ";";
+            assign = assign + ";";
 
         return assign;
     }
@@ -323,8 +428,11 @@ public class CodeGenVisitor implements Visitor<String>{
         String printArgs = "";
         String printString = "printf(\"";
 
+        int index;
 
-        for(Expr e : writeStat.getL()) {
+        for(index = writeStat.getL().size() - 1; index >= 0; index--) {
+
+            Expr e = writeStat.getL().get(index);
             String expr = e.accept(this);
             Type type = ((Node) e).getTypeNode();
 
@@ -370,7 +478,7 @@ public class CodeGenVisitor implements Visitor<String>{
 
                 String buffer = "buffer = (char*) malloc((1024*5)*sizeof(char) );\n";
                 result.append(buffer);
-                result.append("scanf(\"%s\", &buffer);\n");
+                result.append("scanf(\"%s\", buffer);\n");
                 String alloc = varName + "= (char*) malloc( (strlen(buffer) + 1) *sizeof(char) );\n";
                 alloc = alloc + "strcpy(" + varName + ",buffer);\n free(buffer);\n";
                 result.append(alloc);
@@ -583,15 +691,22 @@ public class CodeGenVisitor implements Visitor<String>{
 
         for (IdInitBase init : varDecl.getL()) {
             String[] temp = init.accept(this).split(" ");
+
             if(init instanceof IdInitStmt && ((IdInitStmt)init).getExpr() != null)
                 varDeclarations.append(temp[0]).append(" ").append(temp[1]).append(";").append("\n");
             else if(init instanceof IdInitObbl)
                 varDeclarations.append(temp[0]).append(" ").append(temp[1]).append(";").append("\n");
             else
                 varDeclarations.append(temp[0]).append(" ").append(temp[1]).append("\n");
-            if(temp.length>=3)
-                varAssign.append(temp[1]).append(" ").append(temp[2]).append(" ").append(temp[3]).append("\n");
 
+            if (init instanceof IdInitStmt && temp.length >= 3 && !(((IdInitStmt) init).getExpr() instanceof FunCall)) {
+                varAssign.append(temp[1]).append(" ").append(temp[2]).append(" ").append(temp[3]).append("\n");
+            }
+
+            if (init instanceof IdInitStmt && temp.length >= 3 && ((IdInitStmt) init).getExpr() instanceof FunCall) {
+                temp[3] = temp[3].substring(0, temp[3].lastIndexOf(";"));
+                varAssign.append(temp[1]).append(" ").append(temp[2]).append(" ").append(temp[3]).append("\n");
+            }
         }
 
         result.append(varDeclarations);
