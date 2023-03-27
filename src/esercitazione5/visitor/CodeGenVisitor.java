@@ -217,22 +217,50 @@ public class CodeGenVisitor implements Visitor<String>{
 
         for(int i = funCall.getParams().size() - 1; i >= 0 ; i--) {
 
-            Id id = (Id) funCall.getParams().get(i);
-            TabEntry tabEntry = id.getCurrent_ref().findEntry(id.getIdentifier());
-            Variable variable = (Variable) tabEntry.getParams();
+            /*check constants*/
+            if(funCall.getParams().get(i) instanceof StringC stringC){
+                funName.append(stringC.getConstant()).append(",");
+            }
 
-            TabEntry formalParam = funArgs.get(index);
-            Variable formalParamSpecs = (Variable) formalParam.getParams();
+            if(funCall.getParams().get(i) instanceof IntegerC integerC){
+                funName.append(integerC.getConstant()).append(",");
+            }
 
-            String variableName = id.accept(this);
+            if(funCall.getParams().get(i) instanceof RealC realC){
+                funName.append(realC.getConstant()).append(",");
+            }
 
-            if(formalParamSpecs.isByReference() && !variable.isByReference()){
-                variableName = "&" + variableName;
+            if(funCall.getParams().get(i) instanceof CharC charC){
+                funName.append(charC.getConstant()).append(",");
+            }
+
+            if(funCall.getParams().get(i) instanceof FalseC falseC){
+                funName.append(falseC.getFalse()).append(",");
+            }
+
+            if(funCall.getParams().get(i) instanceof TrueC trueC){
+                funName.append(trueC.getTrue()).append(",");
+            }
+
+            else {
+
+                Id id = (Id) funCall.getParams().get(i);
+                TabEntry tabEntry = id.getCurrent_ref().findEntry(id.getIdentifier());
+                Variable variable = (Variable) tabEntry.getParams();
+
+                TabEntry formalParam = funArgs.get(index);
+                Variable formalParamSpecs = (Variable) formalParam.getParams();
+
+                String variableName = id.accept(this);
+
+                if (formalParamSpecs.isByReference() && !variable.isByReference()) {
+                    variableName = "&" + variableName;
+                }
+
+                funName.append(variableName).append(",");
             }
 
             index++;
-
-            funName.append(variableName).append(",");
 
         }
 
