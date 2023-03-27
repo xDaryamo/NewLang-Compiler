@@ -15,19 +15,23 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
+        String file = args[0];
+
         if (args.length == 0) {
             System.err.println("Missing file argument");
             System.exit(1);
         }
 
-        File fileC = new File(args[0]+".c");
+        int dot = file.lastIndexOf(".");
+        String c_file = file.substring(0, dot);
+
+        File fileC = new File(c_file +".c");
 
         String c_out_d = "test_files/c_out";
         Path c_path = Path.of(c_out_d, String.valueOf(fileC));
 
         FileWriter fileWriterC = new FileWriter(c_path.toString());
 
-        String file = args[0];
         Lexer lexer = new Lexer(new FileReader(file));
 
         parser p = new parser(lexer);
