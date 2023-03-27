@@ -53,15 +53,13 @@ public class Main {
             CodeGenVisitor codeGenVisitor = new CodeGenVisitor((ArrayList<String>) lexer.identifiersTable);
             String cProgram = pr.accept(codeGenVisitor);
             fileWriterC.append(cProgram);
+
+            fileWriterC.close();
         } catch (Exception e) {
             System.out.println(e.getMessage());
             //e.printStackTrace();
-
-            fileWriterC.close();
-
             System.exit(-1);
         }
 
-        fileWriterC.close();
     }
 }
