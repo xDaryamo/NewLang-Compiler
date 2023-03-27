@@ -242,7 +242,7 @@ public class CodeGenVisitor implements Visitor<String>{
                 funName.append(trueC.getTrue()).append(",");
             }
 
-            else {
+            else if(funCall.getParams().get(i) instanceof Id){
 
                 Id id = (Id) funCall.getParams().get(i);
                 TabEntry tabEntry = id.getCurrent_ref().findEntry(id.getIdentifier());
