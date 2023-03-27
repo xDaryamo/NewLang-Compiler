@@ -9,18 +9,21 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class Main {
 
     public static void main(String[] args) throws Exception {
 
-        String file = args[0];
-
         if (args.length == 0) {
             System.err.println("Missing file argument");
             System.exit(1);
         }
+
+        Path input_path = Paths.get(args[0]);
+
+        String file = input_path.getFileName().toString();
 
         int dot = file.lastIndexOf(".");
         String c_file = file.substring(0, dot);
