@@ -69,7 +69,7 @@ public class TypeSystem {
 
             }
 
-            int index = 0;
+            int index = signature.getArguments().size() - 1;
 
             for(TabEntry t : args){
 
@@ -78,7 +78,7 @@ public class TypeSystem {
                 if(!Type.compatibility(v.getType(), ((Node)call.getParams().get(index)).getTypeNode()))
                     throw new RuntimeException("Type System Compatibility Error");
 
-                index++;
+                index--;
             }
 
             return signature.getReturnType();
