@@ -534,6 +534,8 @@ public class CodeGenVisitor implements Visitor<String>{
             String[] temp = init.accept(this).split(" ");
             if(init instanceof IdInitStmt && ((IdInitStmt)init).getExpr() != null)
                 varDeclarations.append(temp[0]).append(" ").append(temp[1]).append(";").append("\n");
+            else if(init instanceof IdInitObbl)
+                varDeclarations.append(temp[0]).append(" ").append(temp[1]).append(";").append("\n");
             else
                 varDeclarations.append(temp[0]).append(" ").append(temp[1]).append("\n");
             if(temp.length>=3)

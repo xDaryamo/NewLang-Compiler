@@ -14,12 +14,11 @@ D:\delogu-mazza_es5\src\esercitazione5\node\WriteStat.java
 D:\delogu-mazza_es5\src\esercitazione5\visitor\ListEntry.java
 D:\delogu-mazza_es5\src\esercitazione5\node\SubOp.java
 D:\delogu-mazza_es5\src\esercitazione5\node\TrueC.java
-D:\delogu-mazza_es5\src\esercitazione5\visitor\TypeSystemVisitor.java
 D:\delogu-mazza_es5\src\esercitazione5\node\ConcatOp.java
 D:\delogu-mazza_es5\src\esercitazione5\node\OrOp.java
 D:\delogu-mazza_es5\src\esercitazione5\node\IdInitObbl.java
 D:\delogu-mazza_es5\src\esercitazione5\node\IdInitBase.java
-D:\delogu-mazza_es5\src\esercitazione5\tester\TypeEnvironmentScopingTester.java
+D:\delogu-mazza_es5\src\esercitazione5\visitor\TypeCheckingViewVisitor.java
 D:\delogu-mazza_es5\src\esercitazione5\node\EqOp.java
 D:\delogu-mazza_es5\src\esercitazione5\node\Expr.java
 D:\delogu-mazza_es5\src\esercitazione5\node\AddOp.java
@@ -27,6 +26,7 @@ D:\delogu-mazza_es5\src\esercitazione5\node\AssignStat.java
 D:\delogu-mazza_es5\src\esercitazione5\visitor\SymTab.java
 D:\delogu-mazza_es5\src\esercitazione5\node\ReturnStat.java
 D:\delogu-mazza_es5\src\esercitazione5\node\GeOp.java
+D:\delogu-mazza_es5\src\esercitazione5\tester\Tester.java
 D:\delogu-mazza_es5\src\esercitazione5\node\Id.java
 D:\delogu-mazza_es5\src\esercitazione5\node\Body.java
 D:\delogu-mazza_es5\src\esercitazione5\Sym.java
@@ -34,6 +34,7 @@ D:\delogu-mazza_es5\src\esercitazione5\visitor\ScopingVisitor.java
 D:\delogu-mazza_es5\src\esercitazione5\visitor\CodeGenVisitor.java
 D:\delogu-mazza_es5\src\esercitazione5\visitor\Visitor.java
 D:\delogu-mazza_es5\src\esercitazione5\node\ForStat.java
+D:\delogu-mazza_es5\src\esercitazione5\visitor\TypeSystem.java
 D:\delogu-mazza_es5\src\esercitazione5\node\NeOp.java
 D:\delogu-mazza_es5\src\esercitazione5\visitor\ListSymTab.java
 D:\delogu-mazza_es5\src\esercitazione5\visitor\TabEntry.java
