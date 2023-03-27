@@ -219,7 +219,7 @@ public class CodeGenVisitor implements Visitor<String>{
 
             /*check constants*/
             if(funCall.getParams().get(i) instanceof StringC stringC){
-                funName.append(stringC.getConstant()).append(",");
+                funName.append("\"").append(stringC.getConstant()).append("\"").append(",");
             }
 
             if(funCall.getParams().get(i) instanceof IntegerC integerC){
@@ -231,7 +231,7 @@ public class CodeGenVisitor implements Visitor<String>{
             }
 
             if(funCall.getParams().get(i) instanceof CharC charC){
-                funName.append(charC.getConstant()).append(",");
+                funName.append("'").append(charC.getConstant()).append("'").append(",");
             }
 
             if(funCall.getParams().get(i) instanceof FalseC falseC){
