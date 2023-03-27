@@ -27,7 +27,7 @@ public class Main {
 
         File fileC = new File(c_file +".c");
 
-        String c_out_d = "tests/c_out";
+        String c_out_d = "test_files/c_out";
         Path c_path = Path.of(c_out_d, String.valueOf(fileC));
 
         FileWriter fileWriterC = new FileWriter(c_path.toString());
