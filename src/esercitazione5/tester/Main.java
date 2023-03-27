@@ -20,21 +20,11 @@ public class Main {
             System.exit(1);
         }
 
-        File fileScope = new File(args[0]+"Scope.xml");
-        File fileType = new File(args[0]+"Type.xml");
         File fileC = new File(args[0]+".c");
-
-        String type_out_d = "test_files/type_out";
-        Path type_path = Path.of(type_out_d, String.valueOf(fileType));
-
-        String scope_out_d = "test_files/scope_out";
-        Path scope_path = Path.of(scope_out_d, String.valueOf(fileScope));
 
         String c_out_d = "test_files/c_out";
         Path c_path = Path.of(c_out_d, String.valueOf(fileC));
 
-        FileWriter fileWriterScope = new FileWriter(type_path.toString());
-        FileWriter fileWriterType = new FileWriter(scope_path.toString());
         FileWriter fileWriterC = new FileWriter(c_path.toString());
 
         String file = args[0];
@@ -52,35 +42,20 @@ public class Main {
             TypeCheckingVisitor typeCheckingVisitor = new TypeCheckingVisitor((ArrayList<String>) lexer.identifiersTable);
             pr.accept(typeCheckingVisitor);
 
-            ScopingViewVisitor scopingViewVisitor =
-                    new ScopingViewVisitor(fileWriterScope, (ArrayList<String>) lexer.identifiersTable);
-
-            pr.accept(scopingViewVisitor);
-
-            TypeCheckingViewVisitor typeCheckingViewVisitor =
-                    new TypeCheckingViewVisitor(fileWriterType, (ArrayList<String>) lexer.identifiersTable);
-
-            pr.accept(typeCheckingViewVisitor);
-
             CodeGenVisitor codeGenVisitor = new CodeGenVisitor((ArrayList<String>) lexer.identifiersTable);
             String cProgram = pr.accept(codeGenVisitor);
             fileWriterC.append(cProgram);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             //e.printStackTrace();
-            fileWriterScope.close();
-            fileWriterType.close();
-            fileWriterC.close();
 
-            fileScope.delete();
-            fileType.delete();
+            fileWriterC.close();
+            ;
             fileC.delete();
 
             System.exit(-1);
         }
 
-        fileWriterScope.close();
-        fileWriterType.close();
         fileWriterC.close();
     }
 }
