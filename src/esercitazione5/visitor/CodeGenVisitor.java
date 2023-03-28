@@ -455,7 +455,7 @@ public class CodeGenVisitor implements Visitor<String>{
         printArgs = new StringBuilder(printArgs.substring(0, printArgs.length() - 1));
 
         if(writeStat.getLn()==1)
-            printString .append("\\r\n");
+            printString .append("\\r\r\n");
 
 
         printString.append("\",").append(printArgs).append(");");
@@ -471,7 +471,7 @@ public class CodeGenVisitor implements Visitor<String>{
 
         if(readStat.getS()!=null) {
             String message = readStat.getS();
-            result.append("printf(\"").append(message).append("\");\r\n");
+            result.append("printf(\"").append(message).append("\");\r\r\n");
         }
 
         for(Id id: readStat.getL()) {
