@@ -429,8 +429,8 @@ public class CodeGenVisitor implements Visitor<String>{
     @Override
     public String visit(WriteStat writeStat) {
 
-        String printArgs = "";
-        String printString = "printf(\"";
+        StringBuilder printArgs = new StringBuilder("");
+        StringBuilder printString = new StringBuilder("printf(\"");
 
         int index;
 
@@ -447,19 +447,19 @@ public class CodeGenVisitor implements Visitor<String>{
 
             String stringSpecifier = getStringSpecifier(type);
 
-            printString = printString + stringSpecifier;
-            printArgs = printArgs + expr + ',';
+            printString = new StringBuilder(printString + stringSpecifier);
+            printArgs = new StringBuilder(printArgs + expr + ',');
         }
 
-        printArgs = printArgs.substring(0, printArgs.length() - 1);
+        printArgs = new StringBuilder(printArgs.substring(0, printArgs.length() - 1));
 
         if(writeStat.getLn()==1)
-            printString = printString + "\\n";
+            printString = new StringBuilder(printString + "\\n");
 
 
-        printString = printString + "\"," + printArgs + ");";
+        printString = new StringBuilder(printString + "\"," + printArgs + ");");
 
-        return printString;
+        return printString.toString();
 
     }
 
