@@ -1,0 +1,4 @@
+start: def inizioDelProgramma():void{
+    if 1 then{
+    }
+}

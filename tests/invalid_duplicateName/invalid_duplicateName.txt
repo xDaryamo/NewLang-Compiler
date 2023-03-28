@@ -1,0 +1,2 @@
+def c1():void{}
+start: def c1():void{}

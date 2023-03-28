@@ -1,0 +1,8 @@
+def shadowing(integer x):void{
+    char x << 'a';
+    (x='a') -->!;
+}
+
+start: def main():void{
+    shadowing(1);
+}
