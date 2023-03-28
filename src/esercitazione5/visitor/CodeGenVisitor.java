@@ -589,6 +589,8 @@ public class CodeGenVisitor implements Visitor<String>{
     @Override
     public String visit(Body body) {
 
+        StringBuilder b = new StringBuilder();
+
         StringBuilder declarations = new StringBuilder();
 
         StringBuilder statements = new StringBuilder();
@@ -612,7 +614,9 @@ public class CodeGenVisitor implements Visitor<String>{
             statements.append(stmtString).append("\n");
         }
 
-        return declarations + "\n" + statements + "\n";
+        b.append(declarations).append("\n").append(statements).append("\n");
+
+        return  b.toString();
     }
 
     @Override
