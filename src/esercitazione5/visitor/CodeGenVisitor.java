@@ -389,12 +389,14 @@ public class CodeGenVisitor implements Visitor<String>{
     @Override
     public String visit(AssignStat assignStat) {
 
-        String assign = null;
+        StringBuilder assign = new StringBuilder();
+
+        int index = assignStat.getL2().size() - 1;
 
         for(int i = 0; i < assignStat.getL1().size(); i++){
 
             Id id = assignStat.getL1().get(i);
-            Expr expr = assignStat.getL2().get(i);
+            Expr expr = assignStat.getL2().get(index);
 
             String idName = id.accept(this);
             String exprValue;
@@ -406,20 +408,22 @@ public class CodeGenVisitor implements Visitor<String>{
 
             else exprValue = expr.accept(this);
 
-            assign = idName + " = " + exprValue + ",";
+            assign.append(idName).append("=").append(exprValue).append(",");
+
+            index--;
 
         }
 
-        if(assign==null)
+        if(assign.length()==0)
             return "";
 
         if(assign.charAt(assign.length() - 1)==',')
-            assign = assign.substring(0, assign.length() - 1);
+            assign = new StringBuilder(assign.substring(0, assign.length() - 1));
 
         if(!(assign.charAt(assign.length() - 1) == ';'))
-            assign = assign + ";";
+            assign = new StringBuilder(assign + ";");
 
-        return assign;
+        return assign.toString();
     }
 
     @Override

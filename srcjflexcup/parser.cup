@@ -48,9 +48,12 @@ precedence nonassoc RETURN;
 precedence left ID, IF, WHILE, FOR;
 precedence left OR;
 precedence left AND;
-precedence left EQ, NE, LT, LE, GT, GE;
-precedence left PLUS, MINUS,STR_CONCAT, TIMES, DIV;
-precedence right POW, NOT;
+precedence left EQ, NE;
+precedence left LT, LE, GT, GE;
+precedence left PLUS, MINUS,STR_CONCAT;
+precedence left TIMES, DIV;
+precedence right POW;
+precedence left NOT;
 precedence left LPAR, RPAR;
 
 /* The grammar */
