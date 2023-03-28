@@ -443,7 +443,7 @@ public class CodeGenVisitor implements Visitor<String>{
 
             if (e instanceof TrueC)
                 expr = "true";
-            else if (e instanceof FalseC)
+            if (e instanceof FalseC)
                 expr = "false";
 
             String stringSpecifier = getStringSpecifier(type);
@@ -455,7 +455,7 @@ public class CodeGenVisitor implements Visitor<String>{
         printArgs = new StringBuilder(printArgs.substring(0, printArgs.length() - 1));
 
         if(writeStat.getLn()==1)
-            printString .append("\\n");
+            printString .append("\\r\n");
 
 
         printString.append("\",").append(printArgs).append(");");
@@ -471,7 +471,7 @@ public class CodeGenVisitor implements Visitor<String>{
 
         if(readStat.getS()!=null) {
             String message = readStat.getS();
-            result.append("printf(\"").append(message).append("\");\n");
+            result.append("printf(\"").append(message).append("\");\r\n");
         }
 
         for(Id id: readStat.getL()) {
@@ -481,11 +481,11 @@ public class CodeGenVisitor implements Visitor<String>{
 
             if(type.name().equalsIgnoreCase(Type.STRING.name())) {
 
-                String buffer = "buffer = (char*) malloc((1024*5)*sizeof(char) );\n";
+                String buffer = "buffer = (char*) malloc((1024*5)*sizeof(char) );\r\n";
                 result.append(buffer);
-                result.append("scanf(\"%s\", buffer);\n");
-                String alloc = varName + "= (char*) malloc( (strlen(buffer) + 1) *sizeof(char) );\n";
-                alloc = alloc + "strcpy(" + varName + ",buffer);\n free(buffer);\n";
+                result.append("scanf(\"%s\", buffer);\r\n");
+                String alloc = varName + "= (char*) malloc( (strlen(buffer) + 1) *sizeof(char) );\r\n";
+                alloc = alloc + "strcpy(" + varName + ",buffer);\r\n free(buffer);\r\n";
                 result.append(alloc);
             }
 
@@ -523,7 +523,7 @@ public class CodeGenVisitor implements Visitor<String>{
             indexUpdate += "--";
             condition+= ">=" + end;
         }
-        return "for(int " + index + "=" + start + ";" + condition + ";" + indexUpdate + "){\n" + body + "\n}\n";
+        return "for(int " + index + "=" + start + ";" + condition + ";" + indexUpdate + "){\r\n" + body + "\r\n}\r\n";
     }
 
     @Override
@@ -531,7 +531,7 @@ public class CodeGenVisitor implements Visitor<String>{
         String condition = whileStat.getE().accept(this);
         String body = whileStat.getBody().accept(this);
 
-        return "while(" + condition + "){\n" + body + "\n}\n";
+        return "while(" + condition + "){\r\n" + body + "\r\n}\r\n";
     }
 
     @Override
@@ -542,10 +542,10 @@ public class CodeGenVisitor implements Visitor<String>{
 
         if(ifStat.getEls()!=null) {
             String elseBody = ifStat.getEls().accept(this);
-            return "if(" + condition + "){\n" + body + "}\n" + "else{" + elseBody + "}\n";
+            return "if(" + condition + "){\r\n" + body + "}\r\n" + "else{" + elseBody + "}\r\n";
         }
 
-        return "if(" + condition + "){\n" + body + "}\n";
+        return "if(" + condition + "){\r\n" + body + "}\r\n";
     }
 
     @Override
@@ -612,10 +612,10 @@ public class CodeGenVisitor implements Visitor<String>{
         for (index = 0; index < body.getL2().size(); index++) {
             Stat stat = body.getL2().get(index);
             String stmtString = stat.accept(this);
-            statements.append(stmtString).append("\n");
+            statements.append(stmtString).append("\r\n");
         }
 
-        b.append(declarations).append("\n").append(statements).append("\n");
+        b.append(declarations).append("\r\n").append(statements).append("\r\n");
 
         return  b.toString();
     }
@@ -653,18 +653,18 @@ public class CodeGenVisitor implements Visitor<String>{
                 funParams = new StringBuilder(funParams.substring(0, funParams.length() - 1));
 
 
-            result.append("if(argc<"+index+")\n");
+            result.append("if(argc<"+index+")\r\n");
             result.append("""
                 {
-                    printf("missing argument\\n");
+                    printf("missing argument\\r\n");
                     exit(-1);
                 }
                 
                 """);
-            result.append(globalsVarAssign).append("\n");
+            result.append(globalsVarAssign).append("\r\n");
 
             String funNewLangName = stringTab.get(funDecl.getId().getIdentifier());
-            result.append(funNewLangName).append("(").append(funParams).append(");\n").append("}\n\n");
+            result.append(funNewLangName).append("(").append(funParams).append(");\r\n").append("}\r\n\r\n");
 
         }
 
@@ -685,12 +685,12 @@ public class CodeGenVisitor implements Visitor<String>{
 
         funParams = new StringBuilder(funParams.substring(0, funParams.length() - 1));
 
-        funParams.append("){\n");
+        funParams.append("){\r\n");
 
         result.append(funParams);
 
         String body = funDecl.getBody().accept(this);
-        result.append(body).append("}\n");
+        result.append(body).append("}\r\n");
 
         return result.toString();
     }
@@ -708,23 +708,23 @@ public class CodeGenVisitor implements Visitor<String>{
             String[] temp = init.accept(this).split(" ");
 
             if(init instanceof IdInitStmt && ((IdInitStmt)init).getExpr() != null)
-                varDeclarations.append(temp[0]).append(" ").append(temp[1]).append(";").append("\n");
+                varDeclarations.append(temp[0]).append(" ").append(temp[1]).append(";").append("\r\n");
             else if(init instanceof IdInitObbl)
-                varDeclarations.append(temp[0]).append(" ").append(temp[1]).append(";").append("\n");
+                varDeclarations.append(temp[0]).append(" ").append(temp[1]).append(";").append("\r\n");
             else
-                varDeclarations.append(temp[0]).append(" ").append(temp[1]).append("\n");
+                varDeclarations.append(temp[0]).append(" ").append(temp[1]).append("\r\n");
 
             if (init instanceof IdInitStmt && temp.length >= 3 && !(((IdInitStmt) init).getExpr() instanceof FunCall)) {
-                varAssign.append(temp[1]).append(" ").append(temp[2]).append(" ").append(temp[3]).append("\n");
+                varAssign.append(temp[1]).append(" ").append(temp[2]).append(" ").append(temp[3]).append("\r\n");
             }
 
             if (init instanceof IdInitStmt && temp.length >= 3 && ((IdInitStmt) init).getExpr() instanceof FunCall) {
                 temp[3] = temp[3].substring(0, temp[3].lastIndexOf(";"));
-                varAssign.append(temp[1]).append(" ").append(temp[2]).append(" ").append(temp[3]).append("\n");
+                varAssign.append(temp[1]).append(" ").append(temp[2]).append(" ").append(temp[3]).append("\r\n");
             }
 
             if(temp.length >= 3 && init instanceof IdInitObbl){
-                varAssign.append(temp[1]).append(" ").append(temp[2]).append(" ").append(temp[3]).append("\n");
+                varAssign.append(temp[1]).append(" ").append(temp[2]).append(" ").append(temp[3]).append("\r\n");
             }
         }
 
@@ -741,7 +741,7 @@ public class CodeGenVisitor implements Visitor<String>{
         String varName = idInitObbl.getId().accept(this);
         String val = objectToCType(idInitObbl.getCnst());
 
-        return getCType(idInitObbl.getId().getTypeNode()) + " " + varName + " = " + val + ";\n";
+        return getCType(idInitObbl.getId().getTypeNode()) + " " + varName + " = " + val + ";\r\n";
     }
     @Override
     public String visit(IdInitStmt idInitStmt) {
@@ -754,7 +754,7 @@ public class CodeGenVisitor implements Visitor<String>{
         else expr = "";
 
 
-        return getCType(idInitStmt.getId().getTypeNode()) + " " + varName + expr + ";\n";
+        return getCType(idInitStmt.getId().getTypeNode()) + " " + varName + expr + ";\r\n";
     }
 
     @Override
@@ -769,14 +769,14 @@ public class CodeGenVisitor implements Visitor<String>{
             if(decl instanceof FunDecl d)
                 cProgram.append(setPrototype(d));
 
-        cProgram.append("\n");
+        cProgram.append("\r\n");
 
         for(Decl decl : program.getL())
             if(decl instanceof VarDecl){
                 String[] temp = ((VarDecl)decl).accept(this).split("@");
-                varDeclarations.append(temp[0]).append("\n");
+                varDeclarations.append(temp[0]).append("\r\n");
                 if(temp.length>1)
-                    varAssign.append(temp[1]).append("\n");
+                    varAssign.append(temp[1]).append("\r\n");
             }
 
         cProgram.append(varDeclarations);
@@ -785,7 +785,7 @@ public class CodeGenVisitor implements Visitor<String>{
 
         for(Decl decl : program.getL())
             if(decl instanceof FunDecl)
-                cProgram.append( ((FunDecl)decl).accept(this) ).append("\n");
+                cProgram.append( ((FunDecl)decl).accept(this) ).append("\r\n");
 
         return cProgram.toString();
     }
@@ -1014,7 +1014,7 @@ public class CodeGenVisitor implements Visitor<String>{
         if(funDecl.getL().size()!=0)
             funParams = new StringBuilder(funParams.substring(0, funParams.length() - 1));
 
-        funParams.append(");\n");
+        funParams.append(");\r\n");
 
         result.append(funParams);
 
