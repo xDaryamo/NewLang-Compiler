@@ -129,10 +129,21 @@ public class TypeSystem {
 
             AssignStat stat = (AssignStat)n;
 
-            for(Id id: stat.getL1())
-                for(Expr expr: stat.getL2())
-                    if(id.getTypeNode().name().equalsIgnoreCase(((Node)expr).getTypeNode().name()))
-                        return Type.NOTYPE;
+            int index;
+
+            for(index = stat.getL1().size() - 1; index >=0; index--) {
+
+               Id id = stat.getL1().get(index);
+
+               Expr expr = stat.getL2().get(index);
+
+               if ( !(id.getTypeNode().name().equalsIgnoreCase(((Node) expr).getTypeNode().name())) )
+                   throw new RuntimeException("Type System Error");
+
+                index--;
+            }
+
+            return Type.NOTYPE;
 
         }
 
