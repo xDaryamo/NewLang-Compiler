@@ -471,7 +471,7 @@ public class CodeGenVisitor implements Visitor<String>{
 
         if(readStat.getS()!=null) {
             String message = readStat.getS();
-            result.append("printf(\"").append(message).append("\");\r\r\n");
+            result.append("printf(\"").append(message).append("\");\r\n");
         }
 
         for(Id id: readStat.getL()) {
