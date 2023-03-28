@@ -438,6 +438,7 @@ public class CodeGenVisitor implements Visitor<String>{
 
             Expr e = writeStat.getL().get(index);
             String expr = e.accept(this);
+
             Type type = ((Node) e).getTypeNode();
 
             if (e instanceof TrueC)
@@ -447,17 +448,17 @@ public class CodeGenVisitor implements Visitor<String>{
 
             String stringSpecifier = getStringSpecifier(type);
 
-            printString = new StringBuilder(printString + stringSpecifier);
-            printArgs = new StringBuilder(printArgs + expr + ',');
+            printString.append(stringSpecifier);
+            printArgs.append(expr).append(',');
         }
 
         printArgs = new StringBuilder(printArgs.substring(0, printArgs.length() - 1));
 
         if(writeStat.getLn()==1)
-            printString = new StringBuilder(printString + "\\n");
+            printString .append("\\n");
 
 
-        printString = new StringBuilder(printString + "\"," + printArgs + ");");
+        printString.append("\",").append(printArgs).append(");");
 
         return printString.toString();
 
