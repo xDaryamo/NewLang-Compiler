@@ -8,11 +8,11 @@ package esercitazione5;
 /** CUP generated interface containing symbol constants. */
 public interface Sym {
   /* terminals */
-  public static final int CHAR_CONST = 53;
+  public static final int CHAR_CONST = 54;
   public static final int POW = 36;
   public static final int CHAR = 9;
   public static final int GE = 40;
-  public static final int INTEGER_CONST = 50;
+  public static final int INTEGER_CONST = 51;
   public static final int INTEGER = 5;
   public static final int SEMI = 4;
   public static final int OUT = 21;
@@ -21,6 +21,7 @@ public interface Sym {
   public static final int WRITE = 46;
   public static final int NOT = 48;
   public static final int AND = 35;
+  public static final int ASSIGNONE = 49;
   public static final int LT = 41;
   public static final int RPAR = 16;
   public static final int OR = 38;
@@ -32,7 +33,7 @@ public interface Sym {
   public static final int ASSIGN = 11;
   public static final int MAIN = 2;
   public static final int IF = 22;
-  public static final int ID = 49;
+  public static final int ID = 50;
   public static final int LE = 42;
   public static final int EOF = 0;
   public static final int BOOLEAN = 6;
@@ -52,14 +53,14 @@ public interface Sym {
   public static final int TO = 30;
   public static final int WHILE = 25;
   public static final int STR_CONCAT = 37;
-  public static final int REAL_CONST = 51;
+  public static final int REAL_CONST = 52;
   public static final int THEN = 23;
   public static final int NE = 44;
   public static final int LPAR = 15;
   public static final int STRING = 8;
   public static final int DEF = 14;
   public static final int FALSE = 13;
-  public static final int STRING_CONST = 52;
+  public static final int STRING_CONST = 53;
   public static final int GT = 39;
   public static final int VAR = 3;
   public static final String[] terminalNames = new String[] {
@@ -112,6 +113,7 @@ public interface Sym {
   "WRITE",
   "WRITELN",
   "NOT",
+  "ASSIGNONE",
   "ID",
   "INTEGER_CONST",
   "REAL_CONST",

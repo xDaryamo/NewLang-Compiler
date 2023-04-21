@@ -63,7 +63,18 @@ public class ScopingVisitor implements Visitor<Void>{
         }
 
         return symTabStack.peek();
+
     }
+
+    public SymTab getGlobalScope() {
+        if (symTabStack.isEmpty()) {
+            throw new IllegalStateException(
+                    "Type environment visitor tried to retrieve current scope but scope does not exist!");
+        }
+
+        return symTabStack.firstElement();
+    }
+
 
     @Override
     public Void visit(TrueC trueC) {
@@ -103,7 +114,26 @@ public class ScopingVisitor implements Visitor<Void>{
 
     @Override
     public Void visit(Id id) {
+
         id.setCurrent_ref(getCurrentScope());
+
+        if (!id.getCurrent_ref().isInScope(id.getIdentifier()))
+        {
+            boolean flag = false;
+            for(int i=symTabStack.size()-1; i>=0; i--) {
+
+                if((symTabStack.elementAt(i).isInScope(id.getIdentifier())))
+                    flag=true;
+            }
+
+            if(!flag)
+                throw new RuntimeException("Non puoi usare la variabile o la funzione: " + stringTab.get(id.getIdentifier()) + " prima della sua dichiarazione!");
+
+        }
+
+
+
+
         return null;
     }
 
@@ -307,12 +337,11 @@ public class ScopingVisitor implements Visitor<Void>{
 
         forStat.setCurrent_ref(getCurrentScope());
 
-        openScope();
         addToScope(forStat.getId().getIdentifier(),
                 new TabEntry(forStat.getId(), new Variable(Type.INTEGER, false)));
         forStat.getId().accept(this);
         forStat.getBody().accept(this);
-        closeScope();
+
 
         return null;
     }
@@ -322,9 +351,9 @@ public class ScopingVisitor implements Visitor<Void>{
 
         whileStat.setCurrent_ref(getCurrentScope());
         whileStat.getE().accept(this);
-        openScope();
+
         whileStat.getBody().accept(this);
-        closeScope();
+
 
         return null;
     }
@@ -335,14 +364,14 @@ public class ScopingVisitor implements Visitor<Void>{
         ifStat.setCurrent_ref(getCurrentScope());
         ifStat.getE().accept(this);
 
-        openScope();
+
         ifStat.getBody().accept(this);
-        closeScope();
+
 
         if (ifStat.getEls() != null) {
-            openScope();
+
             ifStat.getEls().accept(this);
-            closeScope();
+
         }
 
         return null;
@@ -366,8 +395,8 @@ public class ScopingVisitor implements Visitor<Void>{
         parDecl.setCurrent_ref(getCurrentScope());
 
         for (Id ex : parDecl.getL()) {
-            ex.accept(this);
             addToScope(ex.getIdentifier(), new TabEntry(ex, new Variable(parDecl.getT(), parDecl.getFlag())));
+            ex.accept(this);
         }
 
         return null;
@@ -391,13 +420,11 @@ public class ScopingVisitor implements Visitor<Void>{
     @Override
     public Void visit(FunDecl funDecl) {
 
-        funDecl.getId().accept(this);
-
         ArrayList<TabEntry> args = new ArrayList<>();
 
         funDecl.setCurrent_ref(getCurrentScope());
 
-        openScope();
+
 
         for (ParDecl prDcl : funDecl.getL()) {
             prDcl.accept(this);
@@ -405,7 +432,7 @@ public class ScopingVisitor implements Visitor<Void>{
 
         funDecl.getBody().accept(this);
 
-        closeScope();
+
 
         for(ParDecl parDecl: funDecl.getL())
             for(Id id: parDecl.getL())
@@ -413,6 +440,8 @@ public class ScopingVisitor implements Visitor<Void>{
 
         addToScope(funDecl.getId().getIdentifier(), new TabEntry(funDecl.getId(),
                 new Signature(funDecl.getT(), args)));
+
+        funDecl.getId().accept(this);
 
         return null;
     }
@@ -451,7 +480,6 @@ public class ScopingVisitor implements Visitor<Void>{
                 IdInitStmt idInitStmt = (IdInitStmt)idInit;
                 addToScope( (idInitStmt.getId().getIdentifier()),
                         new TabEntry(idInitStmt.getId(), new Variable(type, false)));
-
                 idInitStmt.accept(this);
             }
 

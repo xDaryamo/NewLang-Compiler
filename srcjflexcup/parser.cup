@@ -6,7 +6,7 @@ import java.util.ArrayList;
 terminal         MAIN, VAR, SEMI, INTEGER, BOOLEAN, REAL, STRING, CHAR, COMMA, ASSIGN,
                  TRUE, FALSE, DEF, LPAR, RPAR, COLON, LBRACK, RBRACK, PIPE, OUT, IF, THEN, ELSE, WHILE, LOOP,
                  RETURN, VOID, FOR, TO, PLUS, MINUS, TIMES, DIV, AND, POW, STR_CONCAT, OR, GT, GE,
-                 LT, LE, EQ, NE, READ, WRITE, WRITELN, NOT;
+                 LT, LE, EQ, NE, READ, WRITE, WRITELN, NOT, ASSIGNONE;
 terminal         Integer ID;
 terminal         Integer INTEGER_CONST;
 terminal         Float REAL_CONST;
@@ -41,6 +41,7 @@ non terminal     Body Else;
 non terminal     Expr Expr;
 non terminal     ArrayList<Expr> ExprList;
 non terminal     FunCall FunCall;
+non terminal     AssignStat AssignStatOnlyOne;
 
 /* Precedences */
 precedence left RBRACK;
@@ -69,6 +70,7 @@ MainFunDecl ::= MAIN FunDecl:f {: f.checkM(); RESULT = f; :};
 
 VarDecl ::= Type:t IdInitList:l SEMI {: RESULT = new VarDecl(t, l); :}
 	| VAR IdInitObblList:l SEMI {: RESULT = new VarDecl(Type.VAR, l); :};
+
 
 Type ::= INTEGER {: RESULT = Type.INTEGER; :}
          | BOOLEAN {: RESULT = Type.BOOLEAN; :}
@@ -124,6 +126,7 @@ Stat ::= IfStat:i {: RESULT = i; :}
 	| ReadStat:r SEMI {: RESULT = r; :}
 	| WriteStat:wr SEMI {: RESULT = wr; :}
 	| AssignStat:a SEMI {: RESULT = a; :}
+	| AssignStatOnlyOne:ao SEMI{: RESULT = ao; :}
     | WhileStat:w {: RESULT = w; :}
 	| FunCall:f SEMI {: RESULT = f; :}
 	| RETURN Expr:e SEMI {: RESULT = new ReturnStat(e); :}
@@ -150,6 +153,10 @@ WriteStat ::= LPAR ExprList:l RPAR WRITE {: RESULT = new WriteStat(l, 0); :}
 	   | LPAR ExprList:l RPAR WRITELN {: RESULT = new WriteStat(l, 1); :};
 
 AssignStat ::=  IdList:l1 ASSIGN ExprList:l2 {: RESULT = new AssignStat(l1, l2); :};
+
+AssignStatOnlyOne ::= ID:i ASSIGNONE Expr:e
+    {: ArrayList<Id> l1 = new ArrayList<>(); ArrayList<Expr> l2 = new ArrayList<>();
+     l1.add(new Id(i)); l2.add(e); RESULT = new AssignStat(l1, l2); :};
 
 FunCall ::= ID:i LPAR ExprList:l RPAR {: Id fId = new Id(i); RESULT = new FunCall(fId, l); :}
 	| ID:i LPAR RPAR {: Id fId = new Id(i); RESULT = new FunCall(fId); :};

@@ -49,7 +49,7 @@ CommentContent  = ( [^*] | \*+ [^/*] )*
 
 ID = [$_A-Za-z][$_A-Za-z0-9]*
 IntegerC = 0 | [1-9][0-9]*
-RealC = [0-9].[0-9]+
+RealC = [0-9].([0-9])+
 
 EscChar = '\\[ntbrf\\\'\"]' | ''
 CharC = '[^\\[ntbrf\\\'\"]]' | {EscChar}
@@ -92,6 +92,7 @@ CharC = '[^\\[ntbrf\\\'\"]]' | {EscChar}
       "}"                        { return symbol(Sym.RBRACK, "RBRACK");}
       ":"                        { return symbol(Sym.COLON, "COLON");}
       "<<"                       { return symbol(Sym.ASSIGN, "ASSIGN");}
+      "%%"                       { return symbol(Sym.ASSIGNONE, "ASSIGNONE");}
       "return"                   { return symbol(Sym.RETURN, "RETURN");}
 
 
