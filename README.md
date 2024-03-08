@@ -6,7 +6,7 @@ The project progressed through five key exercises:
 1. **Hand-coded Lexer:** Introduction to lexical analysis by manually creating a lexer.
 2. **Automated Lexer with JFlex:** Utilization of JFlex to automate lexer generation.
 3. **Hand-coded Parser:** Development of parsing capabilities through manual parser construction.
-4. **Automated Parser with JCup:** Employment of JCup for automated parser generation.
+4. **Automated Parser with Java Cup:** Employment of Java Cup for automated parser generation.
 5. **Final Project:** Integration of lexical, syntactical, and semantic analysis to translate NewLang code into executable C code.
 
 ## Grammatical Specifications
