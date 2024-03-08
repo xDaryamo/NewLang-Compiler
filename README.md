@@ -202,4 +202,4 @@ To compile NewLang source files into executable C code, GCC must be installed on
 .\NewLang2C.bat .\tests\exampleNL.nl .\tests\exampleOutput
 ```
 The project includes execution compatibility for both Windows and macOS, with automatic compilation and execution in the console if GCC is installed.
-Testing The compiler has been extensively tested with a variety of NewLang source files, ensuring robust handling of valid and invalid inputs. Test files are located in the TestFiles directory, providing examples of NewLang applications and demonstrating the compiler's capabilities.
+Testing The compiler has been extensively tested with a variety of NewLang source files, ensuring robust handling of valid and invalid inputs.
